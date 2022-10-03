@@ -1,0 +1,16 @@
+{
+    "name": "BehavioursRectangularGraph",
+    "rootNamespace": "",
+    "references": [
+        "GUID:24d0cbe9a84b0814bb8c21072d566e60"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

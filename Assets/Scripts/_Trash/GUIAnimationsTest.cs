@@ -10,8 +10,7 @@ public class GUIAnimationsTest : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        if(_animator == null) Debug.LogError($"No animator on {name}");
+        if(!TryGetComponent(out _animator)) Debug.LogError($"No animator on {name}");
     }
 
     private void OnGUI()

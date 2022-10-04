@@ -1,7 +1,7 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BehavioursRectangularGraph
 {
@@ -9,6 +9,23 @@ namespace BehavioursRectangularGraph
     {
         public static RectangularDirection GetInversedDirection(RectangularDirection direction) =>
             (RectangularDirection)(-(int)direction);
+
+        public static IEnumerable<RectangularDirection> GetEachDirection()
+        {
+            return System.Enum.GetValues(typeof(RectangularDirection)) as IEnumerable<RectangularDirection>;
+        }
+
+        public static Vector3 GetCorrespondingVector(RectangularDirection direction)
+        {
+            return direction switch
+            {
+                RectangularDirection.Left => Vector3.left,
+                RectangularDirection.Up => Vector3.up,
+                RectangularDirection.Right => Vector3.right,
+                RectangularDirection.Down => Vector3.down,
+                _ => throw new System.NotImplementedException(),
+            };
+        }
 
         public struct CycleCheckInfo
         {

@@ -2,11 +2,14 @@ using BehavioursRectangularGraph;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
+using UnityExtensions;
 
 public class LocationGenerator : MonoBehaviour
 {
     [SerializeField] private Room[] _roomsPrefabs;
+    [SerializeField] private MapGenerator _mapGenerator;
 
     [BoxGroup("Random"), SerializeField] private bool _customSeed;
     [BoxGroup("Random"), SerializeField, ShowIf(nameof(_customSeed))] private int _seed;
@@ -15,6 +18,8 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float _deadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool _handleCycles = true;
     [BoxGroup("Generation Params"), SerializeField] private Gradient _depthGradient;
+
+    private readonly HashSet<Room> _spawnedRooms = new();
 
     private void Awake()
     {
@@ -35,17 +40,23 @@ public class LocationGenerator : MonoBehaviour
     public void Generate()
     {
 #if UNITY_EDITOR
-        Awake();
-
-        var children = new List<GameObject>();
-        foreach (Transform child in transform)
+        if(EditorApplication.isPlaying)
+            transform.DestroyChildren();
+        else
         {
-            children.Add(child.gameObject);
+            Awake();
+
+            var children = new List<GameObject>();
+            foreach (Transform child in transform)
+            {
+                children.Add(child.gameObject);
+            }
+            children.ForEach(child => DestroyImmediate(child));
         }
-        children.ForEach(child => DestroyImmediate(child));
 #else
         transform.DestroyChildren();
 #endif
+        _spawnedRooms.Clear();
 
         var graph = new RectangularGraph<Room>(_roomsPrefabs)
         {
@@ -70,42 +81,13 @@ public class LocationGenerator : MonoBehaviour
 
                 //for demo puprose
                 room.SetRoomColor(_depthGradient.Evaluate((float)node.Depth / _maxDepth));
-            }
 
-            //var startNode = graph.Nodes.First();
-            //var connectedNodes = new HashSet<RectangularNode<Room>>();
-            //CountAllConnectedNodes(startNode, ref connectedNodes);
-            //Debug.LogWarning($"{graph.Nodes.Count} - {connectedNodes.Count}");
+                _spawnedRooms.Add(room);
+            }
         }
         var result = success ? "success" : "fail";
         Debug.Log($"Generation finished with result - {result}");
-    }
 
-    private void CountAllConnectedNodes(RectangularNode<Room> node, ref HashSet<RectangularNode<Room>> connectedNodes)
-    {
-        foreach(var neighbour in node.LeftNeighbours)
-        {
-            if(connectedNodes.Contains(neighbour)) continue;
-            connectedNodes.Add(neighbour);
-            CountAllConnectedNodes(neighbour, ref connectedNodes);
-        }
-        foreach(var neighbour in node.RightNeighbours)
-        {
-            if (connectedNodes.Contains(neighbour)) continue;
-            connectedNodes.Add(neighbour);
-            CountAllConnectedNodes(neighbour, ref connectedNodes);
-        }
-        foreach(var neighbour in node.TopNeighbours)
-        {
-            if (connectedNodes.Contains(neighbour)) continue;
-            connectedNodes.Add(neighbour);
-            CountAllConnectedNodes(neighbour, ref connectedNodes);
-        }
-        foreach(var neighbour in node.BottomNeighbours)
-        {
-            if (connectedNodes.Contains(neighbour)) continue;
-            connectedNodes.Add(neighbour);
-            CountAllConnectedNodes(neighbour, ref connectedNodes);
-        }
+        _mapGenerator.GenerateMap(graph.Nodes.First());
     }
 }

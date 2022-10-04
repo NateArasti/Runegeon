@@ -219,7 +219,7 @@ namespace BehavioursRectangularGraph
         {
             var requirableNeighbours = new List<(RectangularDirection, int)>();
 
-            foreach (RectangularDirection direction in System.Enum.GetValues(typeof(RectangularDirection)))
+            foreach (var direction in Utility.GetEachDirection())
             {
                 var neighboursAtDirection = node.GetNeigboursByDirection(direction);
                 for (int i = 0; i < neighboursAtDirection.Length; i++)

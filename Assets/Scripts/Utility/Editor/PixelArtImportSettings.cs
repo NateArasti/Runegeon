@@ -18,7 +18,6 @@ public class PixelArtImportSettings : AssetPostprocessor
 
         if (textureImporter)
         {
-            textureImporter.spritePixelsPerUnit = 32;
             textureImporter.filterMode = FilterMode.Point;
             textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
         }

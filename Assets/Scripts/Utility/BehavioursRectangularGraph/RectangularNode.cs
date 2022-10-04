@@ -40,7 +40,7 @@ namespace BehavioursRectangularGraph
 
         public IEnumerable<RectangularNode<T>> GetAllCreatedNeighbours()
         {
-            foreach (RectangularDirection direction in System.Enum.GetValues(typeof(RectangularDirection)))
+            foreach (var direction in Utility.GetEachDirection())
             {
                 foreach (var node in GetNeigboursByDirection(direction))
                 {

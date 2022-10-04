@@ -5,7 +5,6 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static BehavioursRectangularGraph.Utility;
 
 public class Room : RectangularNodeBehavior
 {
@@ -28,6 +27,10 @@ public class Room : RectangularNodeBehavior
     public override IReadOnlyList<Transform> BottomExits => _bottomExits;
 
     public Texture2D MapRender => _mapShapeRender;
+
+    public Bounds LocalBounds => _localBounds;
+
+    public int PixelsPerUnit => _pixelsPerUnit;
 
     public void SetRoomColor(Color color) => _shapeReferenceTilemap.color = color;
 
@@ -112,7 +115,6 @@ public class Room : RectangularNodeBehavior
             }
         }
         _mapShapeRender = new Texture2D(renderWidth, renderHeight);
-        _mapShapeRender.filterMode = FilterMode.Point;
         _mapShapeRender.SetPixels32(oneDimensionPixels);
         _mapShapeRender.Apply();
 
@@ -181,7 +183,6 @@ public class Room : RectangularNodeBehavior
             }
             if (inner)
             {
-                inner = false;
                 var point = startPoint + new Vector3(i * cellSize.x, height * cellSize.y);
                 var cell = _shapeReferenceTilemap.WorldToCell(point);
                 if (CheckIfCellIsExit(cell, RectangularDirection.Up)) continue;
@@ -220,7 +221,6 @@ public class Room : RectangularNodeBehavior
             }
             if (inner)
             {
-                inner = false;
                 var point = startPoint + new Vector3(width * cellSize.x, j * cellSize.y);
                 var cell = _shapeReferenceTilemap.WorldToCell(point);
                 if (CheckIfCellIsExit(cell, RectangularDirection.Right)) continue;

@@ -32,7 +32,7 @@ namespace BehavioursRectangularGraph
             out List<Utility.CycleCheckInfo> cycleChecks)
         {
             cycleChecks = new List<Utility.CycleCheckInfo>();
-            foreach (RectangularDirection direction in System.Enum.GetValues(typeof(RectangularDirection)))
+            foreach (var direction in Utility.GetEachDirection())
             {
                 var inverseDirection = Utility.GetInversedDirection(direction);
                 var exits = GetExitsByDirection(direction);

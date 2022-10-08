@@ -14,7 +14,7 @@ public class Room : RectangularNodeBehavior
     [BoxGroup("MapRender"), SerializeField, ShowAssetPreview] private Texture2D _mapShapeRender;
     [BoxGroup("MapRender"), SerializeField, Range(1, 16)] private int _pixelsPerUnit = 3;
     [BoxGroup("MapRender"), SerializeField] private Color _shapeBoundsColor = Color.red;
-    [BoxGroup("MapRender"), SerializeField] private string _renderSaveFolder = "Sprites/RoomsShapes";
+    [BoxGroup("MapRender"), SerializeField] private string _renderSaveFolder;
 
     [Foldout("Exits"), SerializeField] private Transform[] _topExits;
     [Foldout("Exits"), SerializeField] private Transform[] _rightExits;
@@ -115,17 +115,18 @@ public class Room : RectangularNodeBehavior
             }
         }
         _mapShapeRender = new Texture2D(renderWidth, renderHeight);
+        _mapShapeRender.filterMode = FilterMode.Point;
         _mapShapeRender.SetPixels32(oneDimensionPixels);
         _mapShapeRender.Apply();
 
         var path = Directory.Exists($"{Application.dataPath}/{_renderSaveFolder}")
-            ? $"{_renderSaveFolder}/{name}_ShapeRender.png"
-            : $"{name}_ShapeRender.png";
+            ? $"/{_renderSaveFolder}/{name}_ShapeRender.png"
+            : $"/{name}_ShapeRender.png";
 
-        File.WriteAllBytes($"{Application.dataPath}/{path}", _mapShapeRender.EncodeToPNG());
-        AssetDatabase.ImportAsset($"Assets/{path}");
+        File.WriteAllBytes($"{Application.dataPath}{path}", _mapShapeRender.EncodeToPNG());
+        AssetDatabase.ImportAsset($"Assets{path}");
         AssetDatabase.Refresh();
-        _mapShapeRender = AssetDatabase.LoadAssetAtPath($"Assets/{path}", typeof(Texture2D)) as Texture2D;
+        _mapShapeRender = AssetDatabase.LoadAssetAtPath($"Assets{path}", typeof(Texture2D)) as Texture2D;
         EditorUtility.SetDirty(this);
     }
 
@@ -157,10 +158,22 @@ public class Room : RectangularNodeBehavior
         for (var i = 0; i < width; ++i)
         {
             var inner = false;
-            for (var j = 0; j < height; ++j)
+            for (var j = 0; j <= height; ++j)
             {
                 var point = startPoint + new Vector3(i * cellSize.x, j * cellSize.y);
                 var cell = _shapeReferenceTilemap.WorldToCell(point);
+
+                if (j == height)
+                {
+                    if (!inner || CheckIfCellIsExit(cell, RectangularDirection.Up))
+                        break;
+
+                    for (var x = i * _pixelsPerUnit; x < (i + 1) * _pixelsPerUnit; ++x)
+                    {
+                        pixels[x, renderHeight - 1] = _shapeBoundsColor;
+                    }
+                    break;
+                }
 
                 if (!inner && cellsRender[i, j] != Color.clear)
                 {
@@ -181,24 +194,26 @@ public class Room : RectangularNodeBehavior
                     }
                 }
             }
-            if (inner)
-            {
-                var point = startPoint + new Vector3(i * cellSize.x, height * cellSize.y);
-                var cell = _shapeReferenceTilemap.WorldToCell(point);
-                if (CheckIfCellIsExit(cell, RectangularDirection.Up)) continue;
-                for (var x = i * _pixelsPerUnit; x < (i + 1) * _pixelsPerUnit; ++x)
-                {
-                    pixels[x, renderHeight - 1] = _shapeBoundsColor;
-                }
-            }
         }
         for (var j = 0; j < height; ++j)
         {
             var inner = false;
-            for (var i = 0; i < width; ++i)
+            for (var i = 0; i <= width; ++i)
             {
                 var point = startPoint + new Vector3(i * cellSize.x, j * cellSize.y);
                 var cell = _shapeReferenceTilemap.WorldToCell(point);
+
+                if (i == width)
+                {
+                    if (!inner || CheckIfCellIsExit(cell, RectangularDirection.Right))
+                        break;
+
+                    for (var y = j * _pixelsPerUnit; y < (j + 1) * _pixelsPerUnit; ++y)
+                    {
+                        pixels[renderWidth - 1, y] = _shapeBoundsColor;
+                    }
+                    break;
+                }
 
                 if (!inner && cellsRender[i, j] != Color.clear)
                 {
@@ -217,16 +232,6 @@ public class Room : RectangularNodeBehavior
                     {
                         pixels[i * _pixelsPerUnit - 1, y] = _shapeBoundsColor;
                     }
-                }
-            }
-            if (inner)
-            {
-                var point = startPoint + new Vector3(width * cellSize.x, j * cellSize.y);
-                var cell = _shapeReferenceTilemap.WorldToCell(point);
-                if (CheckIfCellIsExit(cell, RectangularDirection.Right)) continue;
-                for (var y = j * _pixelsPerUnit; y < (j + 1) * _pixelsPerUnit; ++y)
-                {
-                    pixels[renderWidth - 1, y] = _shapeBoundsColor;
                 }
             }
         }

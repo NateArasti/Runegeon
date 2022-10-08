@@ -48,6 +48,7 @@ public class MapGenerator : MonoBehaviour
                 for (var i = 0; i < neighbours.Length; ++i)
                 {
                     if (visitedNodes.Contains(neighbours[i])) continue;
+
                     var image = Instantiate(_image, _spawnPivot);
                     image.texture = neighbours[i].ReferenceBehaviour.MapRender;
                     image.SetNativeSize();

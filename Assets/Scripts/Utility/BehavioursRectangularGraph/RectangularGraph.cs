@@ -51,16 +51,14 @@ namespace BehavioursRectangularGraph
 
             CalculateRoomPossiblities();
 
-            var possibleStartRooms = PossibleNodeBehaviours
+            var possibleStartNodeBehaviours = PossibleNodeBehaviours
                 .Where(nodeBehaviour => nodeBehaviour.LeftExits.Count == 0)
-                .ToList();
+                .GetWeightedShuffle(behaviour => behaviour.SpawnChance);
 
-            possibleStartRooms = Utility.GetWeightedShuffle(possibleStartRooms);
-
-            for (int i = 0; i < possibleStartRooms.Count; i++)
+            foreach(var startNodeBehaviour in possibleStartNodeBehaviours)
             {
                 Nodes.Clear();
-                var startNode = new RectangularNode<T>(possibleStartRooms[i], 0);
+                var startNode = new RectangularNode<T>(startNodeBehaviour, 0);
 
                 if (CreateNextNode(startNode))
                 {
@@ -194,7 +192,7 @@ namespace BehavioursRectangularGraph
             return false;
         }
 
-        private IList<T> GetPossibleNextNodeBehaviours(RectangularDirection neighbourDirection, bool spawnDeadEnd)
+        private IEnumerable<T> GetPossibleNextNodeBehaviours(RectangularDirection neighbourDirection, bool spawnDeadEnd)
         {
             var possibleNextNodeBehaviours = (neighbourDirection, spawnDeadEnd) switch
             {
@@ -209,9 +207,7 @@ namespace BehavioursRectangularGraph
                 _ => throw new System.NotImplementedException(),
             };
 
-            //TODO: Implement node behaviours spawn chance usage
-
-            return Utility.GetWeightedShuffle(possibleNextNodeBehaviours);
+            return possibleNextNodeBehaviours.GetWeightedShuffle(behaviour => behaviour.SpawnChance);
         }
 
         private List<(RectangularDirection neighbourDirection, int neighbourIndex)>

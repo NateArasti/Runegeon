@@ -8,7 +8,7 @@ using UnityExtensions;
 
 public class LocationGenerator : MonoBehaviour
 {
-    [SerializeField] private Room[] _roomsPrefabs;
+    [SerializeField] private List<Room> _roomsPrefabs;
     [SerializeField] private MapGenerator _mapGenerator;
 
     [BoxGroup("Random"), SerializeField] private bool _customSeed;
@@ -17,7 +17,8 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Generation Params"), SerializeField, MinValue(2), MaxValue(10)] private int _maxDepth = 5;
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float _deadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool _handleCycles = true;
-    [BoxGroup("Generation Params"), SerializeField] private Gradient _depthGradient;
+    [BoxGroup("Generation Params"), SerializeField] private bool _colorRoomDueToDepth = true;
+    [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(_colorRoomDueToDepth))] private Gradient _depthGradient;
 
     private readonly HashSet<Room> _spawnedRooms = new();
 
@@ -28,12 +29,6 @@ public class LocationGenerator : MonoBehaviour
             _seed = System.BitConverter.ToInt32(System.Guid.NewGuid().ToByteArray());
         }
         Random.InitState(_seed);
-    }
-
-    [Button("Check Weight Shuffle")]
-    private void CheckWeightShuffle()
-    {
-        _roomsPrefabs = Utility.GetWeightedShuffle(_roomsPrefabs.ToList()).ToArray();
     }
 
     [Button("Generate")]
@@ -79,8 +74,9 @@ public class LocationGenerator : MonoBehaviour
 
                 room.name = $"{node.ReferenceBehaviour.name}_[id = {System.Guid.NewGuid().ToString()[0..3]}]";
 
-                //for demo puprose
-                room.SetRoomColor(_depthGradient.Evaluate((float)node.Depth / _maxDepth));
+                //just for debug puprose
+                if(_colorRoomDueToDepth)
+                    room.SetRoomColor(_depthGradient.Evaluate((float)node.Depth / _maxDepth));
 
                 _spawnedRooms.Add(room);
             }

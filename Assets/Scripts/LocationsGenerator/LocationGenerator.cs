@@ -34,6 +34,12 @@ public class LocationGenerator : MonoBehaviour
     [Button("Generate")]
     public void Generate()
     {
+        if(_roomsPrefabs.Count < 2)
+        {
+            Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {_roomsPrefabs.Count}");
+            return;
+        }
+
 #if UNITY_EDITOR
         if(EditorApplication.isPlaying)
             transform.DestroyChildren();
@@ -84,6 +90,7 @@ public class LocationGenerator : MonoBehaviour
         var result = success ? "success" : "fail";
         Debug.Log($"Generation finished with result - {result}");
 
-        _mapGenerator.GenerateMap(graph.Nodes.First());
+        if(_mapGenerator != null)
+            _mapGenerator.GenerateMap(graph.Nodes.First());
     }
 }

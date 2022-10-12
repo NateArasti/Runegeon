@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -7576,8 +7576,8 @@ TextureImporter:
       spritesheet_16x16_1: 784374954
       spritesheet_16x16_301: -1987880022
       spritesheet_16x16_37: -822164625
-      spritesheet_16x16_135: -2140575110
       spritesheet_16x16_274: 380828702
+      spritesheet_16x16_135: -2140575110
       spritesheet_16x16_323: 1194202607
       spritesheet_16x16_63: -1054936479
       spritesheet_16x16_128: 954916979
@@ -7617,8 +7617,8 @@ TextureImporter:
       spritesheet_16x16_339: 660370377
       spritesheet_16x16_79: 1731630894
       spritesheet_16x16_124: -1155626207
-      spritesheet_16x16_55: 1881257041
       spritesheet_16x16_213: 199470545
+      spritesheet_16x16_55: 1881257041
       spritesheet_16x16_218: -1003302772
       spritesheet_16x16_48: -1445280347
       spritesheet_16x16_102: -778554250
@@ -7629,8 +7629,8 @@ TextureImporter:
       spritesheet_16x16_163: 1031841152
       spritesheet_16x16_106: -1498282879
       spritesheet_16x16_95: -1843336307
-      spritesheet_16x16_114: 938804648
       spritesheet_16x16_343: -308815554
+      spritesheet_16x16_114: 938804648
       spritesheet_16x16_7: 1515245041
       spritesheet_16x16_174: 275708668
       spritesheet_16x16_241: 2029903433
@@ -7647,13 +7647,13 @@ TextureImporter:
       spritesheet_16x16_215: -1784346334
       spritesheet_16x16_54: -367811403
       spritesheet_16x16_133: -213779285
+      spritesheet_16x16_216: -351204173
       spritesheet_16x16_65: -1837874386
       spritesheet_16x16_254: -1013707645
-      spritesheet_16x16_216: -351204173
-      spritesheet_16x16_342: 1725507200
       spritesheet_16x16_142: -1994739257
       spritesheet_16x16_24: 1618415809
       spritesheet_16x16_70: 863942068
+      spritesheet_16x16_342: 1725507200
       spritesheet_16x16_328: 1381062897
       spritesheet_16x16_42: 1847963027
       spritesheet_16x16_258: 2047406332

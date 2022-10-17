@@ -1,0 +1,19 @@
+{
+  "name": "com.arastigames.behavioursrectangulargraph",
+  "version": "0.1.0",
+  "displayName": "Unity Extensions - Behaviours Rectangular Graph",
+  "description": "This package provides system generating rectangular graph of monobehaviours",
+  "keywords": [
+    "Extensions",
+    "Code",
+    "Tools"
+  ],
+  "author": {
+    "name": "Arasti",
+    "email": "arastigames@gmail.com"
+  },
+  "type": "tool",
+  "dependencies": {
+    "com.arastigames.unityextensions-methods": "0.1.0"
+  }
+}

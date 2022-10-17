@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.arastigames.behavioursrectangulargraph": {
+      "version": "file:BehavioursRectangularGraph",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.arastigames.unityextensions-methods": "0.1.0"
+      }
+    },
+    "com.arastigames.simplebehaviourtree": {
+      "version": "file:SimpleBehaviourTree",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.arastigames.unityextensions-installer": {
       "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-PackagesInstaller",
       "depth": 0,
@@ -20,6 +34,23 @@
       "source": "git",
       "dependencies": {},
       "hash": "e65c081d3b42faa2a38f96e9db73b3df85376972"
+    },
+    "com.arongranberg.astar": {
+      "version": "file:AstarPathfindingProject",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.physics2d": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
+        "com.unity.modules.terrainphysics": "1.0.0",
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.ugui": "1.0.0"
+      }
     },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",

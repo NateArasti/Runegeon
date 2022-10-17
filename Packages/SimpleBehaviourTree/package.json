@@ -1,0 +1,16 @@
+{
+  "name": "com.arastigames.simplebehaviourtree",
+  "version": "0.1.0",
+  "displayName": "Unity Extensions - Simple Behaviour Tree",
+  "description": "This package provides basic implemetation of BehaviourTree using graph view",
+  "keywords": [
+    "Extensions",
+    "Code",
+    "Tools"
+  ],
+  "author": {
+    "name": "Arasti",
+    "email": "arastigames@gmail.com"
+  },
+  "type": "tool"
+}

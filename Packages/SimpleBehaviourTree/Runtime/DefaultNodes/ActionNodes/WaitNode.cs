@@ -4,22 +4,22 @@ namespace SimpleBehaviourTree
 {
     public class WaitNode : ActionNode
     {
-        [SerializeField] private float _waitDuration;
-        [SerializeField] private bool _waitUnscaled;
+        [SerializeField] private float m_WaitDuration;
+        [SerializeField] private bool m_WaitUnscaled;
 
-        private float _currentTime;
+        private float m_CurrentTime;
 
         public override string DisplayName => "Wait";
 
         protected override void OnStart()
         {
-            _currentTime = _waitDuration;
+            m_CurrentTime = m_WaitDuration;
         }
 
         protected override State OnUpdate()
         {
-            _currentTime -= _waitUnscaled ? Time.unscaledTime : Time.deltaTime;
-            if(_currentTime <= 0)
+            m_CurrentTime -= m_WaitUnscaled ? Time.unscaledTime : Time.deltaTime;
+            if(m_CurrentTime <= 0)
             {
                 return State.Success;
             }

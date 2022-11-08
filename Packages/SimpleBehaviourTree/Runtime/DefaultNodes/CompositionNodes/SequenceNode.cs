@@ -4,29 +4,35 @@ namespace SimpleBehaviourTree
 {
     public class SequenceNode : CompositionNode
     {
-        private int _currentNode;
+        [SerializeField] private bool m_WaitForSuccess;
+        private int m_CurrentChild;
 
         public override string DisplayName => "Sequence";
 
         protected override void OnStart()
         {
-            _currentNode = 0;
+            m_CurrentChild = 0;
+        }
+
+        protected override void OnStop()
+        {
+            m_CurrentChild = 0;
         }
 
         protected override State OnUpdate()
         {
-            if (_currentNode >= children.Count) 
+            if (m_CurrentChild >= children.Count)
             {
                 Debug.LogWarning($"{name} got out of the children nodes bounds");
                 return State.Failure;
             }
-            var state = children[_currentNode].Update();
-            if(state == State.Success)
+            var state = children[m_CurrentChild].Update();
+            if (m_WaitForSuccess && state != State.Success)
             {
-                _currentNode++;
-                return _currentNode == children.Count ? State.Success : State.Running;
+                return state;
             }
-            return state;
+            m_CurrentChild++;
+            return m_CurrentChild == children.Count ? State.Success : State.Running;
         }
     }
 }

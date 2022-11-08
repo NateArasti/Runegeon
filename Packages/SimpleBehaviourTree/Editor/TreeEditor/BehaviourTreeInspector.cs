@@ -8,17 +8,17 @@ public class BehaviourTreeInspector : VisualElement
 
     public BehaviourTreeInspector() { }
 
-    private Editor editor;
+    private Editor m_Editor;
 
     internal void UpdateNodeSelection(NodeView nodeView)
     {
         Clear();
-        UnityEngine.Object.DestroyImmediate(editor);
-        editor = Editor.CreateEditor(nodeView.Node);
+        UnityEngine.Object.DestroyImmediate(m_Editor);
+        m_Editor = Editor.CreateEditor(nodeView.Node);
         var container = new IMGUIContainer(() =>
         {
-            if(editor.target)
-                editor.OnInspectorGUI();
+            if(m_Editor.target)
+                m_Editor.OnInspectorGUI();
         });
         Add(container);
     }

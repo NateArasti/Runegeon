@@ -7,20 +7,20 @@ using UnityExtensions;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private Transform _spawnPivot;
-    [SerializeField] private RawImage _image;
-    [SerializeField] private float _mapScale = 2f;
+    [SerializeField] private Transform m_SpawnPivot;
+    [SerializeField] private RawImage m_Image;
+    [SerializeField] private float m_MapScale = 2f;
 
     public void GenerateMap(RectangularNode<Room> startNode)
     {
 
 #if UNITY_EDITOR
         if (EditorApplication.isPlaying)
-            _spawnPivot.DestroyChildren();
+            m_SpawnPivot.DestroyChildren();
         else
         {
             var children = new List<GameObject>();
-            foreach (Transform child in _spawnPivot)
+            foreach (Transform child in m_SpawnPivot)
             {
                 children.Add(child.gameObject);
             }
@@ -32,10 +32,10 @@ public class MapGenerator : MonoBehaviour
 
         var visitedNodes = new HashSet<RectangularNode<Room>>();
 
-        var image = Instantiate(_image, _spawnPivot);
+        var image = Instantiate(m_Image, m_SpawnPivot);
         image.texture = startNode.ReferenceBehaviour.MapRender;
         image.SetNativeSize();
-        image.rectTransform.sizeDelta *= _mapScale;
+        image.rectTransform.sizeDelta *= m_MapScale;
 
         spawnNeighbours(startNode, image);
 
@@ -49,17 +49,17 @@ public class MapGenerator : MonoBehaviour
                 {
                     if (visitedNodes.Contains(neighbours[i])) continue;
 
-                    var image = Instantiate(_image, _spawnPivot);
+                    var image = Instantiate(m_Image, m_SpawnPivot);
                     image.texture = neighbours[i].ReferenceBehaviour.MapRender;
                     image.SetNativeSize();
-                    image.rectTransform.sizeDelta *= _mapScale;
+                    image.rectTransform.sizeDelta *= m_MapScale;
 
                     var sumSizeDelta = spawnedRender.rectTransform.sizeDelta + image.rectTransform.sizeDelta;
 
                     var delta = neighbours[i].ReferenceBehaviour.LocalBounds.center + neighbours[i].NodeWorldPosition
                         - (currentNode.ReferenceBehaviour.LocalBounds.center + currentNode.NodeWorldPosition);
 
-                    delta *= _mapScale * currentNode.ReferenceBehaviour.PixelsPerUnit;
+                    delta *= m_MapScale * currentNode.ReferenceBehaviour.PixelsPerUnit;
 
                     image.rectTransform.anchoredPosition = spawnedRender.rectTransform.anchoredPosition + (Vector2)delta;
 

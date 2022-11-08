@@ -11,7 +11,7 @@ public class BehaviourTreeView : GraphView
 {
     public event Action<NodeView> OnNodeSelected;
 
-    private BehaviourTree _tree;
+    private BehaviourTree m_Tree;
 
     public class BehaviorTreeUxmlFactory : UxmlFactory<BehaviourTreeView, UxmlTraits> { }
 
@@ -33,7 +33,7 @@ public class BehaviourTreeView : GraphView
 
     private void RefreshView()
     {
-        PopulateView(_tree);
+        PopulateView(m_Tree);
         AssetDatabase.SaveAssets();
     }
 
@@ -50,7 +50,7 @@ public class BehaviourTreeView : GraphView
     {
         if (tree == null) return;
         visible = true;
-        _tree = tree;
+        m_Tree = tree;
 
         graphViewChanged -= OnGraphViewChanged;
 
@@ -58,23 +58,23 @@ public class BehaviourTreeView : GraphView
 
         graphViewChanged += OnGraphViewChanged;
 
-        if(_tree.rootNode == null)
+        if(m_Tree.rootNode == null)
         {
-            _tree.rootNode = _tree.CreateNode(typeof(RootNode)) as RootNode;
-            EditorUtility.SetDirty(_tree);
+            m_Tree.rootNode = m_Tree.CreateNode(typeof(RootNode)) as RootNode;
+            EditorUtility.SetDirty(m_Tree);
             AssetDatabase.SaveAssets();
         }
 
         //Creating nodes views
-        foreach(var node in _tree.nodes)
+        foreach(var node in m_Tree.nodes)
         {
             CreateNodeView(node);
         }
 
         //Creating edges
-        foreach(var node in _tree.nodes)
+        foreach(var node in m_Tree.nodes)
         {
-            var children = _tree.GetChildren(node);
+            var children = m_Tree.GetChildren(node);
             if (children == null) continue;
             var parentView = GetNodeView(node);
             children.ForEach(child =>
@@ -97,16 +97,16 @@ public class BehaviourTreeView : GraphView
             {
                 if (element is NodeView nodeView)
                 {
-                    _tree.DeleteNode(nodeView.Node);
+                    m_Tree.DeleteNode(nodeView.Node);
                 }
                 else if (element is Edge edge)
                 {
                     var parent = edge.output.node as NodeView;
                     var child = edge.input.node as NodeView;
-                    child.InputIndex = -1;
+                    child.inputIndex = -1;
                     child.SetInputPort();
 
-                    _tree.RemoveChild(parent.Node, child.Node);
+                    m_Tree.RemoveChild(parent.Node, child.Node);
 
                     RebuildInputIndexesForChildren(parent);
                 }
@@ -120,7 +120,7 @@ public class BehaviourTreeView : GraphView
                 var parent = edge.output.node as NodeView;
                 var child = edge.input.node as NodeView;
 
-                _tree.AddChild(parent.Node, child.Node);
+                m_Tree.AddChild(parent.Node, child.Node);
                 RebuildInputIndexesForChildren(parent);
             });
         }
@@ -154,7 +154,7 @@ public class BehaviourTreeView : GraphView
                 var child = compositionNode.children[i];
                 if (GetNodeByGuid(child.nodeGUID) is NodeView childView)
                 {
-                    childView.InputIndex = i + 1;
+                    childView.inputIndex = i + 1;
                     childView.SetInputPort();
                 }
             }
@@ -177,7 +177,7 @@ public class BehaviourTreeView : GraphView
     public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
     {
         var nodeTypes = TypeCache.GetTypesDerivedFrom<SimpleBehaviourTree.Node>();
-        var spawnPosition = evt.localMousePosition;
+        var spawnPosition = evt.mousePosition;
         foreach(var nodeType in nodeTypes)
         {
             var types = TypeCache.GetTypesDerivedFrom(nodeType);
@@ -197,7 +197,7 @@ public class BehaviourTreeView : GraphView
 
     private NodeView CreateNode(Type type)
     {
-        var node = _tree.CreateNode(type);
+        var node = m_Tree.CreateNode(type);
         return CreateNodeView(node);
     }
 

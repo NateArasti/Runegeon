@@ -13,10 +13,16 @@ namespace SimpleBehaviourTree
             return child.Update();
         }
 
-        public override Node Clone()
+        internal override void DiscardState()
         {
-            var node = Instantiate(this);
-            node.child = child.Clone();
+            base.DiscardState();
+            child.DiscardState();
+        }
+
+        internal override Node Clone(GameObject executorObject, Blackboard blackboard)
+        {
+            var node = base.Clone(executorObject, blackboard) as RootNode;
+            node.child = child.Clone(executorObject, blackboard);
             return node;
         }
     }

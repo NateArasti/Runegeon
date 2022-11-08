@@ -7,15 +7,16 @@ namespace SimpleBehaviourTree
 {
     internal class BehaviourTreeEditor : EditorWindow
     {
-        private BehaviourTreeView _treeView;
-        private BehaviourTreeInspector _treeInspector;
-        private BlackboardView _blackboardView;
+        private BehaviourTree m_Tree;
+        private BehaviourTreeView m_TreeView;
+        private BehaviourTreeInspector m_TreeInspector;
+        private BlackboardView m_BlackboardView;
 
         [MenuItem("SimpleBehaviourTree/Open BehaviourTreeEditor")]
         public static void OpenEditor()
         {
-            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
-            wnd.titleContent = new GUIContent("BehaviourTreeEditor");
+            var window = GetWindow<BehaviourTreeEditor>();
+            window.titleContent = new GUIContent("BehaviourTreeEditor");
         }
 
         [OnOpenAsset]
@@ -39,13 +40,21 @@ namespace SimpleBehaviourTree
             var styleSheet = BehaviourTreeSettings.BehaviourTreeUSS;
             root.styleSheets.Add(styleSheet);
 
-            _treeInspector = root.Q<BehaviourTreeInspector>();
-            _treeView = root.Q<BehaviourTreeView>();
-            _blackboardView = root.Q<BlackboardView>();
+            m_TreeInspector = root.Q<BehaviourTreeInspector>();
+            m_TreeView = root.Q<BehaviourTreeView>();
+            m_BlackboardView = root.Q<BlackboardView>();
+            m_BlackboardView.onGUIHandler += () =>
+            {
+                EditorGUI.BeginChangeCheck();
+                m_BlackboardView.HandleGUI();
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(m_Tree);
+                    AssetDatabase.SaveAssetIfDirty(m_Tree);
+                }
+            };
 
-            _blackboardView.onGUIHandler += _blackboardView.HandleGUI;
-
-            _treeView.OnNodeSelected += OnNodeSelectionChange;
+            m_TreeView.OnNodeSelected += OnNodeSelectionChange;
             OnSelectionChange();
         }
 
@@ -79,30 +88,32 @@ namespace SimpleBehaviourTree
 
         private void OnSelectionChange()
         {
-            var tree = Selection.activeObject as BehaviourTree;
+            m_Tree = Selection.activeObject as BehaviourTree;
 
-            if(tree == null && 
+            if (m_Tree == null && 
                 Selection.activeGameObject != null &&
                 Selection.activeGameObject.TryGetComponent<BehaviourTreeExecutor>(out var executor))
             {
-                tree = executor.BehaviourTree;
+                m_Tree = executor.BehaviourTree;
             }
 
-            if(_treeView != null && tree != null && 
-                (Application.isPlaying || AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID())))
+            if(m_TreeView != null && m_Tree != null && 
+                (Application.isPlaying || AssetDatabase.CanOpenAssetInEditor(m_Tree.GetInstanceID())))
             {
-                _treeView.PopulateView(tree);
+                m_TreeView.PopulateView(m_Tree);
+                m_Tree.blackboard.ConvertSavedListToDictionary();
+                m_BlackboardView.Blackboard = m_Tree.blackboard;
             }
         }
 
         private void OnInspectorUpdate()
         {
-            _treeView.UpdateNodeStates();
+            m_TreeView.UpdateNodeStates();
         }
 
         private void OnNodeSelectionChange(NodeView nodeView)
         {
-            _treeInspector.UpdateNodeSelection(nodeView);
+            m_TreeInspector.UpdateNodeSelection(nodeView);
         }
     }
 }

@@ -6,10 +6,16 @@ namespace SimpleBehaviourTree
     {
         [HideInInspector] public Node child;
 
-        public override Node Clone()
+        internal override void DiscardState()
         {
-            var node = Instantiate(this);
-            node.child = child.Clone();
+            base.DiscardState();
+            child.DiscardState();
+        }
+
+        internal override Node Clone(GameObject executorObject, Blackboard blackboard)
+        {
+            var node = base.Clone(executorObject, blackboard) as DecoratorNode;
+            node.child = child.Clone(executorObject, blackboard);
             return node;
         }
     }

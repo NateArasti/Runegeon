@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Packages/com.arastigames.simplebehaviourtree/Editor/TreeEditor/BehaviourTreeEditor.uss?fileID=7433441132597879392&amp;guid=65e3bd8dd8d8180428772acd902bce2a&amp;type=3#BehaviourTreeEditor" />
-    <SplitView fixed-pane-initial-dimension="250">
+    <SplitView fixed-pane-initial-dimension="350">
         <ui:VisualElement name="left-panel" style="background-color: rgb(64, 64, 64); width: 25%; min-width: 10%;">
             <SplitView orientation="Vertical" fixed-pane-initial-dimension="325">
                 <ui:VisualElement name="inspector-container" style="background-color: rgb(64, 64, 64); min-height: 10%; height: auto;">
                     <ui:Label text="Inspector" name="Inspector-label" style="border-bottom-color: rgb(75, 75, 75); border-bottom-width: 2px; padding-top: 2px; margin-left: 1px; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-top-width: 1px; border-right-width: 1px; border-left-width: 1px; background-color: rgb(58, 58, 58);" />
                     <BehaviourTreeInspector />
                 </ui:VisualElement>
-                <ui:VisualElement name="blackboard" style="background-color: rgb(38, 38, 38); min-height: 10%;">
+                <ui:VisualElement name="blackboard" style="background-color: rgb(51, 51, 51); min-height: 10%;">
                     <ui:Label text="Blackboard" name="blackboard-label" style="border-bottom-color: rgb(75, 75, 75); border-bottom-width: 2px; padding-top: 2px; margin-left: 1px; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-top-width: 1px; border-right-width: 1px; border-left-width: 1px; background-color: rgb(51, 51, 51);" />
                     <BlackboardView />
                 </ui:VisualElement>

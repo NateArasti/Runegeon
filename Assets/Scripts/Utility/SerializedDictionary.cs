@@ -38,9 +38,6 @@ public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISer
 
     public void OnBeforeSerialize()
     {
-        _entries.Clear();
-        foreach (var pair in this)
-            _entries.Add(pair);
     }
 
     public void OnAfterDeserialize()

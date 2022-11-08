@@ -8,35 +8,37 @@ using UnityExtensions;
 
 public class LocationGenerator : MonoBehaviour
 {
-    [SerializeField] private List<Room> _roomsPrefabs;
-    [SerializeField] private MapGenerator _mapGenerator;
+    [SerializeField] private List<Room> m_RoomsPrefabs;
+    [SerializeField] private MapGenerator m_MapGenerator;
 
-    [BoxGroup("Random"), SerializeField] private bool _customSeed;
-    [BoxGroup("Random"), SerializeField, ShowIf(nameof(_customSeed))] private int _seed;
+    [BoxGroup("Random"), SerializeField] private bool m_CustomSeed;
+    [BoxGroup("Random"), SerializeField, ShowIf(nameof(m_CustomSeed))] private int m_Seed;
 
-    [BoxGroup("Generation Params"), SerializeField, MinValue(2), MaxValue(10)] private int _maxDepth = 5;
-    [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float _deadEndChance = 0.1f;
-    [BoxGroup("Generation Params"), SerializeField] private bool _handleCycles = true;
-    [BoxGroup("Generation Params"), SerializeField] private bool _colorRoomDueToDepth = true;
-    [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(_colorRoomDueToDepth))] private Gradient _depthGradient;
+    [BoxGroup("Generation Params"), SerializeField, MinValue(2), MaxValue(10)] private int m_MaxDepth = 5;
+    [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
+    [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
+    [BoxGroup("Generation Params"), SerializeField] private bool m_ColorRoomDueToDepth = true;
 
-    private readonly HashSet<Room> _spawnedRooms = new();
+    [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(m_ColorRoomDueToDepth))] 
+    private Gradient m_DepthGradient;
+
+    private readonly HashSet<Room> SpawnedRooms = new();
 
     private void Awake()
     {
-        if (!_customSeed)
+        if (!m_CustomSeed)
         {
-            _seed = System.BitConverter.ToInt32(System.Guid.NewGuid().ToByteArray());
+            m_Seed = System.BitConverter.ToInt32(System.Guid.NewGuid().ToByteArray());
         }
-        Random.InitState(_seed);
+        Random.InitState(m_Seed);
     }
 
     [Button("Generate")]
     public void Generate()
     {
-        if(_roomsPrefabs.Count < 2)
+        if(m_RoomsPrefabs.Count < 2)
         {
-            Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {_roomsPrefabs.Count}");
+            Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {m_RoomsPrefabs.Count}");
             return;
         }
 
@@ -57,13 +59,13 @@ public class LocationGenerator : MonoBehaviour
 #else
         transform.DestroyChildren();
 #endif
-        _spawnedRooms.Clear();
+        SpawnedRooms.Clear();
 
-        var graph = new RectangularGraph<Room>(_roomsPrefabs)
+        var graph = new RectangularGraph<Room>(m_RoomsPrefabs)
         {
-            DeadEndChance = _deadEndChance,
-            MaxDepth = _maxDepth,
-            HandleCycles = _handleCycles,
+            DeadEndChance = m_DeadEndChance,
+            MaxDepth = m_MaxDepth,
+            HandleCycles = m_HandleCycles,
         };
 
         var success = graph.TryGenerateNodes();
@@ -81,16 +83,16 @@ public class LocationGenerator : MonoBehaviour
                 room.name = $"{node.ReferenceBehaviour.name}_[id = {System.Guid.NewGuid().ToString()[0..3]}]";
 
                 //just for debug puprose
-                if(_colorRoomDueToDepth)
-                    room.SetRoomColor(_depthGradient.Evaluate((float)node.Depth / _maxDepth));
+                if(m_ColorRoomDueToDepth)
+                    room.SetRoomColor(m_DepthGradient.Evaluate((float)node.Depth / m_MaxDepth));
 
-                _spawnedRooms.Add(room);
+                SpawnedRooms.Add(room);
             }
         }
         var result = success ? "success" : "fail";
         Debug.Log($"Generation finished with result - {result}");
 
-        if(_mapGenerator != null)
-            _mapGenerator.GenerateMap(graph.Nodes.First());
+        if(m_MapGenerator != null)
+            m_MapGenerator.GenerateMap(graph.Nodes.First());
     }
 }

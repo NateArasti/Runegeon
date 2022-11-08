@@ -11,23 +11,23 @@ namespace SimpleBehaviourTree
             Error
         }
 
-        [SerializeField] private string _message;
-        [SerializeField] private NodeLogType _logType = NodeLogType.Log;
+        [SerializeField] private string m_Message;
+        [SerializeField] private NodeLogType m_LogType = NodeLogType.Log;
 
         public override string DisplayName => "Debug Log";
 
         protected override State OnUpdate()
         {
-            switch (_logType)
+            switch (m_LogType)
             {
                 case NodeLogType.Log:
-                    Debug.Log(_message);
+                    Debug.Log(m_Message);
                     break;
                 case NodeLogType.Warning:
-                    Debug.LogWarning(_message);
+                    Debug.LogWarning(m_Message);
                     break;
                 case NodeLogType.Error:
-                    Debug.LogError(_message);
+                    Debug.LogError(m_Message);
                     break;
             }
             return State.Success;

@@ -7,10 +7,19 @@ namespace SimpleBehaviourTree
     {
         [HideInInspector] public List<Node> children = new();
 
-        public override Node Clone()
+        internal override void DiscardState()
         {
-            var node = Instantiate(this);
-            node.children = children.ConvertAll(child => child.Clone());
+            base.DiscardState();
+            foreach (var child in children)
+            {
+                child.DiscardState();
+            }
+        }
+
+        internal override Node Clone(GameObject executorObject, Blackboard blackboard)
+        {
+            var node = base.Clone(executorObject, blackboard) as CompositionNode;
+            node.children = children.ConvertAll(child => child.Clone(executorObject, blackboard));
             return node;
         }
     }

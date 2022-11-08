@@ -11,7 +11,7 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
     public UnityEditor.Experimental.GraphView.Port input;
     public UnityEditor.Experimental.GraphView.Port output;
 
-    public int InputIndex = -1;
+    public int inputIndex = -1;
 
     public Node Node { get; private set; }
 
@@ -76,7 +76,7 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
 
     public void SetInputPort()
     {
-        input.portName = InputIndex == -1 ? "" : InputIndex.ToString();
+        input.portName = inputIndex == -1 ? "" : inputIndex.ToString();
     }
 
     private void CreateOutputPorts()

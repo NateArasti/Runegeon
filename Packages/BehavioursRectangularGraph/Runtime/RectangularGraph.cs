@@ -11,35 +11,35 @@ namespace BehavioursRectangularGraph
 
         #region SimpleContinueRooms
 
-        private List<T> _possibleLeftExitСontinuation;
-        private List<T> _possibleRightExitСontinuation;
-        private List<T> _possibleTopExitСontinuation;
-        private List<T> _possibleBottomExitСontinuation;
+        private List<T> m_PossibleLeftExitСontinuation;
+        private List<T> m_PossibleRightExitСontinuation;
+        private List<T> m_PossibleTopExitСontinuation;
+        private List<T> m_PossibleBottomExitСontinuation;
 
         #endregion
 
         #region DeadEnds
 
-        private List<T> _possibleLeftDeadEnds;
-        private List<T> _possibleRightDeadEnds;
-        private List<T> _possibleTopDeadEnds;
-        private List<T> _possibleBottomDeadEnds;
+        private List<T> m_PossibleLeftDeadEnds;
+        private List<T> m_PossibleRightDeadEnds;
+        private List<T> m_PossibleTopDeadEnds;
+        private List<T> m_PossibleBottomDeadEnds;
 
         #endregion
 
         #endregion
 
-        public IReadOnlyList<T> PossibleNodeBehaviours;
-        public readonly HashSet<RectangularNode<T>> Nodes = new();
+        public HashSet<RectangularNode<T>> Nodes { get; } = new();
+        public IReadOnlyList<T> PossibleNodeBehaviours { get; }
+
+        public int MaxDepth { get; set; } = 5;
+        public float DeadEndChance { get; set; } = 0.1f;
+        public bool HandleCycles { get; set; } = true;
 
         public RectangularGraph(IReadOnlyList<T> possibleNodeBehaviours)
         {
             PossibleNodeBehaviours = possibleNodeBehaviours;
         }
-
-        public int MaxDepth { get; set; } = 5;
-        public float DeadEndChance { get; set; } = 0.1f;
-        public bool HandleCycles { get; set; } = true;
 
         public bool TryGenerateNodes()
         {
@@ -73,7 +73,7 @@ namespace BehavioursRectangularGraph
         {
             #region SimpleContinueRooms
 
-            _possibleLeftExitСontinuation = PossibleNodeBehaviours
+            m_PossibleLeftExitСontinuation = PossibleNodeBehaviours
                 .Where(room =>
                     room.RightExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -81,7 +81,7 @@ namespace BehavioursRectangularGraph
                     room.BottomExits.Count != 0)
                 )
                 .ToList();
-            _possibleRightExitСontinuation = PossibleNodeBehaviours
+            m_PossibleRightExitСontinuation = PossibleNodeBehaviours
                 .Where(room =>
                     room.LeftExits.Count > 0 &&
                     (room.RightExits.Count != 0 ||
@@ -89,7 +89,7 @@ namespace BehavioursRectangularGraph
                     room.BottomExits.Count != 0)
                 )
                 .ToList();
-            _possibleTopExitСontinuation = PossibleNodeBehaviours
+            m_PossibleTopExitСontinuation = PossibleNodeBehaviours
                 .Where(room =>
                     room.BottomExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -97,7 +97,7 @@ namespace BehavioursRectangularGraph
                     room.RightExits.Count != 0)
                 )
                 .ToList();
-            _possibleBottomExitСontinuation = PossibleNodeBehaviours
+            m_PossibleBottomExitСontinuation = PossibleNodeBehaviours
                 .Where(room =>
                     room.TopExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -110,28 +110,28 @@ namespace BehavioursRectangularGraph
 
             #region DeadEnds
 
-            _possibleLeftDeadEnds = PossibleNodeBehaviours
+            m_PossibleLeftDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
                     room.RightExits.Count > 0 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
-            _possibleRightDeadEnds = PossibleNodeBehaviours
+            m_PossibleRightDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
                     room.LeftExits.Count > 0 &&
                     room.RightExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
-            _possibleTopDeadEnds = PossibleNodeBehaviours
+            m_PossibleTopDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
                     room.BottomExits.Count > 0 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.RightExits.Count == 0)
                 .ToList();
-            _possibleBottomDeadEnds = PossibleNodeBehaviours
+            m_PossibleBottomDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
                     room.TopExits.Count > 0 &&
                     room.LeftExits.Count == 0 &&
@@ -196,14 +196,14 @@ namespace BehavioursRectangularGraph
         {
             var possibleNextNodeBehaviours = (neighbourDirection, spawnDeadEnd) switch
             {
-                (RectangularDirection.Left, true) => _possibleLeftDeadEnds,
-                (RectangularDirection.Right, true) => _possibleRightDeadEnds,
-                (RectangularDirection.Down, true) => _possibleBottomDeadEnds,
-                (RectangularDirection.Up, true) => _possibleTopDeadEnds,
-                (RectangularDirection.Left, false) => _possibleLeftExitСontinuation,
-                (RectangularDirection.Right, false) => _possibleRightExitСontinuation,
-                (RectangularDirection.Down, false) => _possibleBottomExitСontinuation,
-                (RectangularDirection.Up, false) => _possibleTopExitСontinuation,
+                (RectangularDirection.Left, true) => m_PossibleLeftDeadEnds,
+                (RectangularDirection.Right, true) => m_PossibleRightDeadEnds,
+                (RectangularDirection.Down, true) => m_PossibleBottomDeadEnds,
+                (RectangularDirection.Up, true) => m_PossibleTopDeadEnds,
+                (RectangularDirection.Left, false) => m_PossibleLeftExitСontinuation,
+                (RectangularDirection.Right, false) => m_PossibleRightExitСontinuation,
+                (RectangularDirection.Down, false) => m_PossibleBottomExitСontinuation,
+                (RectangularDirection.Up, false) => m_PossibleTopExitСontinuation,
                 _ => throw new System.NotImplementedException(),
             };
 

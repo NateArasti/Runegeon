@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace SimpleBehaviourTree
@@ -7,6 +6,7 @@ namespace SimpleBehaviourTree
     {
         public enum State
         {
+            None,
             Running, 
             Success,
             Failure
@@ -15,23 +15,34 @@ namespace SimpleBehaviourTree
         [HideInInspector] public string nodeGUID;
         [HideInInspector] public Vector2 GraphPosition;
 
-        private bool _started;
+        protected GameObject m_ExecutorObject;
+        protected Blackboard m_Blackboard;
+        private bool m_Started;
 
         public State NodeState { get; private set; }
-        public bool Started => _started;
+        public bool Started => m_Started;
 
         public virtual string DisplayName => "Node";
 
-        public virtual Node Clone()
+        internal virtual Node Clone(GameObject executorObject, Blackboard blackboard)
         {
-            return Instantiate(this);
+            var node = Instantiate(this);
+            node.m_ExecutorObject = executorObject;
+            node.m_Blackboard = blackboard;
+            return node;
+        }
+
+        internal virtual void DiscardState()
+        {
+            NodeState = State.None;
+            m_Started = false;
         }
 
         internal State Update()
         {
-            if (!_started)
+            if (!m_Started)
             {
-                _started = true;
+                m_Started = true;
                 OnStart();
             }
 
@@ -39,7 +50,7 @@ namespace SimpleBehaviourTree
 
             if(NodeState != State.Running)
             {
-                _started = false;
+                m_Started = false;
                 OnStop();
             }
 

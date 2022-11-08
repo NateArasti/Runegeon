@@ -8,20 +8,26 @@ namespace SimpleBehaviourTree
     [CreateAssetMenu(fileName = "SimpleTree")]
     public class BehaviourTree : ScriptableObject
     {
+        public Blackboard blackboard;
         [HideInInspector] public List<Node> nodes = new();
         [HideInInspector] public Node rootNode;
 
+        private GameObject m_ExecutorObject;
+
         public Node.State TreeState { get; private set; } = Node.State.Running;
 
-        public BehaviourTree Clone()
+        public BehaviourTree Clone(GameObject executorObject)
         {
             var tree = Instantiate(this);
-            tree.rootNode = rootNode.Clone();
+            tree.rootNode = rootNode.Clone(executorObject, tree.blackboard);
             tree.nodes = new List<Node>();
             Traverse(tree.rootNode, node =>
             {
                 tree.nodes.Add(node);
             });
+
+            tree.m_ExecutorObject = executorObject;
+
             return tree;
         }
 
@@ -45,14 +51,14 @@ namespace SimpleBehaviourTree
                 Debug.LogError($"Root Node of {name} is null");
                 return Node.State.Failure;
             }
-            if(rootNode.NodeState == Node.State.Running)
+            if(rootNode.NodeState != Node.State.Success || rootNode.NodeState != Node.State.Failure)
             {
                 TreeState = rootNode.Update();
             }
             return TreeState;
         }
 
-        public Node CreateNode(System.Type nodeType)
+        public Node CreateNode(Type nodeType)
         {
             var node = ScriptableObject.CreateInstance(nodeType) as Node;
             if (node == null)

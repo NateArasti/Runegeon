@@ -8,26 +8,26 @@ public class BehaviourTreeSettings : ScriptableObject
 {
     public const string SettingsPath = "Assets/Settings/BehaviourTreeSettings.asset";
 
-    private static BehaviourTreeSettings _instance;
+    private static BehaviourTreeSettings s_Instance;
     internal static BehaviourTreeSettings Instance
     {
         get
         {
-            if (_instance == null)
-                _instance = GetOrCreateSettings();
-            return _instance;
+            if (s_Instance == null)
+                s_Instance = GetOrCreateSettings();
+            return s_Instance;
         }
     }
 
-    public static VisualTreeAsset BehaviourTreeUXML => Instance._behaviourTreeUXML;
-    public static StyleSheet BehaviourTreeUSS => Instance._behaviourTreeUSS;
-    public static VisualTreeAsset NodeUXML => Instance._nodeUXML;
-    public static StyleSheet NodeUSS => Instance._nodeUSS;
+    public static VisualTreeAsset BehaviourTreeUXML => Instance.m_BehaviourTreeUXML;
+    public static StyleSheet BehaviourTreeUSS => Instance.m_BehaviourTreeUSS;
+    public static VisualTreeAsset NodeUXML => Instance.m_NodeUXML;
+    public static StyleSheet NodeUSS => Instance.m_NodeUSS;
 
-    [SerializeField] private VisualTreeAsset _behaviourTreeUXML;
-    [SerializeField] private StyleSheet _behaviourTreeUSS;
-    [SerializeField] private VisualTreeAsset _nodeUXML;
-    [SerializeField] private StyleSheet _nodeUSS;
+    [SerializeField] private VisualTreeAsset m_BehaviourTreeUXML;
+    [SerializeField] private StyleSheet m_BehaviourTreeUSS;
+    [SerializeField] private VisualTreeAsset m_NodeUXML;
+    [SerializeField] private StyleSheet m_NodeUSS;
 
     internal static BehaviourTreeSettings GetOrCreateSettings()
     {
@@ -38,33 +38,33 @@ public class BehaviourTreeSettings : ScriptableObject
             AssetDatabase.CreateAsset(settings, SettingsPath);
             AssetDatabase.SaveAssets();
         }
-        if(settings._behaviourTreeUXML == null)
+        if(settings.m_BehaviourTreeUXML == null)
         {
-            settings._behaviourTreeUXML = 
+            settings.m_BehaviourTreeUXML = 
                 AssetDatabase.LoadAssetAtPath(
                     Utility.GetScriptPath(typeof(BehaviourTreeEditor))[..^3] + ".uxml", 
                     typeof(VisualTreeAsset)) 
                 as VisualTreeAsset;
         }
-        if (settings._behaviourTreeUSS == null)
+        if (settings.m_BehaviourTreeUSS == null)
         {
-            settings._behaviourTreeUSS =
+            settings.m_BehaviourTreeUSS =
                 AssetDatabase.LoadAssetAtPath(
                     Utility.GetScriptPath(typeof(BehaviourTreeEditor))[..^3] + ".uss",
                     typeof(StyleSheet))
                 as StyleSheet;
         }
-        if (settings._nodeUXML == null)
+        if (settings.m_NodeUXML == null)
         {
-            settings._nodeUXML = 
+            settings.m_NodeUXML = 
                 AssetDatabase.LoadAssetAtPath(
                     Utility.GetScriptPath(typeof(NodeView))[..^3] + ".uxml", 
                     typeof(VisualTreeAsset)) 
                 as VisualTreeAsset;
         }
-        if(settings._nodeUSS == null)
+        if(settings.m_NodeUSS == null)
         {
-            settings._nodeUSS = 
+            settings.m_NodeUSS = 
                 AssetDatabase.LoadAssetAtPath(
                     Utility.GetScriptPath(typeof(NodeView))[..^3] + ".uss", 
                     typeof(StyleSheet)) 
@@ -95,10 +95,10 @@ public static class BehaviourTreeSettingsIMGUIRegister
             guiHandler = (searchContext) =>
             {
                 var settings = BehaviourTreeSettings.GetSerializedSettings();
-                EditorGUILayout.PropertyField(settings.FindProperty("_behaviourTreeUXML"));
-                EditorGUILayout.PropertyField(settings.FindProperty("_behaviourTreeUSS"));
-                EditorGUILayout.PropertyField(settings.FindProperty("_nodeUXML"));
-                EditorGUILayout.PropertyField(settings.FindProperty("_nodeUSS"));
+                EditorGUILayout.PropertyField(settings.FindProperty("m_BehaviourTreeUXML"));
+                EditorGUILayout.PropertyField(settings.FindProperty("m_BehaviourTreeUSS"));
+                EditorGUILayout.PropertyField(settings.FindProperty("m_NodeUXML"));
+                EditorGUILayout.PropertyField(settings.FindProperty("m_NodeUSS"));
                 settings.ApplyModifiedPropertiesWithoutUndo();
             },
 

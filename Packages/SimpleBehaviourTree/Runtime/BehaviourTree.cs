@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace SimpleBehaviourTree
@@ -58,6 +60,28 @@ namespace SimpleBehaviourTree
             return TreeState;
         }
 
+        public List<Node> GetChildren(Node parent)
+        {
+            if (parent is RootNode rootNode)
+            {
+                if (rootNode.child != null)
+                    return new List<Node>() { rootNode.child };
+                return null;
+            }
+            else if (parent is DecoratorNode decoratorNode)
+            {
+                if (decoratorNode.child != null)
+                    return new List<Node>() { decoratorNode.child };
+                return null;
+            }
+            else if (parent is CompositionNode compositionNode)
+            {
+                return compositionNode.children;
+            }
+            return null;
+        }
+
+#if UNITY_EDITOR
         public Node CreateNode(Type nodeType)
         {
             var node = ScriptableObject.CreateInstance(nodeType) as Node;
@@ -134,26 +158,6 @@ namespace SimpleBehaviourTree
                 EditorUtility.SetDirty(compositionNode);
             }
         }
-
-        public List<Node> GetChildren(Node parent)
-        {
-            if (parent is RootNode rootNode)
-            {
-                if(rootNode.child != null)
-                    return new List<Node>() { rootNode.child };
-                return null;
-            }
-            else if (parent is DecoratorNode decoratorNode)
-            {
-                if(decoratorNode.child != null)
-                    return new List<Node>() { decoratorNode.child };
-                return null;
-            }
-            else if (parent is CompositionNode compositionNode)
-            {
-                return compositionNode.children;
-            }
-            return null;
-        }
+#endif
     }
 }

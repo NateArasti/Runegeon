@@ -28,13 +28,6 @@
       "dependencies": {},
       "hash": "0074fef0ffe1d01450d9bb63ee46e08c430d337b"
     },
-    "com.arastigames.unityextensions-tools": {
-      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Tools",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "e65c081d3b42faa2a38f96e9db73b3df85376972"
-    },
     "com.arongranberg.astar": {
       "version": "file:AstarPathfindingProject",
       "depth": 0,
@@ -145,12 +138,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.adaptiveperformance": {
-      "version": "3.0.2",
+      "version": "4.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.subsystemregistration": "1.1.0",
-        "com.unity.profiling.core": "1.0.0"
+        "com.unity.profiling.core": "1.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.adaptiveperformance.samsung.android": {
+      "version": "4.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.adaptiveperformance": "4.0.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -174,6 +176,15 @@
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cinemachine": {
+      "version": "2.8.9",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
       },
       "url": "https://packages.unity.com"
     },

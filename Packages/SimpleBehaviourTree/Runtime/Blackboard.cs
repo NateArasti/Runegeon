@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEditor;
 using UnityEngine;
-using static SimpleBehaviourTree.Blackboard;
 
 namespace SimpleBehaviourTree
 {

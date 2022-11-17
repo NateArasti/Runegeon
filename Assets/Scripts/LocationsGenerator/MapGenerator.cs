@@ -1,6 +1,8 @@
 using BehavioursRectangularGraph;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 using UnityExtensions;
@@ -27,7 +29,7 @@ public class MapGenerator : MonoBehaviour
             children.ForEach(child => DestroyImmediate(child));
         }
 #else
-        _spawnPivot.DestroyChildren();
+        m_SpawnPivot.DestroyChildren();
 #endif
 
         var visitedNodes = new HashSet<RectangularNode<Room>>();

@@ -1,6 +1,4 @@
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
-using static PlasticPipe.PlasticProtocol.Messages.Serialization.ItemHandlerMessagesSerialization;
 
 namespace SimpleBehaviourTree
 {

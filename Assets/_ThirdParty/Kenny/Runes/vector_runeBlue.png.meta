@@ -1,0 +1,4898 @@
+fileFormatVersion: 2
+guid: 6d73626edb39e094490b03cd3710747f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vector_runeBlue_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1094
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f4f4f57b96b4d143994152c3e920c7c
+      internalID: -544027554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1093
+        width: 18
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d32276e08d30d4692fa4cd21aef0db
+      internalID: -17605159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 1093
+        width: 24
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f2f69f67b50e644dbb3b6ea7a739816
+      internalID: 612623369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_3
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 1096
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d69e912f1bcd1d24194e519949b8fc79
+      internalID: -2002336479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 1100
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb1133d3d6ab9604195c3b79d33ef7f1
+      internalID: -148016938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_5
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1096
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 965aacfb665e4ef4c95b842e57be339b
+      internalID: -1957862278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_6
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 1094
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdbf12764b17dd24dafac60aaf115b4b
+      internalID: -2138857248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_7
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 1093
+        width: 18
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68300c1e3484104697979758984ae59
+      internalID: -1766463714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_8
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1093
+        width: 24
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ef0df4fcf6a5c94a926b7a739eae05e
+      internalID: -253750960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_9
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 1096
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ff95f1d17fdb0045b4e4b278253bd5c
+      internalID: -1979984790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_10
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 1100
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d7e631ef8adb9e4bab20fd826156e0e
+      internalID: -1034958816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_11
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1096
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4da6e48198f7f4c42a6560ad95358ea2
+      internalID: -1732897898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_12
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 1094
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 046491daf8e070d438d7c411522d0f4c
+      internalID: -1183405659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_13
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 1093
+        width: 18
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa7be47e4d556441b9a78bf54ce05e9
+      internalID: 2001754998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_14
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 1093
+        width: 24
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09bbb5c4b54a55944bcf15415543b4b7
+      internalID: -785227606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_15
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 1096
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 801933c55cc0c24499a994a2027fd3f8
+      internalID: 585300656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_16
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 1100
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8bb54d7e8520fc48a81708e48e31307
+      internalID: 712723104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_17
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1096
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44ce3879e35dfa743ab6f520aa11dfad
+      internalID: 424123079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_18
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 1094
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6089fe680af740347a5de81a6ddf6304
+      internalID: 1337397675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_19
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 1093
+        width: 18
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7db5d5e0add774f9477ea799a11b5e
+      internalID: -1271278144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_20
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 1093
+        width: 24
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3277b5522cb87a3499caba0c2892a60d
+      internalID: -835947654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_21
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 1096
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d96c0c006ce72d4b8afe62001d741c5
+      internalID: 1985416688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_22
+      rect:
+        serializedVersion: 2
+        x: 1539
+        y: 1100
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad8ce8128c1c6484090090afe08e61ff
+      internalID: -267678060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_23
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 1096
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73bfe995d1c96574db9361aae0f69d96
+      internalID: -1722266871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_24
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 992
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc5164fd1f29d44f9428abdea4b1bd1
+      internalID: -490068317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_25
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 992
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84beb4a77b3f97d40a479b4a26934e47
+      internalID: 1169000437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_26
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 993
+        width: 6
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40e32e7f997620349874764c2cdc3ca4
+      internalID: -1972545534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_27
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 992
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c74695f999711449cb70f2a0333c56
+      internalID: -174375500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_28
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 993
+        width: 24
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3eaab63a60d2824c842667f8562ef27
+      internalID: 1556819554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_29
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 994
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad784ffc1df81d44bb29286007e96cda
+      internalID: -1815209636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_30
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 992
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6691e8630822c84f9578a1b7c66ba76
+      internalID: -1435133509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_31
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 992
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c7ba50ba251104b87ca9055c62a3f0
+      internalID: -1054045730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_32
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 993
+        width: 6
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4420466287371cb4c87dec433a62b99f
+      internalID: -1874325645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_33
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 992
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d092d25defeb13a4e8138dc65a52ff4b
+      internalID: -483836540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_34
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 993
+        width: 24
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3a0ff6753470d40b4345ae9b750bde
+      internalID: -1230824551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_35
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 994
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3acffd08a49801140a3be5369be1dafe
+      internalID: 1181290316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_36
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 992
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c4d142f56515944b2ced8c54880373
+      internalID: -1609362826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_37
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 992
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44937e33f967b134693ade198c4281d6
+      internalID: 822614509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_38
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 993
+        width: 6
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1ef873d068594e4baff60152df3daa3
+      internalID: 1304215236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_39
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 992
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b62d9c9503a23164dafaa51a1a90c60c
+      internalID: -262431289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_40
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 993
+        width: 24
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ce59127d3688594f9814b7721786a36
+      internalID: -1665211398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_41
+      rect:
+        serializedVersion: 2
+        x: 1195
+        y: 994
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2f2058bf516ba44387178007ae23da6
+      internalID: -1888921453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_42
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 992
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1390b208e7497cf468cfcf59d4eb7d95
+      internalID: 1171910368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_43
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 992
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f0d01105146ce4aa4bf0e20438109f
+      internalID: -445386275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_44
+      rect:
+        serializedVersion: 2
+        x: 1413
+        y: 993
+        width: 6
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78afc36a979577b49943adb1a372dac3
+      internalID: 808527741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_45
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 992
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7042714b33d01e0498755e8dc41e3809
+      internalID: 2017065089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_46
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 993
+        width: 24
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfeac934e17a12d42adf94786933b189
+      internalID: -8419469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_47
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 994
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae38db1dde37059469e36961324d4de9
+      internalID: 1065449842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca067dd8ae1c8dc4ea7367331c76fcbf
+      internalID: -1415545615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_49
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 895
+        width: 28
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c9a75853790271449f21f16a211a679
+      internalID: -586258554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_50
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 894
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a28372d6a95d971498eade47e34dea24
+      internalID: -906659037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_51
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 896
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df6872ff8edfe0c49ac387d9daa80b4f
+      internalID: -157308055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_52
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 896
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1001c89139d074fae5fdcd0d1de7d0
+      internalID: 1884242846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_53
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 892
+        width: 26
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25c230103663de4b8380ae163434cef
+      internalID: -628204274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_54
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 900
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed414f9321f10943beab17158b960a6
+      internalID: -1338540890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_55
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 895
+        width: 28
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89c18f5d9cd56da428c8198359d27365
+      internalID: 1461873830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_56
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 894
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb6d0eaf2346b04b8e799e7cc16f1b7
+      internalID: 216972503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_57
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 896
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f3b1c0fb88f414c991cfaf499159ae
+      internalID: 1564883424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_58
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 896
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62a4ce1f9561fe944a8ed6274fcfaac9
+      internalID: 18399703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_59
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 892
+        width: 26
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bf87f7d958efc54ab036dedeb2f22b0
+      internalID: 584034560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_60
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 900
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77188f7f9221c0342bc73d943ae8a6c5
+      internalID: -58414517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_61
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 895
+        width: 28
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46914e336e5c0ae46b97c0abbba99ef1
+      internalID: -2015811209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_62
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 894
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adde592c6ada17f4c925a4a71a1a1901
+      internalID: -1506240007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_63
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 896
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7dd886d3d3b56b40aa55d723dcf205b
+      internalID: 204222138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_64
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 896
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b51a318f9adf3d94ab7d62a0d56a7f2c
+      internalID: -801480471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_65
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 892
+        width: 26
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aee5416aa439674693b035836756eff
+      internalID: -1220138797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_66
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 900
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e67b76cb896a0f4bb4b639db753c251
+      internalID: 2057585002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_67
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 895
+        width: 28
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b30243711ea4be44b27cf41b9c4a689
+      internalID: -301463696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_68
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 894
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fae535be9d2cf845980fa5c4fd312eb
+      internalID: -63527360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_69
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 896
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e62efa2440346834eb9e9be556d3cc92
+      internalID: -1875766879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_70
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 896
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 513d10d0f8b53744eab2b273fe98cf14
+      internalID: -659053849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_71
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 892
+        width: 26
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d0b1288fffea74c9e99c9abb064dd7
+      internalID: -1245841542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_72
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 793
+        width: 19
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6d3d5fd54c949f4db39b3fdda96f528
+      internalID: 514898522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_73
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 793
+        width: 33
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f57273dd598dd647810f399d05c8508
+      internalID: 1525193933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_74
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 795
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98b5e6beb217527409fcabbea051c8fc
+      internalID: 1259342932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_75
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 797
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddc92f8e2545bf54db4b9f5bbd97ebfb
+      internalID: -1137241487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_76
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 797
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb41c2da8fb7bc945a54d70965d47e02
+      internalID: 47421744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_77
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 794
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51784ce01676b0d46987f547c3012d9e
+      internalID: 848800082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_78
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 793
+        width: 19
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a9f9a0faccbf2a449db209d295f7785
+      internalID: 881569132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_79
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 793
+        width: 33
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ba8883ed75ec142815d6164b206309
+      internalID: -400242545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_80
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 795
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb6846dea83ac4e428870d472de0b61b
+      internalID: 2088617065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_81
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 797
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5b1fed0cb639bf43b4dcb6a056dffa3
+      internalID: -1085536143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_82
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 797
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cec1a37a4983db4cb304db208066ee1
+      internalID: 2024851927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_83
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 794
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec017189af2e10247acd118efc1b9765
+      internalID: -354322896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_84
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 793
+        width: 19
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ecb527f98793f24fa1d281c0238ae97
+      internalID: -1633307164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_85
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 793
+        width: 33
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c132c9fbcf51b0e488b935e47b153398
+      internalID: -2113697201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_86
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 795
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6db4f973fda3ed14ca5e3282ae36f123
+      internalID: 775832775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_87
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 797
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca3b068ae20f394ca09dbb13eb42bbb
+      internalID: -430427691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_88
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 797
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed636e588fc9534ebb278567dfb2a53
+      internalID: 1389654057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_89
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 794
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4ddcdf23eabed4e8a7a8399db44822
+      internalID: -217192421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_90
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 793
+        width: 19
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b66f87b742c57a94ba172491fef7598d
+      internalID: 571029755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_91
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 793
+        width: 33
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07bbb1ef7f27614d9cb9df87e1f55e9
+      internalID: 1325399535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_92
+      rect:
+        serializedVersion: 2
+        x: 1406
+        y: 795
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e91fcd639a6304595fe1ed259794ae
+      internalID: 1498996524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_93
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 797
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c128a20bf4fce5478aecb58ff14672e
+      internalID: 675864843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_94
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 797
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0ccc89393a82f47a1d24e2f83cfffa
+      internalID: 800149374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_95
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 794
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56f9004ba6441a7478d389166e518c8a
+      internalID: -951032242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_96
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 696
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 856bc1d7f9285e44f9b2957beb354f48
+      internalID: -1509234454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_97
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 696
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be3bb2da487efd4dbf89872c5b91af9
+      internalID: 1499695976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_98
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 698
+        width: 25
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9a6fd9f7eaa8d549a69b92ea24ff820
+      internalID: 1302743191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_99
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 699
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f19c3f9530ec4045bd54088194dc7d4
+      internalID: -13865424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_100
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 700
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfaba59debfdc74aaed7b4962e5411a
+      internalID: -214259060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_101
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 698
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ee31018a1aa55843ab05e5acda7a950
+      internalID: -546166905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_102
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 696
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f81fcee6acd3f649a4eaf78c15162f6
+      internalID: 28146556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_103
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 696
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33554a0d5503afb4fa78ca828aecb061
+      internalID: 688731737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_104
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 698
+        width: 25
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02600fdd1649342478f5ebe2bbe2646c
+      internalID: -249981703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_105
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 699
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d2aaa64c1f0a347b2cf52bc0f753aa
+      internalID: 961230263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_106
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 700
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8df5548a59abde4d8af6d1bf11380c5
+      internalID: -1669859533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_107
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 698
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5299b84c46db2624a85a2ed2b6016f7d
+      internalID: -110144732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_108
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 696
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c462aba8b056bd243bc4b3287bb1149a
+      internalID: 1210360399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_109
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 696
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0435835c72f4c064aa8b51fa609cf1ea
+      internalID: 1802079067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_110
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 698
+        width: 25
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28122fc8785afe840813f4fd1daab1b9
+      internalID: 1547489140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_111
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 699
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72f7770a3a3efe248b493fa31cea1255
+      internalID: -2136594559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_112
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 700
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b6bbc87119336e408d462615919352d
+      internalID: -1977609639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_113
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 698
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b52c782a2ebfe7d4fbddc05a2a0cac42
+      internalID: -64308980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_114
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 696
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c12cb6f2189399649b3531a6e9f35bd3
+      internalID: 619671022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_115
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 696
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72adf308c31edbc44a77bd27d0de6f51
+      internalID: -294094018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_116
+      rect:
+        serializedVersion: 2
+        x: 1406
+        y: 698
+        width: 25
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b5186f814a61f541bbcf8cf211116e4
+      internalID: -1998184254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_117
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 699
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aba0d2e3f401bd4e9d0121dc5a95e1e
+      internalID: 495105865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_118
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 700
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31dfa078521601949bf5312f8cf790ff
+      internalID: -1554109633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_119
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 698
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85f39d938c19edb43b46bfe70e4c77b4
+      internalID: -40009465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_120
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a27b4cd93852582489fb59945aa3b10b
+      internalID: 1851487636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_121
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 595
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e03df2d76de0e0746bf240fceaac1902
+      internalID: -1463805712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_122
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 608
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30d05da1697b94f4384026cbf65b5b0d
+      internalID: -504808183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_123
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 596
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e6d6c4c54d21e478193e51b4604e0e
+      internalID: 1520817283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_124
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 594
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc3804e46bfecf24cbabcd99ea00b639
+      internalID: 1953461611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_125
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 600
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f4b4d9fc6670444ca8a272c2114b9f9
+      internalID: 1675314007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_126
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 600
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55b6121155c597e45ae1ce3734d341eb
+      internalID: -1849746658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_127
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 595
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1205923bf95d9854183bc67a98914d67
+      internalID: -1941996282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_128
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 608
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04925201b43936a4fbbdcc21e26140cd
+      internalID: -1129989666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_129
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 596
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e489c0881eed11549a80441d89c8f7cf
+      internalID: -2065068926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_130
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 594
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1473ca116827f74686987e1ea09c5c6
+      internalID: 480838003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_131
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 600
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5073c6b82b3eaa448b18cfd741148ad1
+      internalID: -1311962697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_132
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 600
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d03217210f669b46889608eb7c725e2
+      internalID: -797063707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_133
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 595
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 783f1f70ed7bbbb4b8001f6924672422
+      internalID: 371478528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_134
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 608
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c5575bdcce6a71428a9b36e985e6d34
+      internalID: -1218614799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_135
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 596
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c078029be4f56e46bb8c50a546c46b0
+      internalID: -166990482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_136
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 594
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd6fe40cacbfb7a4d9f6cff55253825e
+      internalID: -2112037273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_137
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 600
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85c99647322c07459005f8b18141ebd
+      internalID: 1598341692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_138
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 600
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52272fe75181ad0499214912215fb8e2
+      internalID: -156912437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_139
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 595
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ce1124dbcd5724991cad5201a63552
+      internalID: 798649887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_140
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 608
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84a38a034e1709d45aa67cd400e01e08
+      internalID: 821858469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_141
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 596
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706f00c4a4adfac4286a2b233e866b36
+      internalID: 712320944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_142
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 594
+        width: 29
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ebaeadb532ba224383a4ef452b5fd5c
+      internalID: -1329369819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_143
+      rect:
+        serializedVersion: 2
+        x: 1539
+        y: 600
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5688a9d4f32d2ae45aeae3f5e1c338bd
+      internalID: 1230989785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_144
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 500
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0467ecdc8d8db35409b20d544d25c084
+      internalID: -889049124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_145
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 500
+        width: 13
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dce311ab2a2f5e42bd77f01f2223b78
+      internalID: 236667502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_146
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 499
+        width: 18
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684bf51c27e73d041bba55052f954964
+      internalID: -1792720789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_147
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 501
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da080d49422d5d240a9c3ef754079ca0
+      internalID: 751567952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_148
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 504
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b1dabc468dedb2459f14e8d86388578
+      internalID: 921239854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_149
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 501
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16519ba8bdfc21541b7f530c2c9ffe73
+      internalID: -641100031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_150
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 500
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 774492cedf868de4f94e24e77c8aaf6e
+      internalID: -574511958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_151
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 500
+        width: 13
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535317061238db14b9bed2ceeb7e06ce
+      internalID: 185904369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_152
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 499
+        width: 18
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e6f68f02a77c084ea0d4511fd088494
+      internalID: 112212394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_153
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 501
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e80ab3a785ee8c48b7e02b11d1848db
+      internalID: 1357860923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_154
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 504
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e9b0e1fd045d2b4abe38a7e37fb9995
+      internalID: 378026894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_155
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 501
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50e8d62d9c6394e4d9c9531504ded5ab
+      internalID: 288832433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_156
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 399
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee3ce8d3a17f5a41a4ac71dcfee33ad
+      internalID: 940375084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_157
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 400
+        width: 15
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2587491b6d6df5e48a4e2c1c1a3e9722
+      internalID: 50365877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_158
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 401
+        width: 5
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8aa01cb6efccfe48acbdba944003e18
+      internalID: -1518994020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_159
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 400
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a5638ca73b49f94997d0ab188a16c50
+      internalID: -532385271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_160
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 400
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13494da39086767449ebd294686f8f44
+      internalID: 1306506678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_161
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 400
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90451ac418493824384d574a0167db5a
+      internalID: 84380075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_162
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 399
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a3969cfdb5e004bbb436207abf7ded
+      internalID: 823092889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_163
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 400
+        width: 15
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f67a0490661bdf842889192f780b11b2
+      internalID: -332293984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_164
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 401
+        width: 5
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f86b2bee0c5e14d8016f1331c9d9bf
+      internalID: 1084946904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_165
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 400
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c307cb90a29407243bece6781b864bf7
+      internalID: -2094917496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_166
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 400
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9c870bfd82e3754fa15e57ed5542957
+      internalID: -74756719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_167
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 400
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ae42d6747b55443ba4543b9a0d287d
+      internalID: -1831908985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_168
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 304
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88050d2e2d8adc4ab054e556536fe6c
+      internalID: -1036448730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_169
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 302
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304acefe609a215498a92cb8c3a22f30
+      internalID: 1994545640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_170
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 301
+        width: 22
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d206642c9dd77044b935c61e13f4d163
+      internalID: 1199805566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_171
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 302
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744b6e97feee79d4da07202f935b359d
+      internalID: 1797505164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_172
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 301
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6be2bf7e4f8ac418850dec8c508706
+      internalID: -327606463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_173
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 300
+        width: 20
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 599ba13e45ea8d3428d2913d8c8e81eb
+      internalID: -208888849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_174
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 304
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10aee4b34bb04924c949446e7e54c740
+      internalID: -998448190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_175
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 302
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9459000e925c67f4390bd5fa4fc408f5
+      internalID: 1293763975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_176
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 301
+        width: 22
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e10c7e69827da674e932c91b8acb36dc
+      internalID: -65622016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_177
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 302
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e850855df26bbda4ea5602680c7a9b73
+      internalID: 1214722607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_178
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 301
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 254f82962d33fab428467f575ec123c3
+      internalID: 458494135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_179
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 300
+        width: 20
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 200f8d242ee03614dba05d5f0b584fa4
+      internalID: 1156527569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_180
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 200
+        width: 15
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 529d6ab0638442045bfb52fa6dac6adc
+      internalID: -1120577008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_181
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 201
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff10f91ca772db44aad900fa1bc09266
+      internalID: -263601950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_182
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 203
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13ce995127cbe93478309f3b45aa89d7
+      internalID: 133617184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_183
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 203
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2397ec8fa122434da111d5385cae7a6
+      internalID: -567832468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_184
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 203
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e91814edfa3b446848466e23fe977e
+      internalID: 1740280991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_185
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 200
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c9e71e5466ba094189a5b712f273636
+      internalID: -1154383965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_186
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 200
+        width: 15
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb607de1b2c271842ad4a306e6a33e51
+      internalID: 1096063676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_187
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 201
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae4c66fcd47bde94da00eac658672403
+      internalID: 720119283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_188
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 203
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a6241dab78add4429d779410b135fe0
+      internalID: -1460969757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_189
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 203
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0e78b1ce0a2f143966b1c1e9121bd9
+      internalID: 1914959800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_190
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 203
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10a209f11802e1b4aad4e2fe37ce31a1
+      internalID: 702307277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_191
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 200
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fc78c2dc77fd2d4cb9d55dadb62922a
+      internalID: 1227946584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_192
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 102
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afb51d409b492da4b8ae5cbd6f9db029
+      internalID: -153553854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_193
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 101
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47c6fe1e5490df746b563b0b34236fe8
+      internalID: 368963996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_194
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 103
+        width: 19
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ace19af6c2a006a45958e23f390f2e4f
+      internalID: -10634700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_195
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 104
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 592e919416761174b8f45810896ac16a
+      internalID: -1403594265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_196
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 105
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27fcd7c4568d74947b1b925fe0c1c8f4
+      internalID: -1820993590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_197
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 103
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c230bd4c6865304ebcccb0b9bfe027d
+      internalID: -74932282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_198
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 102
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1659e0e1f479f1344848cd4861a55ce2
+      internalID: -1580246480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_199
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 101
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2c10192a17f5774ca283956a40c2a1f
+      internalID: -293437517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_200
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 103
+        width: 19
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78432e420f0824b4a928e683df3a33ec
+      internalID: -1619160244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_201
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 104
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6011ef2370d1134e842f58cb24f075c
+      internalID: -409804335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_202
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 105
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d2a5bc81f51494f8e7a5a9fe4111ee
+      internalID: -887080580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_203
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 103
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fb5287039ed8384d8299db5888bcc73
+      internalID: -1570467911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_204
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a391bf005850168439ce311ffdc61334
+      internalID: -1595045657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_205
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 749181c1a7ff374429ae2e0437aae65d
+      internalID: 429287680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_206
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 10
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbb6260f9ad314b4cbaa0ea47acb5213
+      internalID: -1166932869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_207
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 1
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d3fb7435fce53f4f863046fba2837a8
+      internalID: 38339038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_208
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 0
+        width: 22
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39083f545806fd344927ec5a96f36af9
+      internalID: 939773359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_209
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 5
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14a74fa057973514d8955d5fc33d7147
+      internalID: 1134648429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_210
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 4
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ab8e9d1600844468038b2ab3d13364
+      internalID: 523079148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_211
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 1
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b832314806d7f4c9c086c46e74d6ca
+      internalID: 1049281355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_212
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 10
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566a1b8fc580e1048951a780825abb0b
+      internalID: -1953475739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_213
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 1
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2989a92271d9cb3468dafac3590bbc11
+      internalID: 1250238662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_214
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 0
+        width: 22
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24dffad3400ae31438a6f0216733dbb1
+      internalID: -959917449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vector_runeBlue_215
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 5
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27f84c60eaa02d04494aab27bd4d4224
+      internalID: 211062363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      vector_runeBlue_67: -301463696
+      vector_runeBlue_21: 1985416688
+      vector_runeBlue_194: -10634700
+      vector_runeBlue_10: -1034958816
+      vector_runeBlue_105: 961230263
+      vector_runeBlue_193: 368963996
+      vector_runeBlue_92: 1498996524
+      vector_runeBlue_113: -64308980
+      vector_runeBlue_83: -354322896
+      vector_runeBlue_29: -1815209636
+      vector_runeBlue_215: 211062363
+      vector_runeBlue_165: -2094917496
+      vector_runeBlue_176: -65622016
+      vector_runeBlue_161: 84380075
+      vector_runeBlue_33: -483836540
+      vector_runeBlue_46: -8419469
+      vector_runeBlue_82: 2024851927
+      vector_runeBlue_124: 1953461611
+      vector_runeBlue_121: -1463805712
+      vector_runeBlue_81: -1085536143
+      vector_runeBlue_112: -1977609639
+      vector_runeBlue_125: 1675314007
+      vector_runeBlue_84: -1633307164
+      vector_runeBlue_154: 378026894
+      vector_runeBlue_126: -1849746658
+      vector_runeBlue_87: -430427691
+      vector_runeBlue_174: -998448190
+      vector_runeBlue_155: 288832433
+      vector_runeBlue_204: -1595045657
+      vector_runeBlue_100: -214259060
+      vector_runeBlue_116: -1998184254
+      vector_runeBlue_183: -567832468
+      vector_runeBlue_95: -951032242
+      vector_runeBlue_203: -1570467911
+      vector_runeBlue_149: -641100031
+      vector_runeBlue_172: -327606463
+      vector_runeBlue_23: -1722266871
+      vector_runeBlue_157: 50365877
+      vector_runeBlue_20: -835947654
+      vector_runeBlue_76: 47421744
+      vector_runeBlue_35: 1181290316
+      vector_runeBlue_72: 514898522
+      vector_runeBlue_136: -2112037273
+      vector_runeBlue_24: -490068317
+      vector_runeBlue_66: 2057585002
+      vector_runeBlue_7: -1766463714
+      vector_runeBlue_19: -1271278144
+      vector_runeBlue_65: -1220138797
+      vector_runeBlue_44: 808527741
+      vector_runeBlue_73: 1525193933
+      vector_runeBlue_91: 1325399535
+      vector_runeBlue_99: -13865424
+      vector_runeBlue_104: -249981703
+      vector_runeBlue_137: 1598341692
+      vector_runeBlue_195: -1403594265
+      vector_runeBlue_143: 1230989785
+      vector_runeBlue_0: -544027554
+      vector_runeBlue_56: 216972503
+      vector_runeBlue_88: 1389654057
+      vector_runeBlue_132: -797063707
+      vector_runeBlue_200: -1619160244
+      vector_runeBlue_13: 2001754998
+      vector_runeBlue_206: -1166932869
+      vector_runeBlue_190: 702307277
+      vector_runeBlue_41: -1888921453
+      vector_runeBlue_147: 751567952
+      vector_runeBlue_185: -1154383965
+      vector_runeBlue_173: -208888849
+      vector_runeBlue_115: -294094018
+      vector_runeBlue_43: -445386275
+      vector_runeBlue_15: 585300656
+      vector_runeBlue_30: -1435133509
+      vector_runeBlue_151: 185904369
+      vector_runeBlue_57: 1564883424
+      vector_runeBlue_148: 921239854
+      vector_runeBlue_130: 480838003
+      vector_runeBlue_77: 848800082
+      vector_runeBlue_47: 1065449842
+      vector_runeBlue_42: 1171910368
+      vector_runeBlue_145: 236667502
+      vector_runeBlue_214: -959917449
+      vector_runeBlue_208: 939773359
+      vector_runeBlue_48: -1415545615
+      vector_runeBlue_111: -2136594559
+      vector_runeBlue_167: -1831908985
+      vector_runeBlue_37: 822614509
+      vector_runeBlue_123: 1520817283
+      vector_runeBlue_211: 1049281355
+      vector_runeBlue_38: 1304215236
+      vector_runeBlue_12: -1183405659
+      vector_runeBlue_55: 1461873830
+      vector_runeBlue_106: -1669859533
+      vector_runeBlue_59: 584034560
+      vector_runeBlue_86: 775832775
+      vector_runeBlue_135: -166990482
+      vector_runeBlue_166: -74756719
+      vector_runeBlue_68: -63527360
+      vector_runeBlue_16: 712723104
+      vector_runeBlue_69: -1875766879
+      vector_runeBlue_196: -1820993590
+      vector_runeBlue_168: -1036448730
+      vector_runeBlue_108: 1210360399
+      vector_runeBlue_1: -17605159
+      vector_runeBlue_186: 1096063676
+      vector_runeBlue_162: 823092889
+      vector_runeBlue_134: -1218614799
+      vector_runeBlue_89: -217192421
+      vector_runeBlue_184: 1740280991
+      vector_runeBlue_198: -1580246480
+      vector_runeBlue_4: -148016938
+      vector_runeBlue_98: 1302743191
+      vector_runeBlue_141: 712320944
+      vector_runeBlue_3: -2002336479
+      vector_runeBlue_45: 2017065089
+      vector_runeBlue_207: 38339038
+      vector_runeBlue_164: 1084946904
+      vector_runeBlue_191: 1227946584
+      vector_runeBlue_178: 458494135
+      vector_runeBlue_169: 1994545640
+      vector_runeBlue_153: 1357860923
+      vector_runeBlue_50: -906659037
+      vector_runeBlue_31: -1054045730
+      vector_runeBlue_199: -293437517
+      vector_runeBlue_179: 1156527569
+      vector_runeBlue_133: 371478528
+      vector_runeBlue_11: -1732897898
+      vector_runeBlue_109: 1802079067
+      vector_runeBlue_119: -40009465
+      vector_runeBlue_110: 1547489140
+      vector_runeBlue_127: -1941996282
+      vector_runeBlue_51: -157308055
+      vector_runeBlue_61: -2015811209
+      vector_runeBlue_129: -2065068926
+      vector_runeBlue_32: -1874325645
+      vector_runeBlue_102: 28146556
+      vector_runeBlue_8: -253750960
+      vector_runeBlue_138: -156912437
+      vector_runeBlue_74: 1259342932
+      vector_runeBlue_26: -1972545534
+      vector_runeBlue_117: 495105865
+      vector_runeBlue_122: -504808183
+      vector_runeBlue_189: 1914959800
+      vector_runeBlue_78: 881569132
+      vector_runeBlue_158: -1518994020
+      vector_runeBlue_60: -58414517
+      vector_runeBlue_156: 940375084
+      vector_runeBlue_139: 798649887
+      vector_runeBlue_25: 1169000437
+      vector_runeBlue_94: 800149374
+      vector_runeBlue_188: -1460969757
+      vector_runeBlue_201: -409804335
+      vector_runeBlue_22: -267678060
+      vector_runeBlue_131: -1311962697
+      vector_runeBlue_36: -1609362826
+      vector_runeBlue_40: -1665211398
+      vector_runeBlue_64: -801480471
+      vector_runeBlue_101: -546166905
+      vector_runeBlue_70: -659053849
+      vector_runeBlue_205: 429287680
+      vector_runeBlue_27: -174375500
+      vector_runeBlue_9: -1979984790
+      vector_runeBlue_80: 2088617065
+      vector_runeBlue_187: 720119283
+      vector_runeBlue_18: 1337397675
+      vector_runeBlue_212: -1953475739
+      vector_runeBlue_163: -332293984
+      vector_runeBlue_114: 619671022
+      vector_runeBlue_71: -1245841542
+      vector_runeBlue_6: -2138857248
+      vector_runeBlue_120: 1851487636
+      vector_runeBlue_177: 1214722607
+      vector_runeBlue_34: -1230824551
+      vector_runeBlue_159: -532385271
+      vector_runeBlue_85: -2113697201
+      vector_runeBlue_79: -400242545
+      vector_runeBlue_181: -263601950
+      vector_runeBlue_62: -1506240007
+      vector_runeBlue_75: -1137241487
+      vector_runeBlue_107: -110144732
+      vector_runeBlue_160: 1306506678
+      vector_runeBlue_170: 1199805566
+      vector_runeBlue_2: 612623369
+      vector_runeBlue_209: 1134648429
+      vector_runeBlue_96: -1509234454
+      vector_runeBlue_210: 523079148
+      vector_runeBlue_144: -889049124
+      vector_runeBlue_175: 1293763975
+      vector_runeBlue_28: 1556819554
+      vector_runeBlue_5: -1957862278
+      vector_runeBlue_90: 571029755
+      vector_runeBlue_150: -574511958
+      vector_runeBlue_14: -785227606
+      vector_runeBlue_182: 133617184
+      vector_runeBlue_180: -1120577008
+      vector_runeBlue_97: 1499695976
+      vector_runeBlue_142: -1329369819
+      vector_runeBlue_39: -262431289
+      vector_runeBlue_197: -74932282
+      vector_runeBlue_171: 1797505164
+      vector_runeBlue_103: 688731737
+      vector_runeBlue_93: 675864843
+      vector_runeBlue_213: 1250238662
+      vector_runeBlue_58: 18399703
+      vector_runeBlue_202: -887080580
+      vector_runeBlue_118: -1554109633
+      vector_runeBlue_52: 1884242846
+      vector_runeBlue_53: -628204274
+      vector_runeBlue_63: 204222138
+      vector_runeBlue_192: -153553854
+      vector_runeBlue_54: -1338540890
+      vector_runeBlue_49: -586258554
+      vector_runeBlue_152: 112212394
+      vector_runeBlue_17: 424123079
+      vector_runeBlue_128: -1129989666
+      vector_runeBlue_140: 821858469
+      vector_runeBlue_146: -1792720789
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

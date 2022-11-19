@@ -2,6 +2,7 @@
   "dependencies": {
     "com.arastigames.unityextensions-installer": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-PackagesInstaller",
     "com.arastigames.unityextensions-methods": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Methods",
+    "com.arastigames.unityextensions-tools": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Tools",
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
     "com.unity.adaptiveperformance.samsung.android": "4.0.1",
     "com.unity.cinemachine": "2.8.9",

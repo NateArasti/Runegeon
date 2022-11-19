@@ -28,6 +28,13 @@
       "dependencies": {},
       "hash": "0074fef0ffe1d01450d9bb63ee46e08c430d337b"
     },
+    "com.arastigames.unityextensions-tools": {
+      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Tools",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f560dac55a57c3fe4ab62388aa49fdf1e2f96649"
+    },
     "com.arongranberg.astar": {
       "version": "file:AstarPathfindingProject",
       "depth": 0,

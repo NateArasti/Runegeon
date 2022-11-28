@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     [Space]
     [Foldout("Events"), SerializeField] private UnityEvent<Vector2> m_OnMoveInput;
 
+    private void Awake()
+    {
+        m_MoveActionProperty.action.Enable();
+    }
+
     private void Update()
     {
         var moveInput = m_MoveActionProperty.action.ReadValue<Vector2>();

@@ -25,11 +25,11 @@ public class FightNode : ActionNode
         if (m_AttackDuration > 0)
         {
             m_AttackDuration -= Time.deltaTime;
-            if(FloatZeroCheck(m_AttackDuration))
+            if(m_AttackDuration <= 0)
             {
                 m_AttackCooldown = m_Attacker.AttackCooldown * 
                     Random.Range(m_WaitApplier.x, m_WaitApplier.y);
-                m_Attacker.StepBack();
+                m_Attacker.StepBack(m_AttackCooldown);
             }
             return State.Running;
         }
@@ -37,7 +37,7 @@ public class FightNode : ActionNode
         if (m_AttackCooldown > 0)
         {
             m_AttackCooldown -= Time.deltaTime;
-            if(FloatZeroCheck(m_AttackCooldown))
+            if(m_AttackCooldown <= 0)
             {
                 m_Attacker.GoToTarget();
             }
@@ -53,5 +53,4 @@ public class FightNode : ActionNode
         return State.Running;
     }
 
-    public bool FloatZeroCheck(float value) => Mathf.Approximately(Mathf.Max(value, 0), 0);
 }

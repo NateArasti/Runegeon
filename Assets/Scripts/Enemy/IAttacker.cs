@@ -7,7 +7,7 @@
 
     public bool IsTargetInRange();
 
-    public void StepBack();
+    public void StepBack(float stepBackTime);
 
     public void Attack();
 }

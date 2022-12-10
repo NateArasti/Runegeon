@@ -5,6 +5,7 @@ using UnityEngine;
 public class PatrolNode : ActionNode
 {
     [SerializeField, MinMaxSlider(0, 5)] private Vector2 m_WaitDuration;
+    [SerializeField, Min(0)] private float m_ReachedDistance;
     private IPatroller m_Patroller;
     private float m_CurrentWaitDuration;
 

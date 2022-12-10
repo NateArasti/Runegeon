@@ -1,4 +1,3 @@
-using NaughtyAttributes;
 using UnityEngine;
 using UnityExtensions;
 
@@ -20,8 +19,15 @@ public class EnemyVisuals : MonoBehaviour
 
     public void TurnToMoveVector(Vector2 lookDirection)
     {
+        if (lookDirection.x == 0) return;
         m_SpritePivot.localScale = m_SpritePivot.localScale
             .GetYZ(Mathf.Abs(m_SpritePivot.localScale.x) * Mathf.Sign(lookDirection.x));
+    }
+
+    public void Die()
+    {
+        SwitchToState(AnimationState.Death);
+        this.InvokeSecondsDelayed(() => Destroy(gameObject), 2f);
     }
 
     public void SwitchToState(AnimationState state)

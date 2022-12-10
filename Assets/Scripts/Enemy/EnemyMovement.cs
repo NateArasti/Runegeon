@@ -13,10 +13,10 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     [BoxGroup("Vision Check"), SerializeField] private float m_PlayerVisibleDistance = 5f;
 
-    [BoxGroup("Attacks"), SerializeField] private float m_AttakDuration = 1f;
-    [BoxGroup("Attacks"), SerializeField] private float m_AttakCooldown = 1f;
-    [BoxGroup("Attacks"), SerializeField] private float m_AttakRange = 0.5f;
-    [BoxGroup("Attacks"), SerializeField] private float m_StepBackDistance;
+    [BoxGroup("Attacks"), SerializeField] private float m_AttackDuration = 1f;
+    [BoxGroup("Attacks"), SerializeField] private float m_AttackCooldown = 1f;
+    [BoxGroup("Attacks"), SerializeField] private float m_AttackRange = 0.5f;
+    [BoxGroup("Attacks"), SerializeField] private float m_AttackHeightThreshold = 0.1f;
 
     private AIDestinationSetter m_DestinationSetter;
     private AIPath m_AIPath;
@@ -26,8 +26,8 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     private bool m_ForceNotTurning;
 
-    public float AttackDuration => m_AttakDuration;
-    public float AttackCooldown => m_AttakCooldown;
+    public float AttackDuration => m_AttackDuration;
+    public float AttackCooldown => m_AttackCooldown;
 
     private Transform m_StepBackTarget;
     public Transform StepBackTarget 
@@ -54,6 +54,8 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
     {
         var delta = transform.position - m_PreviousPosition;
         m_LookVector = delta.x < 0 ? Vector2.left : Vector2.right;
+        if (delta.x == 0) m_LookVector = Vector2.zero;
+
         if (!m_ForceNotTurning)
             m_EnemyVisuals.TurnToMoveVector(m_LookVector);
 
@@ -92,15 +94,17 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
         SetPathfindingTarget(m_PatrolTargets[newTargetIndex]);
     }
 
-    public bool HasReachedDestination(float remainingDistance = 0)
+    public bool HasReachedDestination()
     {
-        var check = m_AIPath.remainingDistance <= remainingDistance + Mathf.Epsilon;
-        if (check)
-        {
-            m_DestinationSetter.target = null;
-            m_AIPath.canMove = false;
-        }
+        var check = m_AIPath.reachedEndOfPath;
+        if (check) DiscardMovement();
         return check;
+    }
+
+    private void DiscardMovement()
+    {
+        m_DestinationSetter.target = null;
+        m_AIPath.canMove = false;
     }
 
     public void GoToTarget()
@@ -110,21 +114,20 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     public bool IsTargetInRange()
     {
-        var check = Vector3.Distance(m_Player.position, transform.position) < m_AttakRange;
-        if (check)
-        {
-            m_DestinationSetter.target = null;
-            m_AIPath.canMove = false;
-        }
+        var check = Vector3.Distance(m_Player.position, transform.position) < m_AttackRange &&
+            Mathf.Abs(transform.position.y - m_Player.position.y) < m_AttackHeightThreshold;
+        if (check) DiscardMovement();
         return check;
     }
 
-    public void StepBack()
+    public void StepBack(float stepBackTime)
     {
         StepBackTarget.position = transform.position + 
-            (transform.position - m_Player.position).normalized * m_StepBackDistance;
+            (transform.position - m_Player.position).normalized * 
+            (stepBackTime * m_AIPath.maxSpeed);
         SetPathfindingTarget(StepBackTarget);
         m_ForceNotTurning = true;
+        this.InvokeAfter(() => m_AIPath.reachedEndOfPath, DiscardMovement);
     }
 
     public void Attack()

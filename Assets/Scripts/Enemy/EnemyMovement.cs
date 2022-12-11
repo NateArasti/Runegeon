@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityExtensions;
 
 [RequireComponent(typeof(AIDestinationSetter))]
@@ -17,6 +18,7 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
     [BoxGroup("Attacks"), SerializeField] private float m_AttackCooldown = 1f;
     [BoxGroup("Attacks"), SerializeField] private float m_AttackRange = 0.5f;
     [BoxGroup("Attacks"), SerializeField] private float m_AttackHeightThreshold = 0.1f;
+    [BoxGroup("Attacks"), SerializeField] private UnityEvent<Vector2> m_OnAttack;
 
     private AIDestinationSetter m_DestinationSetter;
     private AIPath m_AIPath;
@@ -94,9 +96,11 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
         SetPathfindingTarget(m_PatrolTargets[newTargetIndex]);
     }
 
-    public bool HasReachedDestination()
+    public bool HasReachedPatrolDestination()
     {
-        var check = m_AIPath.reachedEndOfPath;
+        var check = m_DestinationSetter.target == null ||
+            m_DestinationSetter.target == m_Player ||
+            Vector2.Distance(m_AIPath.destination, transform.position) < 0.01f;
         if (check) DiscardMovement();
         return check;
     }
@@ -133,6 +137,7 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
     public void Attack()
     {
         m_EnemyVisuals.SwitchToState(EnemyVisuals.AnimationState.Attack);
+        m_OnAttack.Invoke(m_LookVector);
         m_EnemyVisuals.InvokeSecondsDelayed(
             () => m_EnemyVisuals.SwitchToState(EnemyVisuals.AnimationState.IDLE), 
             AttackDuration

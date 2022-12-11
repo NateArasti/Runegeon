@@ -16,14 +16,15 @@ public class PatrolNode : ActionNode
     protected override void OnStart()
     {
         m_Patroller = m_ExecutorObject.GetComponent<IPatroller>();
-        m_Patroller.SetNextTarget();
+        m_Patroller.SetNextTarget(true);
+        m_CurrentWaitDuration = 0;
     }
 
     protected override State OnUpdate()
     {
         if(m_Patroller == null) return State.Failure;
 
-        if (!Waiting && m_Patroller.HasReachedDestination())
+        if (!Waiting && m_Patroller.HasReachedPatrolDestination())
         {
             m_CurrentWaitDuration = Random.Range(m_WaitDuration.x, m_WaitDuration.y);
         }

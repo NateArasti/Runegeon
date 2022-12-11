@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace SimpleBehaviourTree
 {
     public class SelectorNode : CompositionNode
@@ -16,6 +14,8 @@ namespace SimpleBehaviourTree
             do
             {
                 currentChildState = children[m_CurrentChildIndex].Update();
+                if(currentChildState == State.Failure)
+                    children[m_CurrentChildIndex].DiscardState();
                 m_CurrentChildIndex++;
             } while (currentChildState == State.Failure);
 

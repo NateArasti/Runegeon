@@ -14,6 +14,7 @@ namespace SimpleBehaviourTree
             {
                 return child.Update();
             }
+            child.DiscardState();
             return State.Failure;
         }
 

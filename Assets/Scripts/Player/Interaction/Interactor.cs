@@ -7,12 +7,12 @@ public class Interactor : InteractionBase
     public event UnityAction OnInteract;
 
     [Space]
-    [SerializeField] private InputActionProperty m_InteractiAction;
+    [SerializeField] private InputActionProperty m_InteractAction;
 
     private void Start()
     {
-        m_InteractiAction.action.Enable();
-        m_InteractiAction.action.performed += Interact;
+        m_InteractAction.action.Enable();
+        m_InteractAction.action.performed += Interact;
     }
 
     private void Interact(InputAction.CallbackContext obj)

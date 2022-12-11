@@ -103,10 +103,16 @@ public class PlayerVisuals : MonoBehaviour
         }
         else
         {
-            if (verticalInput > 0) m_PreviousDirection = RectangularDirection.Up;
-            if (verticalInput < 0) m_PreviousDirection = RectangularDirection.Down;
-            if (horizontalInput > 0) m_PreviousDirection = RectangularDirection.Right;
-            if (horizontalInput < 0) m_PreviousDirection = RectangularDirection.Left;
+            if(Mathf.Abs(horizontalInput) < Mathf.Abs(verticalInput))
+            {
+                if (verticalInput > 0) m_PreviousDirection = RectangularDirection.Up;
+                else if (verticalInput < 0) m_PreviousDirection = RectangularDirection.Down;
+            }
+            else
+            {
+                if (horizontalInput > 0) m_PreviousDirection = RectangularDirection.Right;
+                else if (horizontalInput < 0) m_PreviousDirection = RectangularDirection.Left;
+            }
         }
     }
 }

@@ -124,7 +124,6 @@ namespace BehavioursRectangularGraph
 
             foreach (var cycle in foundCycles)
             {
-                Debug.Log("a");
                 foreach (var cycleCheck in cycle.cycleChecks)
                 {
                     GetNeigboursByDirection(cycleCheck.direction)[cycleCheck.exitIndex] = cycle.otherNode;

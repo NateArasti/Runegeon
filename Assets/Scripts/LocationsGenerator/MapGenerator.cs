@@ -15,7 +15,6 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap(RectangularNode<Room> startNode)
     {
-
 #if UNITY_EDITOR
         if (EditorApplication.isPlaying)
             m_SpawnPivot.DestroyChildren();

@@ -8,6 +8,8 @@ using UnityEngine.Tilemaps;
 
 public class Room : RectangularNodeBehavior
 {
+    [SerializeField] private Transform m_StartPosition;
+
     [BoxGroup("Shape"), SerializeField] private Tilemap m_ShapeReferenceTilemap;
     [BoxGroup("Shape"), SerializeField, ReadOnly] private Bounds m_LocalBounds;
 
@@ -26,9 +28,12 @@ public class Room : RectangularNodeBehavior
     public override IReadOnlyList<Transform> LeftExits => m_LeftExits;
     public override IReadOnlyList<Transform> BottomExits => m_BottomExits;
 
+    public Vector2 StartPosition => m_StartPosition.position;
+
     public Texture2D MapRender => m_MapShapeRender;
     public Bounds LocalBounds => m_LocalBounds;
     public int PixelsPerUnit => m_PixelsPerUnit;
+
     public void SetRoomColor(Color color) => m_ShapeReferenceTilemap.color = color;
 
     public override bool IsCompatable(

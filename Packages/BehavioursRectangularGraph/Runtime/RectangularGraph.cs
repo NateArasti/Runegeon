@@ -52,7 +52,7 @@ namespace BehavioursRectangularGraph
             CalculateRoomPossiblities();
 
             var possibleStartNodeBehaviours = PossibleNodeBehaviours
-                .Where(nodeBehaviour => nodeBehaviour.LeftExits.Count == 0)
+                //.Where(nodeBehaviour => nodeBehaviour.LeftExits.Count == 0)
                 .GetWeightedShuffle(behaviour => behaviour.SpawnChance);
 
             foreach(var startNodeBehaviour in possibleStartNodeBehaviours)
@@ -171,7 +171,10 @@ namespace BehavioursRectangularGraph
         {
             var spawnDeadEnd = node.Depth == MaxDepth - 1 || Random.value < DeadEndChance;
 
-            var possibleNextNodeBehaviours = GetPossibleNextNodeBehaviours(neighbourDirection, spawnDeadEnd);
+            var possibleNextNodeBehaviours = GetPossibleNextNodeBehaviours(
+                node.ReferenceBehaviour, 
+                neighbourDirection, 
+                spawnDeadEnd);
 
             foreach (var nodeBehaviour in possibleNextNodeBehaviours)
             {
@@ -192,7 +195,10 @@ namespace BehavioursRectangularGraph
             return false;
         }
 
-        private IEnumerable<T> GetPossibleNextNodeBehaviours(RectangularDirection neighbourDirection, bool spawnDeadEnd)
+        private IEnumerable<T> GetPossibleNextNodeBehaviours(
+            T nodeBehaviour,
+            RectangularDirection neighbourDirection, 
+            bool spawnDeadEnd)
         {
             var possibleNextNodeBehaviours = (neighbourDirection, spawnDeadEnd) switch
             {
@@ -207,7 +213,15 @@ namespace BehavioursRectangularGraph
                 _ => throw new System.NotImplementedException(),
             };
 
-            return possibleNextNodeBehaviours.GetWeightedShuffle(behaviour => behaviour.SpawnChance);
+            var shuffled = possibleNextNodeBehaviours
+                .GetWeightedShuffle(behaviour => behaviour.SpawnChance)
+                .ToList();
+            if (shuffled.Contains(nodeBehaviour))
+            {
+                shuffled.Remove(nodeBehaviour);
+                shuffled.Add(nodeBehaviour);
+            }
+            return shuffled;
         }
 
         private List<(RectangularDirection neighbourDirection, int neighbourIndex)>

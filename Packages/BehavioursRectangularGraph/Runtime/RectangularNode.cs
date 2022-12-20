@@ -5,6 +5,7 @@ namespace BehavioursRectangularGraph
 {
     public class RectangularNode<T> where T : RectangularNodeBehavior
     {
+        public T SpawnedBehaviour { get; set; }
         public readonly T ReferenceBehaviour;
 
         public readonly RectangularNode<T>[] LeftNeighbours;

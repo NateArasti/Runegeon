@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityExtensions;
 
 public class LocationGenerator : MonoBehaviour
 {
+    [SerializeField] private UnityEvent<RectangularNode<Room>> m_OnLocationGenerated;
+    [Space]
     [SerializeField] private List<Room> m_RoomsPrefabs;
-    [SerializeField] private MapGenerator m_MapGenerator;
 
     [BoxGroup("Random"), SerializeField] private bool m_CustomSeed;
     [BoxGroup("Random"), SerializeField, ShowIf(nameof(m_CustomSeed))] private int m_Seed;
 
+    [BoxGroup("Generation Params"), SerializeField] private bool m_GenerateOnAwake = true;
     [BoxGroup("Generation Params"), SerializeField, MinValue(2), MaxValue(10)] private int m_MaxDepth = 5;
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
@@ -31,6 +34,9 @@ public class LocationGenerator : MonoBehaviour
             m_Seed = System.BitConverter.ToInt32(System.Guid.NewGuid().ToByteArray());
         }
         Random.InitState(m_Seed);
+
+        if(m_GenerateOnAwake && Application.isPlaying)
+            Generate();
     }
 
     [Button("Generate")]
@@ -86,13 +92,17 @@ public class LocationGenerator : MonoBehaviour
                 if(m_ColorRoomDueToDepth)
                     room.SetRoomColor(m_DepthGradient.Evaluate((float)node.Depth / m_MaxDepth));
 
+                node.SpawnedBehaviour = room;
                 SpawnedRooms.Add(room);
             }
         }
         var result = success ? "success" : "fail";
         Debug.Log($"Generation finished with result - {result}");
 
-        if(m_MapGenerator != null)
-            m_MapGenerator.GenerateMap(graph.Nodes.First());
+        if (success)
+        {
+            var startNode = graph.Nodes.First();
+            m_OnLocationGenerated.Invoke(startNode);
+        }
     }
 }

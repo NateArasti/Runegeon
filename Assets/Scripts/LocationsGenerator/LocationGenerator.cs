@@ -2,13 +2,13 @@ using BehavioursRectangularGraph;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityExtensions;
 
 public class LocationGenerator : MonoBehaviour
 {
+    [Space]
     [SerializeField] private UnityEvent<RectangularNode<Room>> m_OnLocationGenerated;
     [Space]
     [SerializeField] private List<Room> m_RoomsPrefabs;
@@ -21,7 +21,6 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
     [BoxGroup("Generation Params"), SerializeField] private bool m_ColorRoomDueToDepth = true;
-
     [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(m_ColorRoomDueToDepth))] 
     private Gradient m_DepthGradient;
 
@@ -34,8 +33,11 @@ public class LocationGenerator : MonoBehaviour
             m_Seed = System.BitConverter.ToInt32(System.Guid.NewGuid().ToByteArray());
         }
         Random.InitState(m_Seed);
+    }
 
-        if(m_GenerateOnAwake && Application.isPlaying)
+    private void Start()
+    {
+        if (m_GenerateOnAwake)
             Generate();
     }
 
@@ -49,7 +51,7 @@ public class LocationGenerator : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if(EditorApplication.isPlaying)
+        if(Application.isPlaying)
             transform.DestroyChildren();
         else
         {
@@ -79,7 +81,7 @@ public class LocationGenerator : MonoBehaviour
         {
             foreach (var node in graph.Nodes)
             {
-                var room = Object.Instantiate(
+                var room = Instantiate(
                     node.ReferenceBehaviour,
                     node.NodeWorldPosition,
                     Quaternion.identity,
@@ -87,9 +89,10 @@ public class LocationGenerator : MonoBehaviour
                     );
 
                 room.name = $"{node.ReferenceBehaviour.name}_[id = {System.Guid.NewGuid().ToString()[0..3]}]";
+                room.Depth = node.Depth;
 
                 //just for debug puprose
-                if(m_ColorRoomDueToDepth)
+                if (m_ColorRoomDueToDepth)
                     room.SetRoomColor(m_DepthGradient.Evaluate((float)node.Depth / m_MaxDepth));
 
                 node.SpawnedBehaviour = room;

@@ -4,22 +4,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityExtensions;
 
-[RequireComponent(typeof(AIDestinationSetter))]
+[RequireComponent(typeof(EnemyData), typeof(AIDestinationSetter))]
 public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacker
 {
     [SerializeField] private EnemyVisuals m_EnemyVisuals;
-    [SerializeField] private Transform m_Player;
-
-    [BoxGroup("Patrol"), SerializeField] private Transform[] m_PatrolTargets;
 
     [BoxGroup("Vision Check"), SerializeField] private float m_PlayerVisibleDistance = 5f;
-
     [BoxGroup("Attacks"), SerializeField] private float m_AttackDuration = 1f;
     [BoxGroup("Attacks"), SerializeField] private float m_AttackCooldown = 1f;
     [BoxGroup("Attacks"), SerializeField] private float m_AttackRange = 0.5f;
     [BoxGroup("Attacks"), SerializeField] private float m_AttackHeightThreshold = 0.1f;
     [BoxGroup("Attacks"), SerializeField] private UnityEvent<Vector2> m_OnAttack;
 
+    private EnemyData m_EnemyData;
     private AIDestinationSetter m_DestinationSetter;
     private AIPath m_AIPath;
 
@@ -48,6 +45,8 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     private void Awake()
     {
+        m_EnemyData = GetComponent<EnemyData>();
+
         m_DestinationSetter = GetComponent<AIDestinationSetter>();
         m_AIPath = GetComponent<AIPath>();
     }
@@ -85,21 +84,20 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     public bool CheckTargetInSight()
     {
-        return m_Player != null &&
-            Vector3.Distance(m_Player.position, transform.position) < m_PlayerVisibleDistance;
+        return PlayerData.PlayerTransform != null &&
+            Vector3.Distance(PlayerData.PlayerTransform.position, transform.position) < m_PlayerVisibleDistance;
     }
 
     public void SetNextTarget(bool forceSet = false)
     {
         if(!forceSet && m_DestinationSetter.target != null) return;
-        var newTargetIndex = Random.Range(0, m_PatrolTargets.Length);
-        SetPathfindingTarget(m_PatrolTargets[newTargetIndex]);
+        SetPathfindingTarget(m_EnemyData.PatrolPoints.GetRandomObject());
     }
 
     public bool HasReachedPatrolDestination()
     {
         var check = m_DestinationSetter.target == null ||
-            m_DestinationSetter.target == m_Player ||
+            m_DestinationSetter.target == PlayerData.PlayerTransform ||
             Vector2.Distance(m_AIPath.destination, transform.position) < 0.01f;
         if (check) DiscardMovement();
         return check;
@@ -113,13 +111,13 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
 
     public void GoToTarget()
     {
-        SetPathfindingTarget(m_Player);
+        SetPathfindingTarget(PlayerData.PlayerTransform);
     }
 
     public bool IsTargetInRange()
     {
-        var check = Vector3.Distance(m_Player.position, transform.position) < m_AttackRange &&
-            Mathf.Abs(transform.position.y - m_Player.position.y) < m_AttackHeightThreshold;
+        var check = Vector3.Distance(PlayerData.PlayerTransform.position, transform.position) < m_AttackRange &&
+            Mathf.Abs(transform.position.y - PlayerData.PlayerTransform.position.y) < m_AttackHeightThreshold;
         if (check) DiscardMovement();
         return check;
     }
@@ -127,7 +125,7 @@ public class EnemyMovement : MonoBehaviour, IVisionChecker, IPatroller, IAttacke
     public void StepBack(float stepBackTime)
     {
         StepBackTarget.position = transform.position + 
-            (transform.position - m_Player.position).normalized * 
+            (transform.position - PlayerData.PlayerTransform.position).normalized * 
             (stepBackTime * m_AIPath.maxSpeed);
         SetPathfindingTarget(StepBackTarget);
         m_ForceNotTurning = true;

@@ -23,6 +23,8 @@ public class Room : RectangularNodeBehavior
     [Foldout("Exits"), SerializeField] private Transform[] m_LeftExits;
     [Foldout("Exits"), SerializeField] private Transform[] m_BottomExits;
 
+    public int Depth { get; set; }
+
     public override IReadOnlyList<Transform> TopExits => m_TopExits;
     public override IReadOnlyList<Transform> RightExits => m_RightExits;
     public override IReadOnlyList<Transform> LeftExits => m_LeftExits;

@@ -8,7 +8,6 @@ public class Pause : MonoBehaviour
     [SerializeField] private InputActionProperty m_PauseToggleAction;
     [Space]
     [SerializeField] private Button m_PauseButton;
-    [SerializeField] private Button m_PlayButton;
     [Space]
     [SerializeField] private UnityEvent m_OnPause;
     [SerializeField] private UnityEvent m_OnPlay;

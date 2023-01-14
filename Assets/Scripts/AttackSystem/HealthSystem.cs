@@ -41,7 +41,7 @@ public class HealthSystem : MonoBehaviour
 
     protected virtual void OnHealthChanged() { }
 
-    public void TryHit(AttackProvider attackProvider)
+    public void TryHit(IAttackProvider attackProvider)
     {
         if (m_Invincible) return;
         SetInvincible();

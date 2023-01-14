@@ -16,6 +16,9 @@ namespace BehavioursRectangularGraph
         public readonly int Depth;
 
         public Vector3 NodeWorldPosition { get; private set; }
+        public bool IsDeadEnd => Depth > 0 &&
+            (LeftNeighbours.Length + RightNeighbours.Length + TopNeighbours.Length + BottomNeighbours.Length) == 1;
+
 
         public RectangularNode(T behaviour, int depth)
         {
@@ -112,7 +115,7 @@ namespace BehavioursRectangularGraph
                     continue;
                 }
 
-                if (!ReferenceBehaviour.IsCompatable(
+                if (!ReferenceBehaviour.IsCompatible(
                         NodeWorldPosition,
                         node.ReferenceBehaviour,
                         node.NodeWorldPosition

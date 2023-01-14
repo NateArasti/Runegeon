@@ -24,7 +24,9 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(m_ColorRoomDueToDepth))] 
     private Gradient m_DepthGradient;
 
-    private readonly HashSet<Room> SpawnedRooms = new();
+    private readonly HashSet<Room> m_SpawnedRooms = new();
+
+    public IReadOnlyCollection<RectangularNode<Room>> RoomNodes { get; private set; }
 
     private void Awake()
     {
@@ -67,7 +69,7 @@ public class LocationGenerator : MonoBehaviour
 #else
         transform.DestroyChildren();
 #endif
-        SpawnedRooms.Clear();
+        m_SpawnedRooms.Clear();
 
         var graph = new RectangularGraph<Room>(m_RoomsPrefabs)
         {
@@ -96,7 +98,7 @@ public class LocationGenerator : MonoBehaviour
                     room.SetRoomColor(m_DepthGradient.Evaluate((float)node.Depth / m_MaxDepth));
 
                 node.SpawnedBehaviour = room;
-                SpawnedRooms.Add(room);
+                m_SpawnedRooms.Add(room);
             }
         }
         var result = success ? "success" : "fail";
@@ -105,6 +107,7 @@ public class LocationGenerator : MonoBehaviour
         if (success)
         {
             var startNode = graph.Nodes.First();
+            RoomNodes = graph.Nodes;
             m_OnLocationGenerated.Invoke(startNode);
         }
     }

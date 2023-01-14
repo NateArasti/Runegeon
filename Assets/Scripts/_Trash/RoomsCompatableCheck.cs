@@ -13,7 +13,7 @@ public class RoomsCompatableCheck : MonoBehaviour
     {
         if (_firstRoom != null && _secondRoom != null)
         {
-            _isCompatable = _firstRoom.IsCompatable(
+            _isCompatable = _firstRoom.IsCompatible(
                 _firstRoom.transform.position,
                 _secondRoom,
                 _secondRoom.transform.position);

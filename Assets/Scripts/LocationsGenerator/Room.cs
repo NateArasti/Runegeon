@@ -38,7 +38,7 @@ public class Room : RectangularNodeBehavior
 
     public void SetRoomColor(Color color) => m_ShapeReferenceTilemap.color = color;
 
-    public override bool IsCompatable(
+    public override bool IsCompatible(
         Vector3 behaviourWorldPosition, 
         RectangularNodeBehavior otherBehavior, 
         Vector3 otherBehaviorWorldPosition)

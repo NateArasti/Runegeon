@@ -175,17 +175,6 @@
                 },
                 {
                     "name": "",
-                    "id": "26c515db-ba0e-4aba-9cf2-65b25ec3cd48",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8a135c6a-6642-441f-a348-59600ccf207d",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",

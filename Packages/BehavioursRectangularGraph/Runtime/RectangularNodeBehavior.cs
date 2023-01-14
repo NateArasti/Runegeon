@@ -18,7 +18,7 @@ namespace BehavioursRectangularGraph
 
         #endregion
 
-        public abstract bool IsCompatable(
+        public abstract bool IsCompatible(
             Vector3 behaviourWorldPosition,
             RectangularNodeBehavior otherBehavior,
             Vector3 otherBehaviorWorldPosition

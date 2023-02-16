@@ -2,6 +2,7 @@ using BehavioursRectangularGraph;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityExtensions;
 
 public class RuneSpawner : MonoBehaviour
 {

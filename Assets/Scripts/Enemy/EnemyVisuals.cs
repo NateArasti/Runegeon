@@ -1,3 +1,4 @@
+using QuickEye.Utility;
 using UnityEngine;
 using UnityExtensions;
 
@@ -13,7 +14,7 @@ public class EnemyVisuals : MonoBehaviour
 
     [SerializeField] private Transform m_SpritePivot;
     [SerializeField] private Animator m_Animator;
-    [SerializeField] private AnimationStateKeys m_AnimationStateKeys;
+    [SerializeField] private UnityDictionary<AnimationState, string> m_AnimationStateKeys;
 
     public AnimationState CurrentAnimationState { get; private set; } = AnimationState.IDLE;
 
@@ -36,7 +37,4 @@ public class EnemyVisuals : MonoBehaviour
         m_Animator.CrossFade(m_AnimationStateKeys[state], 0);
         CurrentAnimationState = state;
     }
-
-    [System.Serializable]
-    public class AnimationStateKeys : SerializedDictionary<AnimationState, string> { }
 }

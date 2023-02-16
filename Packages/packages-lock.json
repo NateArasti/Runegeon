@@ -19,14 +19,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "540c4c81a652f52e97caf0ec7fe5b5f6f2f0d397"
+      "hash": "0e88ad6168bcd546507867aed68edff2a953baf2"
     },
     "com.arastigames.unityextensions-methods": {
       "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Methods",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0074fef0ffe1d01450d9bb63ee46e08c430d337b"
+      "hash": "23e0bc4f1e11b1c1891aca5e530c62c9b89938ac"
     },
     "com.arastigames.unityextensions-tools": {
       "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Tools",
@@ -58,6 +58,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
+    },
+    "com.quickeye.utility": {
+      "version": "https://github.com/ErnSur/QuickEye-Utility.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.settings-manager": "2.0.1"
+      },
+      "hash": "1b9c1aaab0f66a32f7e80b8ed2a7257015e509c2"
     },
     "com.unity.2d.animation": {
       "version": "7.0.5",
@@ -378,6 +387,13 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.modules.androidjni": "1.0.0"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.settings-manager": {
+      "version": "2.0.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {

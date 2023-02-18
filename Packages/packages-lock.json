@@ -59,6 +59,13 @@
       "dependencies": {},
       "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
     },
+    "com.gabrielbigardi.spriteanimator": {
+      "version": "https://github.com/GabrielBigardi/Unity-2D-Sprite-Animator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4a51aea73b005bf8b0ffb575d04ae383c303a910"
+    },
     "com.quickeye.utility": {
       "version": "https://github.com/ErnSur/QuickEye-Utility.git#upm",
       "depth": 0,

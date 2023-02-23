@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BehavioursRectangularGraph
@@ -42,19 +43,22 @@ namespace BehavioursRectangularGraph
             return ReferenceBehaviour.GetExitWorldPosition(exitDirection, exitIndex, NodeWorldPosition);
         }
 
-        public IEnumerable<RectangularNode<T>> GetAllCreatedNeighbours()
+        public IEnumerable<RectangularNode<T>> GetAllCreatedNeighbours(HashSet<RectangularNode<T>> visitedNodes = null)
         {
+            if(visitedNodes == null) visitedNodes = new HashSet<RectangularNode<T>>();
             foreach (var direction in Utility.GetEachDirection())
             {
                 foreach (var node in GetNeigboursByDirection(direction))
                 {
                     if (node != null && node.Depth > Depth)
                     {
-                        foreach (var innerCreatedNode in node.GetAllCreatedNeighbours())
+                        foreach (var innerCreatedNode in node.GetAllCreatedNeighbours(visitedNodes))
                         {
                             yield return innerCreatedNode;
+                            visitedNodes.Add(innerCreatedNode);
                         }
                         yield return node;
+                        visitedNodes.Add(node);
                     }
                 }
             }
@@ -102,14 +106,13 @@ namespace BehavioursRectangularGraph
                 {
                     continue;
                 }
-                
-                if(handleCycles && ReferenceBehaviour.TryGetCycles(
-                        NodeWorldPosition, 
+
+                if (handleCycles && ReferenceBehaviour.TryGetCycles(
+                        NodeWorldPosition,
                         node.ReferenceBehaviour,
                         node.NodeWorldPosition,
                         out var cycles
-                        )
-                    )
+                        ))
                 {
                     foundCycles.Add((node, cycles));
                     continue;
@@ -119,8 +122,7 @@ namespace BehavioursRectangularGraph
                         NodeWorldPosition,
                         node.ReferenceBehaviour,
                         node.NodeWorldPosition
-                        )
-                    )
+                        ))
                 {
                     return false;
                 }
@@ -128,12 +130,11 @@ namespace BehavioursRectangularGraph
 
             foreach (var cycle in foundCycles)
             {
+                var otherNode = cycle.otherNode;
                 foreach (var cycleCheck in cycle.cycleChecks)
                 {
                     GetNeigboursByDirection(cycleCheck.direction)[cycleCheck.exitIndex] = cycle.otherNode;
-                    cycle.otherNode
-                        .GetNeigboursByDirection(cycleCheck.otherDirection)
-                        [cycleCheck.otherExitIndex] = this;
+                    otherNode.GetNeigboursByDirection(cycleCheck.otherDirection)[cycleCheck.otherExitIndex] = this;
                 }
             }
 

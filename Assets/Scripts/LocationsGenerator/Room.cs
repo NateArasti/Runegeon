@@ -67,8 +67,21 @@ public class Room : RectangularNodeBehavior
         worldBounds.center += behaviourWorldPosition;
         var otherWorldBounds = otherRoom.m_LocalBounds;
         otherWorldBounds.center += otherBehaviorWorldPosition;
+        var intersets = worldBounds.Intersects(otherWorldBounds);
+        if (intersets)
+        {
+            var worldBoundsXMax = worldBounds.center + new Vector3(worldBounds.extents.x, -worldBounds.extents.y);
+            var worldBoundsYMax = worldBounds.center + new Vector3(-worldBounds.extents.x, worldBounds.extents.y);
+            var otherWorldBoundsXMax = otherWorldBounds.center + new Vector3(otherWorldBounds.extents.x, -otherWorldBounds.extents.y);
+            var otherWorldBoundsYMax = otherWorldBounds.center + new Vector3(-otherWorldBounds.extents.x, otherWorldBounds.extents.y);
+            //Checking if it's 1-point intersection
+            return worldBounds.max != otherWorldBounds.min &&
+                worldBounds.min != otherWorldBounds.max &&
+                worldBoundsXMax != otherWorldBoundsYMax &&
+                worldBoundsYMax != otherWorldBoundsXMax;
 
-        return worldBounds.Intersects(otherWorldBounds);
+        }
+        return intersets;
     }
 
 #if UNITY_EDITOR
@@ -76,6 +89,7 @@ public class Room : RectangularNodeBehavior
     [ContextMenu("GetBounds"), Button("GetBounds")]
     private void GetLocalBounds()
     {
+        m_ShapeReferenceTilemap.CompressBounds();
         var temp = Object.Instantiate(this);
         m_LocalBounds = temp.m_ShapeReferenceTilemap.localBounds;
         Object.DestroyImmediate(temp.gameObject);

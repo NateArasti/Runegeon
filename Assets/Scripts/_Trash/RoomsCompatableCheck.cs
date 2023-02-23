@@ -1,11 +1,12 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [ExecuteInEditMode]
 public class RoomsCompatableCheck : MonoBehaviour
 {
-    [SerializeField] private Room _firstRoom;
-    [SerializeField] private Room _secondRoom;
+    [SerializeField] private TilemapCollider2D _firstRoom;
+    [SerializeField] private TilemapCollider2D _secondRoom;
 
     [SerializeField, ReadOnly] private bool _isCompatable;
 
@@ -13,10 +14,7 @@ public class RoomsCompatableCheck : MonoBehaviour
     {
         if (_firstRoom != null && _secondRoom != null)
         {
-            _isCompatable = _firstRoom.IsCompatible(
-                _firstRoom.transform.position,
-                _secondRoom,
-                _secondRoom.transform.position);
+            _isCompatable = _firstRoom.IsTouching(_secondRoom);
         }
     }
 }

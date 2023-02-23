@@ -150,6 +150,8 @@ namespace BehavioursRectangularGraph
             for (var i = 0; i < requirableNeighbours.Count; ++i)
             {
                 var (neighbourDirection, neighbourIndex) = requirableNeighbours[i];
+                // Skipping neighbours setted by cycle
+                if (node.GetNeigboursByDirection(neighbourDirection)[neighbourIndex] != null) continue;
                 if (!TryGetNextNode(node, neighbourDirection, neighbourIndex))
                 {
                     Nodes.Remove(node);
@@ -169,6 +171,8 @@ namespace BehavioursRectangularGraph
             RectangularDirection neighbourDirection,
             int neighbourIndex)
         {
+            if (node.Depth >= MaxDepth) return false;
+
             var spawnDeadEnd = node.Depth == MaxDepth - 1 || Random.value < DeadEndChance;
 
             var possibleNextNodeBehaviours = GetPossibleNextNodeBehaviours(

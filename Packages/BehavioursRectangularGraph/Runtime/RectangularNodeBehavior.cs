@@ -88,16 +88,9 @@ namespace BehavioursRectangularGraph
             int exitIndex,
             Vector3 exitWorldPosition)
         {
-            try
-            {
-                var currentExitPosition = GetExitsByDirection(exitDirection)[exitIndex].position;
-                var delta = -transform.InverseTransformPoint(currentExitPosition);
-                return exitWorldPosition + delta;
-            }
-            catch (System.IndexOutOfRangeException)
-            {
-                throw new System.ArgumentOutOfRangeException($"Exit index was out of range - {exitIndex}");
-            }
+            var currentExitPosition = GetExitsByDirection(exitDirection)[exitIndex].position;
+            var delta = -transform.InverseTransformPoint(currentExitPosition);
+            return exitWorldPosition + delta;
         }
     }
 }

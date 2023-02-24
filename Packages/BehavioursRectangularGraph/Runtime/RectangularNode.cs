@@ -43,22 +43,20 @@ namespace BehavioursRectangularGraph
             return ReferenceBehaviour.GetExitWorldPosition(exitDirection, exitIndex, NodeWorldPosition);
         }
 
-        public IEnumerable<RectangularNode<T>> GetAllCreatedNeighbours(HashSet<RectangularNode<T>> visitedNodes = null)
+        public IEnumerable<RectangularNode<T>> GetAllCreatedNeighbours()
         {
-            if(visitedNodes == null) visitedNodes = new HashSet<RectangularNode<T>>();
             foreach (var direction in Utility.GetEachDirection())
             {
                 foreach (var node in GetNeigboursByDirection(direction))
                 {
                     if (node != null && node.Depth > Depth)
                     {
-                        foreach (var innerCreatedNode in node.GetAllCreatedNeighbours(visitedNodes))
+                        foreach (var innerCreatedNode in node.GetAllCreatedNeighbours())
                         {
                             yield return innerCreatedNode;
-                            visitedNodes.Add(innerCreatedNode);
                         }
+
                         yield return node;
-                        visitedNodes.Add(node);
                     }
                 }
             }
@@ -76,18 +74,38 @@ namespace BehavioursRectangularGraph
             };
         }
 
+        public int SetAsRandomNeighbour(
+            RectangularNode<T> neighbour,
+            RectangularDirection neighbourDirection)
+        {
+            var directionNeighbours = GetNeigboursByDirection(neighbourDirection);
+            var randomNeighbourIndex = Random.Range(0, directionNeighbours.Length);
+
+            SetAsNeighbour(neighbour, neighbourDirection, randomNeighbourIndex);
+
+            return randomNeighbourIndex;
+        }
+
         public void SetAsNeighbour(
             RectangularNode<T> neighbour,
             RectangularDirection neighbourDirection,
-            Vector3 neighbourExitWorldPosition)
+            int neighbourIndex)
         {
-            var inverseDirection = Utility.GetInversedDirection(neighbourDirection);
-            var directionNeighbours = GetNeigboursByDirection(inverseDirection);
-            var neighbourIndex = Random.Range(0, directionNeighbours.Length);
+            var directionNeighbours = GetNeigboursByDirection(neighbourDirection);
             directionNeighbours[neighbourIndex] = neighbour;
+        }
+
+        public void SetPositionRelatively(
+            RectangularNode<T> neighbour,
+            RectangularDirection neighbourDirection,
+            int neighbourIndex,
+            int neighbourExitIndex)
+        {
+            var neighbourExitWorldPosition = neighbour
+                .GetExitWorldPosition(Utility.GetInversedDirection(neighbourDirection), neighbourExitIndex);
 
             NodeWorldPosition = ReferenceBehaviour.GetWorldPositionRelatively(
-                inverseDirection,
+                neighbourDirection,
                 neighbourIndex,
                 neighbourExitWorldPosition
                 );
@@ -96,10 +114,9 @@ namespace BehavioursRectangularGraph
         public bool CheckGlobalCompatability(
             IEnumerable<RectangularNode<T>> otherNodes,
             RectangularNode<T> ignoreNode,
-            bool handleCycles = true)
+            out List<(RectangularNode<T> otherNode, List<Utility.CycleCheckInfo> cycleChecks)> foundCycles)
         {
-            var foundCycles = new 
-                List<(RectangularNode<T> otherNode, List<Utility.CycleCheckInfo> cycleChecks)>();
+            foundCycles = new List<(RectangularNode<T> otherNode, List<Utility.CycleCheckInfo> cycleChecks)>();
             foreach (var node in otherNodes)
             {
                 if (node == ignoreNode)
@@ -107,7 +124,7 @@ namespace BehavioursRectangularGraph
                     continue;
                 }
 
-                if (handleCycles && ReferenceBehaviour.TryGetCycles(
+                if (ReferenceBehaviour.TryGetCycles(
                         NodeWorldPosition,
                         node.ReferenceBehaviour,
                         node.NodeWorldPosition,
@@ -128,13 +145,28 @@ namespace BehavioursRectangularGraph
                 }
             }
 
-            foreach (var cycle in foundCycles)
+            return true;
+        }
+
+        public bool CheckGlobalCompatability(
+            IEnumerable<RectangularNode<T>> otherNodes,
+            RectangularNode<T> ignoreNode
+            )
+        {
+            foreach (var node in otherNodes)
             {
-                var otherNode = cycle.otherNode;
-                foreach (var cycleCheck in cycle.cycleChecks)
+                if (node == ignoreNode)
                 {
-                    GetNeigboursByDirection(cycleCheck.direction)[cycleCheck.exitIndex] = cycle.otherNode;
-                    otherNode.GetNeigboursByDirection(cycleCheck.otherDirection)[cycleCheck.otherExitIndex] = this;
+                    continue;
+                }
+
+                if (!ReferenceBehaviour.IsCompatible(
+                        NodeWorldPosition,
+                        node.ReferenceBehaviour,
+                        node.NodeWorldPosition
+                        ))
+                {
+                    return false;
                 }
             }
 

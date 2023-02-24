@@ -17,7 +17,7 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Random"), SerializeField, ShowIf(nameof(m_CustomSeed))] private int m_Seed;
 
     [BoxGroup("Generation Params"), SerializeField] private bool m_GenerateOnAwake = true;
-    [BoxGroup("Generation Params"), SerializeField, MinValue(2), MaxValue(10)] private int m_MaxDepth = 5;
+    [BoxGroup("Generation Params"), SerializeField, MinMaxSlider(1, 20)] private Vector2 m_DepthRange = new Vector2(2, 5);
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
     [BoxGroup("Generation Params"), SerializeField] private bool m_ColorRoomDueToDepth = true;
@@ -74,7 +74,7 @@ public class LocationGenerator : MonoBehaviour
         var graph = new RectangularGraph<Room>(m_RoomsPrefabs)
         {
             DeadEndChance = m_DeadEndChance,
-            MaxDepth = m_MaxDepth,
+            DepthRange = m_DepthRange,
             HandleCycles = m_HandleCycles,
         };
 
@@ -95,7 +95,7 @@ public class LocationGenerator : MonoBehaviour
 
                 //just for debug puprose
                 if (m_ColorRoomDueToDepth)
-                    room.SetRoomColor(m_DepthGradient.Evaluate((float)node.Depth / m_MaxDepth));
+                    room.SetRoomColor(m_DepthGradient.Evaluate(node.Depth / m_DepthRange.y));
 
                 node.SpawnedBehaviour = room;
                 m_SpawnedRooms.Add(room);

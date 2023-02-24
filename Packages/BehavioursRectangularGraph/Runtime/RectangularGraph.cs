@@ -32,7 +32,7 @@ namespace BehavioursRectangularGraph
         public HashSet<RectangularNode<T>> Nodes { get; } = new();
         public IReadOnlyList<T> PossibleNodeBehaviours { get; }
 
-        public int MaxDepth { get; set; } = 5;
+        public Vector2 DepthRange { get; set; } = new Vector2(2, 5);
         public float DeadEndChance { get; set; } = 0.1f;
         public bool HandleCycles { get; set; } = true;
 
@@ -112,28 +112,28 @@ namespace BehavioursRectangularGraph
 
             m_PossibleLeftDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
-                    room.RightExits.Count > 0 &&
+                    room.RightExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
             m_PossibleRightDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
-                    room.LeftExits.Count > 0 &&
+                    room.LeftExits.Count == 1 &&
                     room.RightExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
             m_PossibleTopDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
-                    room.BottomExits.Count > 0 &&
+                    room.BottomExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.RightExits.Count == 0)
                 .ToList();
             m_PossibleBottomDeadEnds = PossibleNodeBehaviours
                 .Where(room =>
-                    room.TopExits.Count > 0 &&
+                    room.TopExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
                     room.RightExits.Count == 0 &&
                     room.BottomExits.Count == 0)
@@ -145,6 +145,7 @@ namespace BehavioursRectangularGraph
         private bool CreateNextNode(RectangularNode<T> node)
         {
             Nodes.Add(node);
+
             var requirableNeighbours = GetShuffledRequirableNeighbours(node);
 
             for (var i = 0; i < requirableNeighbours.Count; ++i)
@@ -154,16 +155,27 @@ namespace BehavioursRectangularGraph
                 if (node.GetNeigboursByDirection(neighbourDirection)[neighbourIndex] != null) continue;
                 if (!TryGetNextNode(node, neighbourDirection, neighbourIndex))
                 {
-                    Nodes.Remove(node);
-                    foreach (var neighbourNode in node.GetAllCreatedNeighbours())
-                    {
-                        Nodes.Remove(neighbourNode);
-                    }
+                    WipeNodeOutOfGraph(node);
                     return false;
                 }
             }
 
+            if (!CheckGraphConsistancy())
+            {
+                WipeNodeOutOfGraph(node);
+                return false;
+            }
+
             return true;
+        }
+
+        private void WipeNodeOutOfGraph(RectangularNode<T> node)
+        {
+            Nodes.Remove(node);
+            foreach (var neighbourNode in node.GetAllCreatedNeighbours())
+            {
+                Nodes.Remove(neighbourNode);
+            }
         }
 
         private bool TryGetNextNode(
@@ -171,9 +183,9 @@ namespace BehavioursRectangularGraph
             RectangularDirection neighbourDirection,
             int neighbourIndex)
         {
-            if (node.Depth >= MaxDepth) return false;
+            if (node.Depth >= DepthRange.y) return false;
 
-            var spawnDeadEnd = node.Depth == MaxDepth - 1 || Random.value < DeadEndChance;
+            var spawnDeadEnd = node.Depth == DepthRange.y - 1 || Random.value < DeadEndChance;
 
             var possibleNextNodeBehaviours = GetPossibleNextNodeBehaviours(
                 node.ReferenceBehaviour, 
@@ -183,20 +195,72 @@ namespace BehavioursRectangularGraph
             foreach (var nodeBehaviour in possibleNextNodeBehaviours)
             {
                 var newRoomNode = new RectangularNode<T>(nodeBehaviour, node.Depth + 1);
-                node.GetNeigboursByDirection(neighbourDirection)[neighbourIndex] = newRoomNode;
 
-                var exitWorldPosition = node.GetExitWorldPosition(neighbourDirection, neighbourIndex);
-                newRoomNode.SetAsNeighbour(node, neighbourDirection, exitWorldPosition);
+                node.SetAsNeighbour(newRoomNode, neighbourDirection, neighbourIndex);
+                var newRoomNodeDirection = Utility.GetInversedDirection(neighbourDirection);
+                var newNeighbourIndex = newRoomNode.SetAsRandomNeighbour(node, newRoomNodeDirection);
+                newRoomNode.SetPositionRelatively(node, newRoomNodeDirection, newNeighbourIndex, neighbourIndex);
 
-                if (newRoomNode.CheckGlobalCompatability(Nodes, node, HandleCycles) && CreateNextNode(newRoomNode))
+                if (HandleCycles && newRoomNode.CheckGlobalCompatability(Nodes, node, out var foundCycles))
+                {
+                    foreach (var cycle in foundCycles)
+                    {
+                        var otherNode = cycle.otherNode;
+                        foreach (var cycleCheck in cycle.cycleChecks)
+                        {
+                            newRoomNode.SetAsNeighbour(cycle.otherNode, cycleCheck.direction, cycleCheck.exitIndex);
+                            otherNode.SetAsNeighbour(newRoomNode, cycleCheck.otherDirection, cycleCheck.otherExitIndex);
+                        }
+                    }
+
+                    if (CreateNextNode(newRoomNode))
+                    {
+                        return true;
+                    }
+
+                    foreach (var cycle in foundCycles)
+                    {
+                        var otherNode = cycle.otherNode;
+                        foreach (var cycleCheck in cycle.cycleChecks)
+                        {
+                            newRoomNode.SetAsNeighbour(null, cycleCheck.direction, cycleCheck.exitIndex);
+                            otherNode.SetAsNeighbour(null, cycleCheck.otherDirection, cycleCheck.otherExitIndex);
+                        }
+                    }
+                }
+                else if(newRoomNode.CheckGlobalCompatability(Nodes, node) && CreateNextNode(newRoomNode))
                 {
                     return true;
                 }
 
-                node.GetNeigboursByDirection(neighbourDirection)[neighbourIndex] = null;
+                node.SetAsNeighbour(null, neighbourDirection, neighbourIndex);
             }
 
             return false;
+        }
+
+        private bool CheckGraphConsistancy()
+        {
+            var graphCompleted = true;
+            var graphDepth = 0;
+            foreach (var node in Nodes)
+            {
+                foreach(var direction in Utility.GetEachDirection())
+                {
+                    foreach (var neighbour in node.GetNeigboursByDirection(direction))
+                    {
+                        if(neighbour == null)
+                        {
+                            graphCompleted = false;
+                            return true;
+                        }
+
+                        graphDepth = Mathf.Max(graphDepth, node.Depth);
+                    }
+                }
+            }
+
+            return DepthRange.x <= graphDepth && graphDepth <= DepthRange.y;
         }
 
         private IEnumerable<T> GetPossibleNextNodeBehaviours(

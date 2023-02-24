@@ -12,6 +12,7 @@ public class LocationGenerator : MonoBehaviour
     [SerializeField] private UnityEvent<RectangularNode<Room>> m_OnLocationGenerated;
     [Space]
     [SerializeField] private List<Room> m_RoomsPrefabs;
+    [SerializeField] private List<Room> m_RequiredRooms;
 
     [BoxGroup("Random"), SerializeField] private bool m_CustomSeed;
     [BoxGroup("Random"), SerializeField, ShowIf(nameof(m_CustomSeed))] private int m_Seed;
@@ -46,14 +47,36 @@ public class LocationGenerator : MonoBehaviour
     [Button("Generate")]
     public void Generate()
     {
-        if(m_RoomsPrefabs.Count < 2)
+        PrepareGeneration();
+
+        var graph = new RectangularGraph<Room>(m_RoomsPrefabs, m_RequiredRooms)
+        {
+            DeadEndChance = m_DeadEndChance,
+            DepthRange = m_DepthRange,
+            HandleCycles = m_HandleCycles,
+        };
+
+        var generationSuccess = graph.TryGenerateNodes();
+
+        if(generationSuccess)
+            SpawnLocation(graph);
+
+        var result = generationSuccess ? "success" : "fail";
+        Debug.Log($"Generation finished with result - {result}");
+    }
+
+    [Button]
+
+    private void PrepareGeneration()
+    {
+        if (m_RoomsPrefabs.Count < 2)
         {
             Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {m_RoomsPrefabs.Count}");
             return;
         }
 
 #if UNITY_EDITOR
-        if(Application.isPlaying)
+        if (Application.isPlaying)
             transform.DestroyChildren();
         else
         {
@@ -70,45 +93,32 @@ public class LocationGenerator : MonoBehaviour
         transform.DestroyChildren();
 #endif
         m_SpawnedRooms.Clear();
+    }
 
-        var graph = new RectangularGraph<Room>(m_RoomsPrefabs)
+    private void SpawnLocation(RectangularGraph<Room> graph)
+    {
+        foreach (var node in graph.Nodes)
         {
-            DeadEndChance = m_DeadEndChance,
-            DepthRange = m_DepthRange,
-            HandleCycles = m_HandleCycles,
-        };
+            var room = Instantiate(
+                node.ReferenceBehaviour,
+                node.NodeWorldPosition,
+                Quaternion.identity,
+                transform
+                );
 
-        var success = graph.TryGenerateNodes();
-        if (success)
-        {
-            foreach (var node in graph.Nodes)
-            {
-                var room = Instantiate(
-                    node.ReferenceBehaviour,
-                    node.NodeWorldPosition,
-                    Quaternion.identity,
-                    transform
-                    );
+            room.name = $"{node.ReferenceBehaviour.name}_[id = {System.Guid.NewGuid().ToString()[0..3]}]";
+            room.Depth = node.Depth;
 
-                room.name = $"{node.ReferenceBehaviour.name}_[id = {System.Guid.NewGuid().ToString()[0..3]}]";
-                room.Depth = node.Depth;
+            //just for debug puprose
+            if (m_ColorRoomDueToDepth)
+                room.SetRoomColor(m_DepthGradient.Evaluate(node.Depth / m_DepthRange.y));
 
-                //just for debug puprose
-                if (m_ColorRoomDueToDepth)
-                    room.SetRoomColor(m_DepthGradient.Evaluate(node.Depth / m_DepthRange.y));
-
-                node.SpawnedBehaviour = room;
-                m_SpawnedRooms.Add(room);
-            }
+            node.SpawnedBehaviour = room;
+            m_SpawnedRooms.Add(room);
         }
-        var result = success ? "success" : "fail";
-        Debug.Log($"Generation finished with result - {result}");
 
-        if (success)
-        {
-            var startNode = graph.Nodes.First();
-            RoomNodes = graph.Nodes;
-            m_OnLocationGenerated.Invoke(startNode);
-        }
+        var startNode = graph.Nodes.First();
+        RoomNodes = graph.Nodes;
+        m_OnLocationGenerated.Invoke(startNode);
     }
 }

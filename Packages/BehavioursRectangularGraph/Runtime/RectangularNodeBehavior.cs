@@ -7,7 +7,7 @@ namespace BehavioursRectangularGraph
     {
         [SerializeField, Range(0.01f, 1)] private float m_SpawnChance = 1;
 
-        public float SpawnChance => m_SpawnChance * 100;
+        public float SpawnChance => m_SpawnChance;
 
         #region Exits
 

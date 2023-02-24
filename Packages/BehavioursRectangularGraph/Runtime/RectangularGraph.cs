@@ -29,29 +29,39 @@ namespace BehavioursRectangularGraph
 
         #endregion
 
+        private readonly HashSet<T> m_PossibleNodeBehaviours;
+        private readonly HashSet<T> m_RequiredNodeBehaviours;
+
         public HashSet<RectangularNode<T>> Nodes { get; } = new();
-        public IReadOnlyList<T> PossibleNodeBehaviours { get; }
 
         public Vector2 DepthRange { get; set; } = new Vector2(2, 5);
         public float DeadEndChance { get; set; } = 0.1f;
         public bool HandleCycles { get; set; } = true;
 
-        public RectangularGraph(IReadOnlyList<T> possibleNodeBehaviours)
+        public RectangularGraph(IReadOnlyCollection<T> possibleNodeBehaviours, IReadOnlyCollection<T> requiredNodeBehaviours = null)
         {
-            PossibleNodeBehaviours = possibleNodeBehaviours;
+            var allPossibleBehaviours = new HashSet<T>(possibleNodeBehaviours);
+            var allRequiredBehaviours = requiredNodeBehaviours != null ? 
+                new HashSet<T>(requiredNodeBehaviours) : new HashSet<T>();
+            foreach (var requiredBehaviour in allRequiredBehaviours)
+            {
+                allPossibleBehaviours.Add(requiredBehaviour);
+            }
+            m_PossibleNodeBehaviours = allPossibleBehaviours;
+            m_RequiredNodeBehaviours = allRequiredBehaviours;
         }
 
         public bool TryGenerateNodes()
         {
-            if (PossibleNodeBehaviours == null || PossibleNodeBehaviours.Count == 0)
+            if (m_PossibleNodeBehaviours == null || m_PossibleNodeBehaviours.Count < 2)
             {
-                Debug.LogWarning("Node Behaviours Collection is null or empty");
+                Debug.LogWarning("Node Behaviours Collection is null or doesn't have enough node behaviours");
                 return false;
             }
 
             CalculateRoomPossiblities();
 
-            var possibleStartNodeBehaviours = PossibleNodeBehaviours
+            var possibleStartNodeBehaviours = m_PossibleNodeBehaviours
                 //.Where(nodeBehaviour => nodeBehaviour.LeftExits.Count == 0)
                 .GetWeightedShuffle(behaviour => behaviour.SpawnChance);
 
@@ -73,7 +83,7 @@ namespace BehavioursRectangularGraph
         {
             #region SimpleContinueRooms
 
-            m_PossibleLeftExitСontinuation = PossibleNodeBehaviours
+            m_PossibleLeftExitСontinuation = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.RightExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -81,7 +91,7 @@ namespace BehavioursRectangularGraph
                     room.BottomExits.Count != 0)
                 )
                 .ToList();
-            m_PossibleRightExitСontinuation = PossibleNodeBehaviours
+            m_PossibleRightExitСontinuation = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.LeftExits.Count > 0 &&
                     (room.RightExits.Count != 0 ||
@@ -89,7 +99,7 @@ namespace BehavioursRectangularGraph
                     room.BottomExits.Count != 0)
                 )
                 .ToList();
-            m_PossibleTopExitСontinuation = PossibleNodeBehaviours
+            m_PossibleTopExitСontinuation = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.BottomExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -97,7 +107,7 @@ namespace BehavioursRectangularGraph
                     room.RightExits.Count != 0)
                 )
                 .ToList();
-            m_PossibleBottomExitСontinuation = PossibleNodeBehaviours
+            m_PossibleBottomExitСontinuation = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.TopExits.Count > 0 &&
                     (room.LeftExits.Count != 0 ||
@@ -110,28 +120,28 @@ namespace BehavioursRectangularGraph
 
             #region DeadEnds
 
-            m_PossibleLeftDeadEnds = PossibleNodeBehaviours
+            m_PossibleLeftDeadEnds = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.RightExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
-            m_PossibleRightDeadEnds = PossibleNodeBehaviours
+            m_PossibleRightDeadEnds = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.LeftExits.Count == 1 &&
                     room.RightExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.BottomExits.Count == 0)
                 .ToList();
-            m_PossibleTopDeadEnds = PossibleNodeBehaviours
+            m_PossibleTopDeadEnds = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.BottomExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
                     room.TopExits.Count == 0 &&
                     room.RightExits.Count == 0)
                 .ToList();
-            m_PossibleBottomDeadEnds = PossibleNodeBehaviours
+            m_PossibleBottomDeadEnds = m_PossibleNodeBehaviours
                 .Where(room =>
                     room.TopExits.Count == 1 &&
                     room.LeftExits.Count == 0 &&
@@ -228,7 +238,7 @@ namespace BehavioursRectangularGraph
                         }
                     }
                 }
-                else if(newRoomNode.CheckGlobalCompatability(Nodes, node) && CreateNextNode(newRoomNode))
+                else if (newRoomNode.CheckGlobalCompatability(Nodes, node) && CreateNextNode(newRoomNode))
                 {
                     return true;
                 }
@@ -243,6 +253,7 @@ namespace BehavioursRectangularGraph
         {
             var graphCompleted = true;
             var graphDepth = 0;
+            var createdRequiredBehaviours = new HashSet<T>();
             foreach (var node in Nodes)
             {
                 foreach(var direction in Utility.GetEachDirection())
@@ -254,13 +265,20 @@ namespace BehavioursRectangularGraph
                             graphCompleted = false;
                             return true;
                         }
-
-                        graphDepth = Mathf.Max(graphDepth, node.Depth);
                     }
+                }
+
+                graphDepth = Mathf.Max(graphDepth, node.Depth);
+
+                if (m_RequiredNodeBehaviours.Contains(node.ReferenceBehaviour) &&
+                    !createdRequiredBehaviours.Contains(node.ReferenceBehaviour))
+                {
+                    createdRequiredBehaviours.Add(node.ReferenceBehaviour);
                 }
             }
 
-            return DepthRange.x <= graphDepth && graphDepth <= DepthRange.y;
+            return DepthRange.x <= graphDepth && graphDepth <= DepthRange.y &&
+                createdRequiredBehaviours.Count == m_RequiredNodeBehaviours.Count;
         }
 
         private IEnumerable<T> GetPossibleNextNodeBehaviours(
@@ -282,7 +300,7 @@ namespace BehavioursRectangularGraph
             };
 
             var shuffled = possibleNextNodeBehaviours
-                .GetWeightedShuffle(behaviour => behaviour.SpawnChance)
+                .GetWeightedShuffle(GetBehaviourSpawnChance)
                 .ToList();
             if (shuffled.Contains(nodeBehaviour))
             {
@@ -312,6 +330,12 @@ namespace BehavioursRectangularGraph
             requirableNeighbours.Shuffle();
 
             return requirableNeighbours;
+        }
+
+        private float GetBehaviourSpawnChance(T behaviour)
+        {
+            var spawnChance = m_RequiredNodeBehaviours.Contains(behaviour) ? 1 : behaviour.SpawnChance;
+            return spawnChance * 100;
         }
     }
 }

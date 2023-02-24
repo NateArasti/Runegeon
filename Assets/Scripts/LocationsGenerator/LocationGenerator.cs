@@ -65,8 +65,6 @@ public class LocationGenerator : MonoBehaviour
         Debug.Log($"Generation finished with result - {result}");
     }
 
-    [Button]
-
     private void PrepareGeneration()
     {
         if (m_RoomsPrefabs.Count < 2)

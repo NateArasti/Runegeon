@@ -2,6 +2,7 @@ using BehavioursRectangularGraph;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityExtensions;
@@ -22,8 +23,9 @@ public class LocationGenerator : MonoBehaviour
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
     [BoxGroup("Generation Params"), SerializeField] private bool m_ColorRoomDueToDepth = true;
-    [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(m_ColorRoomDueToDepth))] 
-    private Gradient m_DepthGradient;
+    [BoxGroup("Generation Params"), SerializeField, ShowIf(nameof(m_ColorRoomDueToDepth))] private Gradient m_DepthGradient;
+    
+    [Foldout("Analyse Params"), SerializeField, Range(1, 1000)] private int m_SimulationCount = 100;
 
     private readonly HashSet<Room> m_SpawnedRooms = new();
 
@@ -119,4 +121,69 @@ public class LocationGenerator : MonoBehaviour
         RoomNodes = graph.Nodes;
         m_OnLocationGenerated.Invoke(startNode);
     }
+
+#if UNITY_EDITOR
+
+    [Button(enabledMode: EButtonEnableMode.Editor)]
+    public void RunAnalysis()
+    {
+        var graph = new RectangularGraph<Room>(m_RoomsPrefabs, m_RequiredRooms)
+        {
+            DeadEndChance = m_DeadEndChance,
+            DepthRange = m_DepthRange,
+            HandleCycles = m_HandleCycles,
+        };
+
+        var analyseLog = new StringBuilder();
+        analyseLog.AppendLine("<b><size=15><color=red>Location generation analysis:</color></size></b>");
+
+        var successfullGenerationsCount = 0;
+        var totalCretedNodesCount = 0;
+        var roomsStatistics = new Dictionary<Room, int>();
+
+        foreach (var roomPrefab in m_RoomsPrefabs)
+        {
+            roomsStatistics.Add(roomPrefab, 0);
+        }
+
+        for (int i = 0; i < m_SimulationCount; i++)
+        {
+            var generationSuccess = graph.TryGenerateNodes();
+
+            if (generationSuccess)
+            {
+                successfullGenerationsCount++;
+
+                foreach (var node in graph.Nodes)
+                {
+                    if (roomsStatistics.ContainsKey(node.ReferenceBehaviour))
+                    {
+                        roomsStatistics[node.ReferenceBehaviour]++;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Unknown Room - {node.ReferenceBehaviour.gameObject.name}", node.ReferenceBehaviour);
+                    }
+                }
+
+                totalCretedNodesCount += graph.Nodes.Count;
+            }
+        }
+
+        analyseLog.AppendLine();
+        analyseLog.AppendLine($"<i>Iterations count = {m_SimulationCount}</i>");
+        analyseLog.AppendLine($"<i>Rooms Prefabs count = {m_RoomsPrefabs.Count}</i>");
+        analyseLog.AppendLine($"<i>Depth Range = [min:{m_DepthRange.x}, max:{m_DepthRange.y}]</i>");
+        analyseLog.AppendLine($"<i>Handling Cycles = {m_HandleCycles}</i>");
+        analyseLog.AppendLine($"<i>DeadEnd Chance = {m_DeadEndChance}</i>");
+        analyseLog.AppendLine();
+        foreach (var roomPrefab in m_RoomsPrefabs)
+        {
+            analyseLog.AppendLine($"<color=aqua>Room [{roomPrefab.gameObject.name}]</color> stats: absolute usage count = <b>{roomsStatistics[roomPrefab]}</b>, relative usage = <b>{(float)roomsStatistics[roomPrefab] / totalCretedNodesCount}</b>");
+        }
+
+        Debug.Log(analyseLog.ToString());
+    }
+
+#endif
 }

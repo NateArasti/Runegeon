@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyData : MonoBehaviour
+public class EnemyDataContainer : MonoBehaviour
 {
     public IReadOnlyList<Transform> PatrolPoints { get; private set; }
 

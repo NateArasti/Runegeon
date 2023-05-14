@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class EnemyPack : ScriptableObject
 {
-    [SerializeField] private EnemyData[] m_Enemies;
+    [SerializeField] private EnemyDataContainer[] m_Enemies;
 
-    public IReadOnlyList<EnemyData> Enemies => m_Enemies;
+    public IReadOnlyList<EnemyDataContainer> Enemies => m_Enemies;
 }

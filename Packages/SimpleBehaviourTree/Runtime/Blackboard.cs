@@ -196,13 +196,23 @@ namespace SimpleBehaviourTree
                 }
 
                 EditorGUILayout.BeginHorizontal();
+
                 if (GUILayout.Button("-"))
                 {
                     m_VariableDatas.Remove(m_VariableDatas[i]);
                     Data.Remove(key);
                     continue;
                 }
+
+                if (GUILayout.Button("Copy"))
+                {
+                    EditorGUIUtility.systemCopyBuffer = key;
+                }
+
                 EditorGUILayout.LabelField($"{key} ({Data[key].GetType().Name})");
+
+                GUILayout.FlexibleSpace();
+
                 if (Data[key] is int @int)
                 {
                     Data[key] = EditorGUILayout.IntField(@int);
@@ -221,10 +231,10 @@ namespace SimpleBehaviourTree
                 }
                 variableData.Value = Utility.ObjectToByteArray(Data[key]);
                 m_VariableDatas[i] = variableData;
+
                 EditorGUILayout.EndHorizontal();
             }
         }
-
 #endif
     }
 }

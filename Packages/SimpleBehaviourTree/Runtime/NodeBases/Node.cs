@@ -36,6 +36,7 @@ namespace SimpleBehaviourTree
         {
             NodeState = State.None;
             m_Started = false;
+            OnStop();
         }
 
         internal State Update()

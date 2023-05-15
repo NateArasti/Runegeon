@@ -12,7 +12,8 @@ namespace SimpleBehaviourTree
         {
             if (CheckAllConditions())
             {
-                return child.Update();
+                child.Update();
+                return State.Success;
             }
             child.DiscardState();
             return State.Failure;

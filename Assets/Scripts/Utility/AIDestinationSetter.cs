@@ -28,13 +28,13 @@ public class AIDestinationSetter : MonoBehaviour
 
         if (Target != null)
         {
-            if (!m_AI.canMove)
-                m_AI.canMove = true;
+            if (m_AI.isStopped)
+                m_AI.isStopped = false;
             m_AI.destination = Target.position;
         }
         else
         {
-            m_AI.canMove = false;
+            m_AI.isStopped = true;
         }
     }
 }

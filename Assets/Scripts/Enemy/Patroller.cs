@@ -1,11 +1,16 @@
 using NaughtyAttributes;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Patroller : MonoBehaviour
 {
     [SerializeField] private bool m_ChooseTargetsRandomly = true;
     [SerializeField, MinMaxSlider(0, 50)] private Vector2 m_DelayRange = new(1, 5);
+    [SerializeField, Min(0.1f)] private float m_StartDelay = 1;
+    [Space]
+    [SerializeField] private UnityEvent m_OnWalk;
+    [SerializeField] private UnityEvent m_OnStay;
 
     private int m_Index;
 
@@ -33,19 +38,19 @@ public class Patroller : MonoBehaviour
     {
         m_Agent = GetComponent<IAstarAI>();
         m_DestinationSetter = GetComponent<AIDestinationSetter>();
+        m_SwitchTime = Time.time + m_StartDelay;
     }
 
     private void Update()
     {
         if (Targets.Length == 0 || !Patrolling) return;
 
-        bool search = false;
-
         // Note: using reachedEndOfPath and pathPending instead of reachedDestination here because
         // if the destination cannot be reached by the agent, we don't want it to get stuck, we just want it to get as close as possible and then move on.
         if (m_Agent.reachedEndOfPath && !m_Agent.pathPending && float.IsPositiveInfinity(m_SwitchTime))
         {
             m_SwitchTime = Time.time + Random.Range(m_DelayRange.x, m_DelayRange.y);
+            m_OnStay.Invoke();
         }
 
         if (Time.time >= m_SwitchTime)
@@ -66,12 +71,11 @@ public class Patroller : MonoBehaviour
                 m_Index %= Targets.Length;
             }
 
-            search = true;
             m_SwitchTime = float.PositiveInfinity;
+            m_DestinationSetter.Target = Targets[m_Index];
+            m_Agent.SearchPath();
+
+            m_OnWalk.Invoke();
         }
-
-        m_DestinationSetter.Target = Targets[m_Index];
-
-        if (search) m_Agent.SearchPath();
     }
 }

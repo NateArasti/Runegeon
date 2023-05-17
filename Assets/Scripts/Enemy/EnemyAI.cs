@@ -1,19 +1,29 @@
+using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
-using Pathfinding;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityExtensions;
 
-public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser
+public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 {
     private const float k_FreeMoveSpaceRange = 0.5f;
+    [BoxGroup("Life Cycle"), SerializeField] private SpriteAnimation m_DeathAnimation;
+    [BoxGroup("Life Cycle"), SerializeField] private UnityEvent<SpriteAnimation> m_OnDeath;
 
     [BoxGroup("Chasing"), SerializeField] private float m_CloseRange = 0.5f;
     [BoxGroup("Chasing"), SerializeField] private float m_DistantRange = 2f;
+    [BoxGroup("Chasing"), SerializeField] private float m_RotationDirectionCheckDelta = 1f;
     [BoxGroup("Chasing"), SerializeField] private float m_RotationSpeed = 10f;
-    [Space]
-    [Header("Editor Debug")]
-    [SerializeField] private Transform m_PlayerTransformOverride;
-    [SerializeField] private bool m_SeesPlayer;
+    [BoxGroup("Chasing"), SerializeField] private bool m_TryToStayAtSameY = true;
+    [BoxGroup("Chasing"), SerializeField] private UnityEvent m_OnStartChasing;
+    [BoxGroup("Chasing"), SerializeField] private UnityEvent m_OnStopChasing;
+
+    [BoxGroup("Attack"), SerializeField] private SpriteAnimation m_AttackAnimation;
+    [BoxGroup("Attack"), SerializeField] private UnityEvent<SpriteAnimation> m_OnAttack;
+
+    [Foldout("Debug"), SerializeField] private Transform m_PlayerTransformOverride;
+    [Foldout("Debug"), SerializeField] private bool m_SeesPlayer;
 
     private AIDestinationSetter m_DestinationSetter;
 
@@ -23,16 +33,38 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser
 
     private Vector3 m_PreviousPosition;
 
+    private bool m_Chasing;
+    public bool Chasing
+    {
+        get => m_Chasing;
+        set
+        {
+            if(m_Chasing != value)
+            {
+                if (value)
+                {
+                    m_OnStartChasing.Invoke();
+                }
+                else
+                {
+                    m_OnStopChasing.Invoke();
+                }
+            }
+            m_Chasing = value;
+        }
+    }
+
+    private float PositionDeltaMagnitude { get; set; }
+
     private Transform Target => m_PlayerTransformOverride;
 
-    public bool Chasing { get; set; }
+    public bool Attacking { get; private set; }
 
-    private float PositionDelta { get; set; }
-
-    public bool AtTargetRange => 
+    public bool AtTargetRange =>
         Mathf.Abs(Vector3.Distance(transform.position, Target.position) - m_CurrentChaseRange) < k_FreeMoveSpaceRange
-        || PositionDelta <= 1e-7
+        || PositionDeltaMagnitude <= 1e-7
         ;
+
 
     private void Awake()
     {
@@ -46,8 +78,23 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(m_RotationDirectionCheckDelta);
             m_CurrentRotateDirection = Random.value > 0.5f ? 1 : -1;
+
+            if (!m_TryToStayAtSameY) continue;
+
+            if ((transform.position.x > Target.position.x && transform.position.y < Target.position.y) 
+                ||
+                (transform.position.x < Target.position.x && transform.position.y > Target.position.y))
+            {
+                m_CurrentRotateDirection = 1;
+            }
+            else if ((transform.position.x > Target.position.x && transform.position.y > Target.position.y)
+                ||
+                (transform.position.x < Target.position.x && transform.position.y < Target.position.y))
+            {
+                m_CurrentRotateDirection = -1;
+            }
         }
     }
 
@@ -66,13 +113,37 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser
 
     private void LateUpdate()
     {
-        PositionDelta = (transform.position - m_PreviousPosition).sqrMagnitude;
+        var delta = transform.position - m_PreviousPosition;
+        PositionDeltaMagnitude = delta.sqrMagnitude;
+
+        if (Mathf.Abs(delta.x) > 1e-3)
+        {
+            int lookDirection;
+            if (Chasing)
+            {
+                lookDirection = (Target.position - transform.position).x > 0 ? 1 : -1;
+            }
+            else
+            {
+                lookDirection = delta.x > 0 ? 1 : -1;
+            }
+            transform.localScale = new Vector3(lookDirection, 1, 1);
+        }
+
         m_PreviousPosition = transform.position;
+    }
+
+    public void Die()
+    {
+        m_DestinationSetter.Target = null;
+        enabled = false;
+        m_OnDeath.Invoke(m_DeathAnimation);
+        CoroutineExtensions.InvokeSecondsDelayed(() => Destroy(gameObject), m_DeathAnimation.Frames.Count / m_DeathAnimation.FPS);
     }
 
     public bool CheckTargetInSight()
     {
-        return m_PlayerTransformOverride != null && m_SeesPlayer;
+        return m_SeesPlayer && m_PlayerTransformOverride != null;
     }
 
     public void StayAtRange(IChaser.ChaseRange chaseRange)
@@ -89,6 +160,13 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser
                 m_CurrentChaseRange = 0;
                 break;
         }
+    }
+
+    public void Attack()
+    {
+        Attacking = true;
+        m_OnAttack.Invoke(m_AttackAnimation);
+        this.InvokeSecondsDelayed(() => Attacking = false, m_AttackAnimation.Frames.Count / m_AttackAnimation.FPS);
     }
 
 #if UNITY_EDITOR

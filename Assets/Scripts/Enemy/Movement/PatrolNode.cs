@@ -11,7 +11,6 @@ public class PatrolNode : ActionNode
     {
         if (m_ExecutorObject.TryGetComponent<Patroller>(out m_Patroller))
             m_Patroller.Patrolling = true;
-        Debug.Log(m_Patroller);
     }
 
     protected override void OnStop()

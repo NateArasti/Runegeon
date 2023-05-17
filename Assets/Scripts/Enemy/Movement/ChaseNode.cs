@@ -21,7 +21,8 @@ public class ChaseNode : ActionNode
 
     protected override void OnStop()
     {
-        m_Chaser.Chasing = false;
+        if(m_Chaser != null)
+            m_Chaser.Chasing = false;
     }
 
     protected override State OnUpdate()

@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -48,12 +49,20 @@ public class HealthSystem : MonoBehaviour
         m_CurrentHealth -= attackProvider.Damage;
         OnHealthChanged();
         m_OnHit.Invoke();
-        if (m_CurrentHealth < 0) m_OnDeath.Invoke();
+        if (m_CurrentHealth <= 0) m_OnDeath.Invoke();
     }
 
     public void SetInvincible()
     {
         m_Invincible = true;
         m_CurrentInvincibleCooldown = m_InvincibleTime;
+    }
+
+    [Button]
+    public void ForceDie()
+    {
+        m_CurrentHealth = 0;
+        OnHealthChanged();
+        m_OnDeath.Invoke();
     }
 }

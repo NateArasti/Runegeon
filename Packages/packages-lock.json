@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.arastigames.unityextensions-methods": "0.1.0"
+        "com.arastigames.unityextensions": "0.1.0"
       }
     },
     "com.arastigames.simplebehaviourtree": {
@@ -14,26 +14,19 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.arastigames.unityextensions": {
+      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4f99ab41eb6b602f962462388ab0d940a66c6745"
+    },
     "com.arastigames.unityextensions-installer": {
-      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-PackagesInstaller",
+      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Installer",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0e88ad6168bcd546507867aed68edff2a953baf2"
-    },
-    "com.arastigames.unityextensions-methods": {
-      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Methods",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "23e0bc4f1e11b1c1891aca5e530c62c9b89938ac"
-    },
-    "com.arastigames.unityextensions-tools": {
-      "version": "https://github.com/NateArasti/UnityExtensions.git#UnityExtensions-Tools",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "f560dac55a57c3fe4ab62388aa49fdf1e2f96649"
+      "hash": "647264277584e52e7fcfb77024176b32a09b0d9a"
     },
     "com.arongranberg.astar": {
       "version": "file:AstarPathfindingProject",

@@ -14,6 +14,6 @@
   },
   "type": "tool",
   "dependencies": {
-    "com.arastigames.unityextensions-methods": "0.1.0"
+    "com.arastigames.unityextensions": "0.1.0"
   }
 }

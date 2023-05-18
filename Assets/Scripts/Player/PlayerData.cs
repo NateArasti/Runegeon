@@ -11,7 +11,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private bool m_AddEffectsFromStart;
     [SerializeField, ShowIf(nameof(m_AddEffectsFromStart))] private BaseRuneEffect[] m_EffectsFromStart;
 
-    public static Transform PlayerTransform => s_Instance.m_PlayerCharacter;
+    public static Transform PlayerTransform => s_Instance != null ? s_Instance.m_PlayerCharacter : null;
 
     private void Awake()
     {

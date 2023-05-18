@@ -7,7 +7,7 @@ public class AttackReciever : MonoBehaviour, IAttackReciever
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent<AttackProvider>(out var attackProvider))
+        if(collision.gameObject.TryGetComponent<IAttackProvider>(out var attackProvider))
         {
             RecieveAttack(attackProvider);
         }

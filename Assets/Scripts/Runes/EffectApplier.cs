@@ -10,6 +10,16 @@ public class EffectApplier : MonoBehaviour
         m_RuneEffects.Add(runeEffect);
     }
 
+    public void AddRuneEffects(IEnumerable<IRuneEffect> runeEffects)
+    {
+        m_RuneEffects.AddRange(runeEffects);
+    }
+
+    public void ClearAllRuneEffects()
+    {
+        m_RuneEffects.Clear();
+    }
+
     public void ApplyAttackEffects(IAttackReciever attackReciever)
     {
         foreach (var effect in m_RuneEffects)

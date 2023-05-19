@@ -247,7 +247,5 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         this.InvokeSecondsDelayed(() => Attacking = false, m_AttackAnimation.Frames.Count / m_AttackAnimation.FPS);
     }
 
-    public void OnSuccessfulAttack(IAttackReciever attackReciever) { }
-
     #endregion
 }

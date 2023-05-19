@@ -4,7 +4,7 @@ public interface IRuneEffect
 
     void OnRoll();
 
-    void OnAttack(IAttackReciever attackReciever);
+    void OnAttack(IAttackProvider attackProvider, IAttackReciever attackReciever);
 
     void OnHit();
 }

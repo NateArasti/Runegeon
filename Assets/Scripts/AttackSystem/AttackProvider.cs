@@ -5,12 +5,12 @@ public class AttackProvider : MonoBehaviour, IAttackProvider
 {
     [SerializeField] private float m_Damage = 1;
     [Space]
-    [SerializeField] private UnityEvent<IAttackReciever> m_OnSuccessAttack;
+    [SerializeField] private UnityEvent<IAttackProvider, IAttackReciever> m_OnSuccessAttack;
 
     public float Damage => m_Damage;
 
     public void OnSuccessHit(IAttackReciever reciever)
     {
-        m_OnSuccessAttack.Invoke(reciever);
+        m_OnSuccessAttack.Invoke(this, reciever);
     }
 }

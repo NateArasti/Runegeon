@@ -20,11 +20,11 @@ public class EffectApplier : MonoBehaviour
         m_RuneEffects.Clear();
     }
 
-    public void ApplyAttackEffects(IAttackReciever attackReciever)
+    public void ApplyAttackEffects(IAttackProvider attackProvider, IAttackReciever attackReciever)
     {
         foreach (var effect in m_RuneEffects)
         {
-            effect.OnAttack(attackReciever);
+            effect.OnAttack(attackProvider, attackReciever);
         }
     }
 

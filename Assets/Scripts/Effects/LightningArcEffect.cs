@@ -3,8 +3,6 @@ using UnityExtensions;
 
 public class LightningArcEffect : MonoBehaviour
 {
-    [SerializeField] private Transform m_StartPosition;
-    [SerializeField] private Transform m_EndPosition;
     [SerializeField] private float m_Lifetime = 1;
 
     private void Update()
@@ -18,20 +16,21 @@ public class LightningArcEffect : MonoBehaviour
         m_Lifetime -= Time.deltaTime;
     }
 
-    public void SetEffect(Vector3 startPosition, Vector3 endPosition, float destroyDelay = 1, float collapseDelay = -1)
+    public void SetEffect(Vector3 startPosition, Vector3 endPosition, 
+        float destroyDelay = 1, float collapseDelay = -1)
     {
-        transform.position = startPosition;
-
-        m_StartPosition.position = startPosition;
-        m_EndPosition.position = endPosition;
+        var direction = endPosition - startPosition;
+        transform.position = startPosition + 0.5f * direction;
+        transform.right = direction;
+        transform.localScale = new Vector3(direction.magnitude, transform.localScale.y, transform.localScale.z);
 
         m_Lifetime = destroyDelay;
         if(collapseDelay > 0)
         {
             this.InvokeSecondsDelayed(() =>
             {
-                m_StartPosition.position = endPosition;
-                m_EndPosition.position = endPosition;
+                transform.position = endPosition;
+                transform.localScale = Vector3.right * 0.1f;
             }, collapseDelay);
         }
     }

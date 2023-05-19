@@ -1,15 +1,30 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityExtensions;
 
 [CreateAssetMenu(fileName = "LightningEffect", menuName = "RuneEffects/LightningEffect")]
 public class LightningRuneEffect : BaseRuneEffect
 {
+    [SerializeField] private LightningArcEffect m_LightningArcEffectPrefab;
     [SerializeField] private BounceAttackData m_BounceAttackData;
 
     public override void OnAttack(IAttackReciever attackReciever)
     {
         var newBounceAttack = new BounceAttack(m_BounceAttackData);
+        newBounceAttack.OnAttack += OnAttack;
         newBounceAttack.ProvideAttack(attackReciever);
+    }
+
+    private void OnAttack(Vector3 firstPoint, Vector3 secondPoint)
+    {
+        var arcEffect = Instantiate(m_LightningArcEffectPrefab);
+
+        arcEffect.SetEffect(
+            firstPoint,
+            secondPoint,
+            m_BounceAttackData.BounceDelay,
+            m_BounceAttackData.CollapseDelay);
     }
 
     #region Bounce
@@ -17,15 +32,15 @@ public class LightningRuneEffect : BaseRuneEffect
     [System.Serializable]
     private class BounceAttackData
     {
-        [SerializeField] private LightningArcEffect m_LightningArcEffectPrefab;
         [SerializeField] private float m_BounceDelay = 0.5f;
+        [SerializeField] private float m_CollapseDelay = 0.3f;
         [SerializeField] private int m_MaxBounceCount = 3;
         [SerializeField] private float m_BounceRange = 1f;
         [SerializeField] private float m_BounceDamage = 10f;
         [SerializeField] private LayerMask m_BounceMask;
 
-        public LightningArcEffect LightningArcEffectPrefab => m_LightningArcEffectPrefab;
         public float BounceDelay => m_BounceDelay;
+        public float CollapseDelay => m_CollapseDelay;
         public int MaxBounceCount => m_MaxBounceCount;
         public float BounceRange => m_BounceRange;
         public float BounceDamage => m_BounceDamage;
@@ -34,18 +49,17 @@ public class LightningRuneEffect : BaseRuneEffect
 
     private class BounceAttack : IAttackProvider
     {
+        public event Action<Vector3, Vector3> OnAttack;
+
         private readonly BounceAttackData m_AttackData;
 
         private int m_CurrentBounceCount;
-        private LightningArcEffect m_CurrentArcEffect;
 
         public float Damage => m_AttackData.BounceDamage;
 
         public BounceAttack(BounceAttackData attackData)
         {
             m_CurrentBounceCount = 0;
-            m_CurrentArcEffect = null;
-
             m_AttackData = attackData;
         }
 
@@ -62,41 +76,31 @@ public class LightningRuneEffect : BaseRuneEffect
         {
             if (previousReciever == null) return;
 
-            IAttackReciever nextReciever = null;
-
             var center = previousReciever is MonoBehaviour behaviour ?
                 behaviour.transform.position :
                 Vector3.zero;
             var closeTargets =
                 Physics2D.OverlapCircleAll(center, m_AttackData.BounceRange, m_AttackData.BounceMask);
+            var possibleRecievers = new HashSet<IAttackReciever>();
             foreach (var possibleTarget in closeTargets)
             {
                 var possibleReciever = possibleTarget.GetComponent<IAttackReciever>();
                 if(possibleReciever != null && previousReciever != possibleReciever)
                 {
-                    nextReciever = possibleReciever;
-                    break;
+                    possibleRecievers.Add(possibleReciever);
                 }
             }
+
+            var nextReciever = possibleRecievers.Count > 0 ? possibleRecievers.GetRandomObject() : null;
 
             if (nextReciever == null) return;
 
             m_CurrentBounceCount++;
-            Debug.Log($"Bouncing on {nextReciever}", nextReciever as MonoBehaviour);
 
             var previousRecieverPosition = (previousReciever as MonoBehaviour).transform.position;
             var nextRecieverPosition = (nextReciever as MonoBehaviour).transform.position;
 
-            if(m_CurrentArcEffect == null)
-            {
-                m_CurrentArcEffect = Instantiate(m_AttackData.LightningArcEffectPrefab);
-            }
-
-            m_CurrentArcEffect.SetEffect(
-                previousRecieverPosition,
-                nextRecieverPosition,
-                m_AttackData.BounceDelay,
-                0.75f * m_AttackData.BounceDelay);
+            OnAttack?.Invoke(previousRecieverPosition, nextRecieverPosition);
 
             nextReciever.RecieveAttack(this);
         }

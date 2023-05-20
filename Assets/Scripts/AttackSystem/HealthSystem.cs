@@ -52,10 +52,10 @@ public class HealthSystem : MonoBehaviour
         if (m_CurrentHealth <= 0) m_OnDeath.Invoke();
     }
 
-    public void SetInvincible()
+    public void SetInvincible(float invincibleTime = -1)
     {
         m_Invincible = true;
-        m_CurrentInvincibleCooldown = m_InvincibleTime;
+        m_CurrentInvincibleCooldown = invincibleTime == -1 ? m_InvincibleTime : invincibleTime;
     }
 
     [Button]

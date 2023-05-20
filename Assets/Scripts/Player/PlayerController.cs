@@ -1,3 +1,5 @@
+using BehavioursRectangularGraph;
+using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
@@ -6,36 +8,113 @@ using UnityExtensions;
 
 public class PlayerController : MonoBehaviour
 {
+    private enum PlayerState
+    {
+        IDLE,
+        Move,
+        Dodge,
+        Attack
+    }
+
     [Header("References")]
-    [SerializeField] private PlayerVisuals m_PlayerVisuals;
+    [SerializeField] private Transform m_PlayerCamera;
     [SerializeField] private HealthSystem m_HealthSystem;
+    [SerializeField] private SpriteAnimator m_SpriteAnimator;
     [Header("Movement")]
     [SerializeField] private Joystick m_MoveJoystick;
     [SerializeField] private float m_MoveSpeed = 1;
-    [SerializeField] private float m_DodgeSpeedIncrease = 1.5f;
-    [SerializeField] private float m_DodgeDiscardDelay = 0.5f;
+    [SerializeField] private SpriteAnimation m_IDLEAnimation;
+    [SerializeField] private SpriteAnimation m_MoveAnimation;
     [Header("Attacks")]
-    [SerializeField] private float[] m_AttackTimings;
-    [SerializeField] private float m_AttackSpeed = 1;
-    [SerializeField] private float m_ComboCooldown = 1f;
+    [SerializeField] private SpriteAnimation[] m_AttackComboAnimations;
+    [Header("Roll")]
+    [SerializeField] private SpriteAnimation m_RollAnimation;
+    [SerializeField] private float m_InvincibleTime = 0.5f;
+    [SerializeField] private float m_RollDistance = 1;
     [Space]
     [Foldout("Actions"), SerializeField] private InputActionProperty m_MoveActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_AttackActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_DodgeActionProperty;
-    private int m_CurrentAttackCount = 0;
-    private float m_CurrentAttackCooldown;
 
-    private float m_CurrentMoveSpeed;
+    private int m_CurrentComboIndex = -1;
+    private bool m_AutoTriggerNextAttack;
 
-    public bool Attacking => m_CurrentAttackCount > 0;
+    private PlayerState m_CurrentState = PlayerState.IDLE;
+    private RectangularDirection m_LookDirection = RectangularDirection.Right;
+
+    private Vector2 MoveInput => m_MoveJoystick.Direction + m_MoveActionProperty.action.ReadValue<Vector2>();
 
     private void Awake()
     {
         m_MoveActionProperty.action.Enable();
-        m_AttackActionProperty.action.Enable();
-        m_DodgeActionProperty.action.Enable();
 
-        m_CurrentMoveSpeed = m_MoveSpeed;
+        m_AttackActionProperty.action.Enable();
+        m_AttackActionProperty.action.performed += Attack; ;
+
+        m_DodgeActionProperty.action.Enable();
+        m_DodgeActionProperty.action.performed += Dodge;
+    }
+
+    private void Attack(InputAction.CallbackContext obj)
+    {
+        if (m_CurrentState == PlayerState.Dodge || 
+            m_AttackComboAnimations.Length == 0) return;
+
+        m_AutoTriggerNextAttack = true;
+        if (m_CurrentState != PlayerState.Attack)
+        {
+            m_CurrentComboIndex = -1;
+            StartCoroutine(AttackComboRoutine());
+        }
+        m_CurrentState = PlayerState.Attack;
+    }
+
+    private IEnumerator AttackComboRoutine()
+    {
+        yield return null;
+        while (m_AutoTriggerNextAttack)
+        {
+            if(m_CurrentState != PlayerState.Attack)
+            {
+                yield break;
+            }
+            m_AutoTriggerNextAttack = false;
+            if (m_CurrentComboIndex < m_AttackComboAnimations.Length - 1)
+            {
+                m_CurrentComboIndex++;
+                m_SpriteAnimator.PlayIfNotPlaying(m_AttackComboAnimations[m_CurrentComboIndex]);
+                var attackAnimation = m_AttackComboAnimations[m_CurrentComboIndex];
+                yield return new WaitForSeconds(attackAnimation.GetAnimationTime());
+            }
+        }
+        if (m_CurrentState == PlayerState.Attack)
+        {
+            m_CurrentState = PlayerState.IDLE;
+        }
+    }
+
+    private void Dodge(InputAction.CallbackContext obj)
+    {
+        if (m_CurrentState == PlayerState.Dodge) return;
+        m_CurrentState = PlayerState.Dodge;
+
+        m_SpriteAnimator.PlayIfNotPlaying(m_RollAnimation);
+        m_HealthSystem.SetInvincible();
+        var rollAnimationTime = m_RollAnimation.GetAnimationTime();
+        transform.DashMove(
+            BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection),
+            m_RollDistance, rollAnimationTime
+            );
+
+        this.InvokeSecondsDelayed(
+            () => m_CurrentState = PlayerState.IDLE,
+            rollAnimationTime
+            );
+    }
+
+    private void Start()
+    {
+        m_PlayerCamera.parent = null;
     }
 
     private void OnDestroy()
@@ -45,72 +124,49 @@ public class PlayerController : MonoBehaviour
         m_DodgeActionProperty.action.Disable();
     }
 
-    private void Start()
-    {
-        StartCoroutine(AttackCooldown());
-    }
-
-    private IEnumerator AttackCooldown()
-    {
-        while (true)
-        {
-            if(m_CurrentAttackCooldown <= 0)
-            {
-                m_CurrentAttackCount = 0;
-                m_CurrentAttackCooldown = 0;
-            }
-            yield return null;
-            m_CurrentAttackCooldown -= Time.deltaTime;
-        }
-    }
-
-    private void Attack()
-    {
-        if(m_CurrentAttackCount < m_AttackTimings.Length)
-        {
-            if(m_CurrentAttackCount == 0)
-            {
-                DiscardAttackCombo();
-                m_CurrentAttackCooldown = m_ComboCooldown;
-            }
-            m_CurrentAttackCount++;
-            m_PlayerVisuals.TriggerAttackAnimation(m_CurrentAttackCount);
-            m_CurrentAttackCooldown += m_AttackTimings[m_CurrentAttackCount - 1] / m_AttackSpeed;
-        }
-    }
-
-    private void DiscardAttackCombo()
-    {
-        m_CurrentAttackCooldown = 0;
-        m_CurrentAttackCount = 0;
-        m_PlayerVisuals.ResetAttackTriggers(m_AttackTimings.Length);
-    }
-
     private void Update()
     {
-        if (m_DodgeActionProperty.action.triggered && m_PlayerVisuals.CanDodge)
+        HandleLookDirection();
+
+        if (m_CurrentState == PlayerState.IDLE || m_CurrentState == PlayerState.Move)
+            HandleMovement();
+    }
+
+    private void HandleLookDirection()
+    {
+        var moveInput = MoveInput;
+
+        if(moveInput.sqrMagnitude == 0 || m_CurrentState == PlayerState.Attack) return;
+
+        if (Mathf.Abs(MoveInput.y) > Mathf.Abs(MoveInput.x))
         {
-            m_HealthSystem.SetInvincible();
-            DiscardAttackCombo();
-            m_CurrentMoveSpeed = m_MoveSpeed * m_DodgeSpeedIncrease;
-            this.InvokeSecondsDelayed(() => m_CurrentMoveSpeed = m_MoveSpeed, m_DodgeDiscardDelay);
-            m_PlayerVisuals.Dodge(m_DodgeDiscardDelay);
+            m_LookDirection = MoveInput.y >= 0 ? 
+                RectangularDirection.Up : 
+                RectangularDirection.Down;
         }
-        else if (
-#if UNITY_STANDALONE
-            Input.GetMouseButtonDown(0) || 
-#endif
-            m_AttackActionProperty.action.triggered)
+        else
         {
-            Attack();
+            m_LookDirection = MoveInput.x >= 0 ?
+                RectangularDirection.Right :
+                RectangularDirection.Left;
         }
 
-        var moveInput = m_MoveActionProperty.action.ReadValue<Vector2>() + m_MoveJoystick.Direction;
-        m_PlayerVisuals.AdjustMoveVisuals(moveInput, !Attacking);
+        transform.localScale = new Vector3(m_LookDirection == RectangularDirection.Left ? -1 : 1, 1, 1);
+    }
 
-        if (!Attacking)
+    private void HandleMovement()
+    {
+        var moveInput = MoveInput;
+        if (moveInput.sqrMagnitude > 0)
         {
-            transform.Translate(m_CurrentMoveSpeed * Time.deltaTime * moveInput);
+            transform.Translate(m_MoveSpeed * Time.deltaTime * moveInput);
+            m_SpriteAnimator.PlayIfNotPlaying(m_MoveAnimation);
+            m_CurrentState = PlayerState.Move;
+        }
+        else
+        {
+            m_CurrentState = PlayerState.IDLE;
+            m_SpriteAnimator.PlayIfNotPlaying(m_IDLEAnimation);
         }
     }
 }

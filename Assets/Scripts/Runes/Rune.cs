@@ -11,7 +11,7 @@ public class Rune : MonoBehaviour
             Debug.LogError("EFFECT IS NULL", this);
             return;
         }
-        PlayerData.AddRuneEffect(m_Effect);
+
         Destroy(gameObject);
     }
 }

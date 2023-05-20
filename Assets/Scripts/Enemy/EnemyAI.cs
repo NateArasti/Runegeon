@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 
     private float PositionDeltaMagnitude { get; set; }
 
-    private Transform Target => m_CheckForAll ? m_CurrentColliderTarget : PlayerData.PlayerTransform;
+    private Transform Target => m_CheckForAll ? m_CurrentColliderTarget : GlobalPlayerData.PlayerTransform;
 
     public bool Attacking { get; private set; }
 
@@ -167,8 +167,8 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
             return m_CurrentColliderTarget != null;
         }
 
-        return PlayerData.PlayerTransform != null && 
-            Vector3.Distance(PlayerData.PlayerTransform.position, transform.position) <= m_VisionRange;
+        return GlobalPlayerData.PlayerTransform != null && 
+            Vector3.Distance(GlobalPlayerData.PlayerTransform.position, transform.position) <= m_VisionRange;
     }
 
     public void Die()

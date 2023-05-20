@@ -11,6 +11,8 @@ public class BounceAttack : IAttackProvider
 
     private int m_CurrentBounceCount;
 
+    public bool Active => true;
+
     public float Damage => m_AttackData.BounceDamage;
 
     public BounceAttack(BounceAttackData attackData)

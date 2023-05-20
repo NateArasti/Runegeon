@@ -53,6 +53,8 @@ public class ExplosionRuneEffect : BaseRuneEffect
 
         public float Damage { get; private set; }
 
+        public bool Active => true;
+
         public void OnSuccessHit(IAttackReciever reciever) { }
     }
 }

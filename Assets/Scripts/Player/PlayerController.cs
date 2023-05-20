@@ -3,6 +3,7 @@ using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityExtensions;
 
@@ -20,18 +21,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_PlayerCamera;
     [SerializeField] private HealthSystem m_HealthSystem;
     [SerializeField] private SpriteAnimator m_SpriteAnimator;
+    [SerializeField] private Dodger m_Dodger;
+
     [Header("Movement")]
     [SerializeField] private Joystick m_MoveJoystick;
     [SerializeField] private float m_MoveSpeed = 1;
     [SerializeField] private SpriteAnimation m_IDLEAnimation;
     [SerializeField] private SpriteAnimation m_MoveAnimation;
+
     [Header("Attacks")]
     [SerializeField] private SpriteAnimation[] m_AttackComboAnimations;
-    [Header("Roll")]
-    [SerializeField] private SpriteAnimation m_RollAnimation;
-    [SerializeField] private float m_InvincibleTime = 0.5f;
-    [SerializeField] private float m_RollDistance = 1;
-    [Space]
+
     [Foldout("Actions"), SerializeField] private InputActionProperty m_MoveActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_AttackActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_DodgeActionProperty;
@@ -98,17 +98,19 @@ public class PlayerController : MonoBehaviour
         if (m_CurrentState == PlayerState.Dodge) return;
         m_CurrentState = PlayerState.Dodge;
 
-        m_SpriteAnimator.PlayIfNotPlaying(m_RollAnimation);
-        m_HealthSystem.SetInvincible();
-        var rollAnimationTime = m_RollAnimation.GetAnimationTime();
-        transform.DashMove(
-            BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection),
-            m_RollDistance, rollAnimationTime
-            );
+        var dodgeTime = 0f;
+        if (m_Dodger != null)
+        {
+            m_Dodger.Dodge(
+                BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection), 
+                out dodgeTime);
+        }
+
+        m_HealthSystem.SetInvincible(dodgeTime);
 
         this.InvokeSecondsDelayed(
             () => m_CurrentState = PlayerState.IDLE,
-            rollAnimationTime
+            dodgeTime
             );
     }
 

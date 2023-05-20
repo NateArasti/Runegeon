@@ -1,10 +1,10 @@
+using UnityEngine;
+
 public interface IRuneEffect
 {
-    void OnMove();
+    void OnApply(GameObject target);
 
-    void OnRoll();
+    void OnDiscard(GameObject target);
 
     void OnAttack(IAttackProvider attackProvider, IAttackReciever attackReciever);
-
-    void OnHit();
 }

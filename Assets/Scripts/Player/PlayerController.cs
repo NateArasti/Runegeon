@@ -105,7 +105,9 @@ public class PlayerController : MonoBehaviour
     {
         var moveInput = MoveInput;
 
-        if(moveInput.sqrMagnitude == 0 || m_CurrentState == PlayerState.Attack) return;
+        if(moveInput.sqrMagnitude == 0 || 
+            m_CurrentState == PlayerState.Attack ||
+            m_CurrentState == PlayerState.Dodge) return;
 
         if (Mathf.Abs(MoveInput.y) > Mathf.Abs(MoveInput.x))
         {

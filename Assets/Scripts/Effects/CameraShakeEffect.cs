@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraShakeEffect : MonoBehaviour
 {
+    public static CameraShakeEffect Instance { get; private set; }
+
     [SerializeField] private float m_Intensity = 2f;
     [SerializeField] private float m_ShakeTime = 1f;
 
@@ -13,6 +15,8 @@ public class CameraShakeEffect : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         m_CameraPerlin = GetComponent<CinemachineVirtualCamera>()
             .GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }

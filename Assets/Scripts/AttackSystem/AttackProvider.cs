@@ -11,11 +11,6 @@ public class AttackProvider : MonoBehaviour, IAttackProvider
 
     public float Damage { get => m_Damage; set => m_Damage = value; }
 
-    private void Awake()
-    {
-        
-    }
-
     public void OnSuccessHit(IAttackReciever reciever)
     {
         if(!Active) return;

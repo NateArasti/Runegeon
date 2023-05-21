@@ -3,7 +3,6 @@ using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityExtensions;
 
@@ -30,9 +29,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attacks")]
     [SerializeField] private SpriteAnimation[] m_AttackComboAnimations;
-    [SerializeField] private GameObject m_AttackCollider;
-    [SerializeField] private string m_AttackStartEventName = "attack_start";
-    [SerializeField] private string m_AttackEndEventName = "attack_end";
 
     [Foldout("Actions"), SerializeField] private InputActionProperty m_MoveActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_AttackActionProperty;
@@ -72,20 +68,6 @@ public class PlayerController : MonoBehaviour
     {
         InitializeAttackProviders();
         m_PlayerCamera.parent = null;
-
-        m_SpriteAnimator.AnimationEventCalled += OnAnimationEventCalled;
-    }
-
-    private void OnAnimationEventCalled(string eventName)
-    {
-        if(eventName == m_AttackStartEventName)
-        {
-            m_AttackCollider.SetActive(true);
-        }
-        else if(eventName == m_AttackEndEventName)
-        {
-            m_AttackCollider.SetActive(false);
-        }
     }
 
     private void OnDestroy()

@@ -25,12 +25,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private Joystick m_MoveJoystick;
-    [SerializeField] private float m_MoveSpeed = 1;
     [SerializeField] private SpriteAnimation m_IDLEAnimation;
     [SerializeField] private SpriteAnimation m_MoveAnimation;
 
     [Header("Attacks")]
     [SerializeField] private SpriteAnimation[] m_AttackComboAnimations;
+    [SerializeField] private GameObject m_AttackCollider;
+    [SerializeField] private string m_AttackStartEventName = "attack_start";
+    [SerializeField] private string m_AttackEndEventName = "attack_end";
 
     [Foldout("Actions"), SerializeField] private InputActionProperty m_MoveActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_AttackActionProperty;
@@ -42,88 +44,53 @@ public class PlayerController : MonoBehaviour
     private PlayerState m_CurrentState = PlayerState.IDLE;
     private RectangularDirection m_LookDirection = RectangularDirection.Right;
 
+    public float AttackSpeed { get; set; } = 1;
+
+    public float MoveSpeed { get; set; } = 1;
+
     private Vector2 MoveInput => m_MoveJoystick.Direction + m_MoveActionProperty.action.ReadValue<Vector2>();
 
-    private void Awake()
+    private void OnEnable()
     {
         m_MoveActionProperty.action.Enable();
 
         m_AttackActionProperty.action.Enable();
-        m_AttackActionProperty.action.performed += Attack; ;
+        m_AttackActionProperty.action.performed += Attack;
 
         m_DodgeActionProperty.action.Enable();
         m_DodgeActionProperty.action.performed += Dodge;
     }
 
-    private void Attack(InputAction.CallbackContext obj)
-    {
-        if (m_CurrentState == PlayerState.Dodge || 
-            m_AttackComboAnimations.Length == 0) return;
-
-        m_AutoTriggerNextAttack = true;
-        if (m_CurrentState != PlayerState.Attack)
-        {
-            m_CurrentComboIndex = -1;
-            StartCoroutine(AttackComboRoutine());
-        }
-        m_CurrentState = PlayerState.Attack;
-    }
-
-    private IEnumerator AttackComboRoutine()
-    {
-        yield return null;
-        while (m_AutoTriggerNextAttack)
-        {
-            if(m_CurrentState != PlayerState.Attack)
-            {
-                yield break;
-            }
-            m_AutoTriggerNextAttack = false;
-            if (m_CurrentComboIndex < m_AttackComboAnimations.Length - 1)
-            {
-                m_CurrentComboIndex++;
-                m_SpriteAnimator.PlayIfNotPlaying(m_AttackComboAnimations[m_CurrentComboIndex]);
-                var attackAnimation = m_AttackComboAnimations[m_CurrentComboIndex];
-                yield return new WaitForSeconds(attackAnimation.GetAnimationTime());
-            }
-        }
-        if (m_CurrentState == PlayerState.Attack)
-        {
-            m_CurrentState = PlayerState.IDLE;
-        }
-    }
-
-    private void Dodge(InputAction.CallbackContext obj)
-    {
-        if (m_CurrentState == PlayerState.Dodge) return;
-        m_CurrentState = PlayerState.Dodge;
-
-        var dodgeTime = 0f;
-        if (m_Dodger != null)
-        {
-            m_Dodger.Dodge(
-                BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection), 
-                out dodgeTime);
-        }
-
-        m_HealthSystem.SetInvincible(dodgeTime);
-
-        this.InvokeSecondsDelayed(
-            () => m_CurrentState = PlayerState.IDLE,
-            dodgeTime
-            );
-    }
-
-    private void Start()
-    {
-        m_PlayerCamera.parent = null;
-    }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         m_MoveActionProperty.action.Disable();
         m_AttackActionProperty.action.Disable();
         m_DodgeActionProperty.action.Disable();
+    }
+
+    private void Start()
+    {
+        InitializeAttackProviders();
+        m_PlayerCamera.parent = null;
+
+        m_SpriteAnimator.AnimationEventCalled += OnAnimationEventCalled;
+    }
+
+    private void OnAnimationEventCalled(string eventName)
+    {
+        if(eventName == m_AttackStartEventName)
+        {
+            m_AttackCollider.SetActive(true);
+        }
+        else if(eventName == m_AttackEndEventName)
+        {
+            m_AttackCollider.SetActive(false);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(m_PlayerCamera);
     }
 
     private void Update()
@@ -161,7 +128,7 @@ public class PlayerController : MonoBehaviour
         var moveInput = MoveInput;
         if (moveInput.sqrMagnitude > 0)
         {
-            transform.Translate(m_MoveSpeed * Time.deltaTime * moveInput);
+            transform.Translate(MoveSpeed * Time.deltaTime * moveInput);
             m_SpriteAnimator.PlayIfNotPlaying(m_MoveAnimation);
             m_CurrentState = PlayerState.Move;
         }
@@ -170,5 +137,80 @@ public class PlayerController : MonoBehaviour
             m_CurrentState = PlayerState.IDLE;
             m_SpriteAnimator.PlayIfNotPlaying(m_IDLEAnimation);
         }
+    }
+
+    #region Attack
+
+    private void Attack(InputAction.CallbackContext obj)
+    {
+        if (m_CurrentState == PlayerState.Dodge ||
+            m_AttackComboAnimations.Length == 0) return;
+
+        m_AutoTriggerNextAttack = true;
+        if (m_CurrentState != PlayerState.Attack)
+        {
+            m_CurrentComboIndex = -1;
+            StartCoroutine(AttackComboRoutine());
+        }
+        m_CurrentState = PlayerState.Attack;
+    }
+
+    private IEnumerator AttackComboRoutine()
+    {
+        yield return null;
+        while (m_AutoTriggerNextAttack)
+        {
+            if (m_CurrentState != PlayerState.Attack)
+            {
+                yield break;
+            }
+            m_AutoTriggerNextAttack = false;
+            if (m_CurrentComboIndex < m_AttackComboAnimations.Length - 1)
+            {
+                m_CurrentComboIndex++;
+                m_SpriteAnimator.PlayIfNotPlaying(m_AttackComboAnimations[m_CurrentComboIndex]);
+                var attackAnimation = m_AttackComboAnimations[m_CurrentComboIndex];
+                var normalFPS = attackAnimation.FPS;
+                attackAnimation.FPS = (int)(normalFPS * AttackSpeed);
+                yield return new WaitForSeconds(attackAnimation.GetAnimationTime());
+                attackAnimation.FPS = normalFPS;
+            }
+        }
+        if (m_CurrentState == PlayerState.Attack)
+        {
+            m_CurrentState = PlayerState.IDLE;
+        }
+    }
+
+    private void InitializeAttackProviders()
+    {
+        var attackProviders = GetComponentsInChildren<AttackProvider>(true);
+        foreach (var attackProvider in attackProviders)
+        {
+            attackProvider.OnSuccessAttack.AddListener(RunesContainer.ApplyAttackEffects);
+        }
+    }
+
+    #endregion
+
+    private void Dodge(InputAction.CallbackContext obj)
+    {
+        if (m_CurrentState == PlayerState.Dodge) return;
+        m_CurrentState = PlayerState.Dodge;
+
+        var dodgeTime = 0f;
+        if (m_Dodger != null)
+        {
+            m_Dodger.Dodge(
+                BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection),
+                out dodgeTime);
+        }
+
+        m_HealthSystem.SetInvincible(dodgeTime);
+
+        this.InvokeSecondsDelayed(
+            () => m_CurrentState = PlayerState.IDLE,
+            dodgeTime
+            );
     }
 }

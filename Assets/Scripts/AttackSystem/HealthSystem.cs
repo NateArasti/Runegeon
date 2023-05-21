@@ -1,4 +1,3 @@
-using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +5,7 @@ using UnityEngine.Events;
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private float m_InvincibleTime = 1f;
-    [SerializeField] private float m_MaxHealth = 100;
+    [SerializeField] private int m_MaxHealth = 100;
     [Space]
     [SerializeField] private UnityEvent m_OnHit;
     [SerializeField] private UnityEvent m_OnDeath;
@@ -16,7 +15,8 @@ public class HealthSystem : MonoBehaviour
 
     private float m_CurrentHealth;
 
-    protected float MaxHealth => m_MaxHealth; 
+    public int MaxHealth { get => m_MaxHealth; set => m_MaxHealth = value; }
+    public float InvincibleTime { get => m_InvincibleTime; set => m_InvincibleTime = value; } 
     protected float CurrentHealth => m_CurrentHealth; 
 
     private void Awake()
@@ -56,13 +56,5 @@ public class HealthSystem : MonoBehaviour
     {
         m_Invincible = true;
         m_CurrentInvincibleCooldown = invincibleTime == -1 ? m_InvincibleTime : invincibleTime;
-    }
-
-    [Button]
-    public void ForceDie()
-    {
-        m_CurrentHealth = 0;
-        OnHealthChanged();
-        m_OnDeath.Invoke();
     }
 }

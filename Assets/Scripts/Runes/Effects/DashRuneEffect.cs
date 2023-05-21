@@ -15,6 +15,7 @@ public class DashRuneEffect : BaseRuneEffect
         m_Dodger.OnDodgeEnd += OnDashEnd;
         var hitbox = target.GetComponentInChildren<IAttackReciever>() as MonoBehaviour;
         m_AttackProvider = hitbox.gameObject.AddComponent<AttackProvider>();
+        m_AttackProvider.OnSuccessAttack.AddListener(RunesContainer.ApplyAttackEffects);
         m_AttackProvider.Active = false;
     }
 

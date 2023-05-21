@@ -27,6 +27,8 @@ public class Dodger : MonoBehaviour
     private float m_CurrentDodgeCooldown;
     public DodgeType dodgeType = DodgeType.Roll;
 
+    public float MoveSpeed { get; set; } = 1;
+
     private void Update()
     {
         if(m_CurrentDodgeCooldown > 0)
@@ -60,6 +62,8 @@ public class Dodger : MonoBehaviour
     private void Roll(Vector2 dodgeDirection, out float dodgeTime)
     {
         m_SpriteAnimator.PlayIfNotPlaying(m_RollAnimation);
+        var targetRollTime = m_DodgeDistance / MoveSpeed;
+        m_RollAnimation.FPS = (int) (m_RollAnimation.Frames.Count / targetRollTime);
         dodgeTime = m_RollAnimation.GetAnimationTime();
         transform.DashMove(dodgeDirection, m_DodgeDistance, dodgeTime);
     }

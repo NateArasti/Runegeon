@@ -47,4 +47,16 @@ public class GlobalPlayerData : MonoBehaviour
     {
         RunesContainer.DiscardRuneFromTarget(m_Rune, m_Player);
     }
+
+    [Button]
+    private void ClaimRuneFromStorage()
+    {
+        RunesContainer.ClaimRuneFromStorage(m_Rune);
+    }
+
+    [Button]
+    private void DiscardRuneToStorage()
+    {
+        RunesContainer.DiscardRuneToStorage(m_Rune);
+    }
 }

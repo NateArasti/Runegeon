@@ -6,6 +6,7 @@ using UnityExtensions;
 [CreateAssetMenu(fileName = "GhostAttackEffect", menuName = "RuneEffects/GhostAttackEffect")]
 public class GhostAttackRuneEffect : BaseRuneEffect
 {
+    [Space]
     [SerializeField, Range(0, 1)] private float m_EffectChance = 0.3f;
     [SerializeField] private SpriteAnimator m_AttackGhost;
     [SerializeField] private float m_SpawnDelay = 0.5f;

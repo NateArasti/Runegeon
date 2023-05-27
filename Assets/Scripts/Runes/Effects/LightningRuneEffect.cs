@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LightningEffect", menuName = "RuneEffects/LightningEffect")]
 public partial class LightningRuneEffect : BaseRuneEffect
 {
+    [Space]
     [SerializeField] private LightningArcEffect m_LightningArcEffectPrefab;
     [SerializeField] private BounceAttack.BounceAttackData m_BounceAttackData;
 

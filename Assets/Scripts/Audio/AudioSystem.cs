@@ -13,6 +13,9 @@ public class AudioSystem : MonoBehaviour
     [SerializeField] private AudioSource m_MusicSource;
     [SerializeField] private AudioSource m_SFXAudioSource;
 
+    public static bool MusicEnabled { get; private set; } = true;
+    public static bool SoundsEnabled { get; private set; } = true;
+
     private void Awake()
     {
         if(s_Instance != null)
@@ -21,6 +24,19 @@ public class AudioSystem : MonoBehaviour
             return;
         }
         s_Instance = this;
+    }
+
+    private void Start()
+    {
+        LoadPlayerPrefs();
+        SetMusicState(MusicEnabled);
+        SetSFXState(SoundsEnabled);
+    }
+
+    private void LoadPlayerPrefs()
+    {
+        MusicEnabled = PlayerPrefs.GetInt(k_MusicVolumeKey, 1) == 1;
+        SoundsEnabled = PlayerPrefs.GetInt(k_SFXVolumeKey, 1) == 1;
     }
 
     public static void SwitchBackgroundMusic(AudioClip newMusicClip, float newVolume)
@@ -53,14 +69,20 @@ public class AudioSystem : MonoBehaviour
         source.volume = endValue;
     }
     
-    public static void SetMusicVolume(float volume)
+    public static void SetMusicState(bool enabled)
     {
-        SetAudioGroupVolume(k_MusicVolumeKey, volume);
+        MusicEnabled = enabled;
+        PlayerPrefs.SetInt(k_MusicVolumeKey, MusicEnabled ? 1 : 0);
+        PlayerPrefs.Save();
+        SetAudioGroupVolume(k_MusicVolumeKey, MusicEnabled ? 0 : -80);
     }
 
-    public static void SetSFXVolume(float volume)
+    public static void SetSFXState(bool enabled)
     {
-        SetAudioGroupVolume(k_SFXVolumeKey, volume);
+        SoundsEnabled = enabled;
+        PlayerPrefs.SetInt(k_MusicVolumeKey, SoundsEnabled ? 1 : 0);
+        PlayerPrefs.Save();
+        SetAudioGroupVolume(k_SFXVolumeKey, SoundsEnabled ? 0 : -80);
     }
 
     private static void SetAudioGroupVolume(string key, float volume)

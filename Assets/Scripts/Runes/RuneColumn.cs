@@ -11,7 +11,7 @@ public class RuneColumn : MonoBehaviour
 
     private void Update()
     {
-        if (RunesContainer.StorageRuneEffects.Contains(m_Rune))
+        if (RunesContainer.InStorage(m_Rune))
         {
             if (!m_ContainsRune)
             {

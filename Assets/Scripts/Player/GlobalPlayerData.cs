@@ -6,6 +6,7 @@ public class GlobalPlayerData : MonoBehaviour
     private static GlobalPlayerData s_Instance;
 
     [SerializeField] private GameObject m_Player;
+    [SerializeField] private BaseRuneEffect[] m_StartRunes;
     [SerializeField] private BaseRuneEffect m_Rune;
 
     public static Transform PlayerTransform => s_Instance != null ? 
@@ -14,14 +15,19 @@ public class GlobalPlayerData : MonoBehaviour
     private void Awake()
     {
         s_Instance = this;
+
+        foreach (var rune in m_StartRunes)
+        {
+            RunesContainer.AddRuneEffect(rune);
+        }
     }
 
     private void Start()
     {
-        //foreach (var rune in RunesContainer.CurrentRuneEffects)
-        //{
-        //    RunesContainer.ApplyRuneOnTarget(rune, m_Player);
-        //}
+        foreach (var rune in RunesContainer.CurrentRuneEffects)
+        {
+            RunesContainer.ApplyRuneOnTarget(rune, m_Player);
+        }
     }
 
     [Button]

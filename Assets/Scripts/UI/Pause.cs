@@ -1,18 +1,11 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-public class Pause : MonoBehaviour
+public class Pause : DoubleStateObject
 {
     [SerializeField] private InputActionProperty m_PauseToggleAction;
-    [Space]
-    [SerializeField] private Button m_PauseButton;
-    [Space]
-    [SerializeField] private UnityEvent m_OnPause;
-    [SerializeField] private UnityEvent m_OnPlay;
 
-    private float m_PreviousTimeScale;
+    private float m_PreviousTimeScale = 1;
 
     private void Awake()
     {
@@ -20,18 +13,35 @@ public class Pause : MonoBehaviour
         m_PauseToggleAction.action.performed += TogglePause;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        OnStateSet += OnPauseToggle;
+    }
+
+    private void OnDestroy()
+    {
+        OnStateSet -= OnPauseToggle;
+        m_PauseToggleAction.action.performed -= TogglePause;
+    }
+
     private void TogglePause(InputAction.CallbackContext obj)
     {
-        if (m_PauseButton.gameObject.activeInHierarchy)
+        ToggleState();
+    }
+
+    private void OnPauseToggle(bool paused)
+    {
+        if (paused)
         {
             m_PreviousTimeScale = Time.timeScale;
             Time.timeScale = 0;
-            m_OnPause.Invoke();
         }
         else
         {
             Time.timeScale = m_PreviousTimeScale;
-            m_OnPlay.Invoke();
         }
+        DefaultButtonClickSFX.Instance.PlaySFX();
     }
 }

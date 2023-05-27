@@ -4,9 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExplosionEffect", menuName = "RuneEffects/ExplosionEffect")]
 public class ExplosionRuneEffect : BaseRuneEffect
 {
+    [Space]
     [SerializeField] private GameObject m_EffectPrefab;
     [SerializeField] private float m_ExplosionRadius = 2;
-    [SerializeField] private float m_ExplosionDamage = 1;
+    [SerializeField] private int m_ExplosionDamage = 1;
     [SerializeField] private float m_ExplosionForce = 1;
     [SerializeField] private float m_MoveTime = 0.2f;
     [SerializeField] private LayerMask m_ExplosionLayerMask;
@@ -29,15 +30,18 @@ public class ExplosionRuneEffect : BaseRuneEffect
             if(target.TryGetComponent<IAttackReciever>(out var reciever))
             {
                 var targetRoot = target.transform.root;
-                var direction = targetRoot.position - center;
-                if(Mathf.Approximately(direction.sqrMagnitude, 0))
+                if(targetRoot.TryGetComponent<EnemyAI>(out var _))
                 {
-                    direction = Random.insideUnitCircle;
+                    var direction = targetRoot.position - center;
+                    if (Mathf.Approximately(direction.sqrMagnitude, 0))
+                    {
+                        direction = Random.insideUnitCircle;
+                    }
+
+                    direction.Normalize();
+
+                    targetRoot.DOMove(targetRoot.position + direction * m_ExplosionForce, m_MoveTime);
                 }
-
-                direction.Normalize();
-
-                targetRoot.DOMove(targetRoot.position + direction * m_ExplosionForce, m_MoveTime);
 
                 reciever.RecieveAttack(explosionAttack);
             }
@@ -46,12 +50,12 @@ public class ExplosionRuneEffect : BaseRuneEffect
 
     private class ExplosionAttackProvider : IAttackProvider
     {
-        public ExplosionAttackProvider(float damage)
+        public ExplosionAttackProvider(int damage)
         {
             Damage = damage;
         }
 
-        public float Damage { get; private set; }
+        public int Damage { get; private set; }
 
         public bool Active => true;
 

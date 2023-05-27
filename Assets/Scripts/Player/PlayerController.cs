@@ -46,22 +46,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 MoveInput => m_MoveJoystick.Direction + m_MoveActionProperty.action.ReadValue<Vector2>();
 
-    private void OnEnable()
+    private void Awake()
     {
         m_MoveActionProperty.action.Enable();
-
         m_AttackActionProperty.action.Enable();
-        m_AttackActionProperty.action.performed += Attack;
-
         m_DodgeActionProperty.action.Enable();
-        m_DodgeActionProperty.action.performed += Dodge;
-    }
 
-    private void OnDisable()
-    {
-        m_MoveActionProperty.action.Disable();
-        m_AttackActionProperty.action.Disable();
-        m_DodgeActionProperty.action.Disable();
+        m_AttackActionProperty.action.performed += Attack;
+        m_DodgeActionProperty.action.performed += Dodge;
     }
 
     private void Start()
@@ -72,7 +64,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(m_PlayerCamera);
+        m_AttackActionProperty.action.performed -= Attack;
+        m_DodgeActionProperty.action.performed -= Dodge;
+
+        Destroy(m_PlayerCamera.gameObject);
     }
 
     private void Update()
@@ -81,6 +76,11 @@ public class PlayerController : MonoBehaviour
 
         if (m_CurrentState == PlayerState.IDLE || m_CurrentState == PlayerState.Move)
             HandleMovement();
+    }
+
+    public void Die()
+    {
+        enabled = false;
     }
 
     private void HandleLookDirection()

@@ -7,6 +7,7 @@ using DG.Tweening;
 [CreateAssetMenu(fileName = "BerserkEffect", menuName = "RuneEffects/BerserkEffect")]
 public class BerserkRuneEffect : BaseRuneEffect
 {
+    [Space]
     [SerializeField, Range(0, 1)] private float m_ProgressIncreasePerHit = 0.25f;
     [SerializeField] private float m_BerserkModeTime = 5;
     [SerializeField] private float m_BerserkLoseSpeed = 0.1f;
@@ -17,7 +18,7 @@ public class BerserkRuneEffect : BaseRuneEffect
     [SerializeField] private float m_SkipVolumeDuration = 0.5f;
     [Header("Modificators")]
     [SerializeField] private float m_AttackSpeedIncrease = 0.1f;
-    [SerializeField] private float m_AttackDamageIncrese = 2f;
+    [SerializeField] private int m_AttackDamageIncrese = 2;
     [SerializeField] private float m_MoveSpeedIncrease = 2f;
 
     private bool m_Applied;

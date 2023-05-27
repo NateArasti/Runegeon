@@ -13,13 +13,13 @@ public class HealthSystem : MonoBehaviour
     private bool m_Invincible;
     private float m_CurrentInvincibleCooldown;
 
-    private float m_CurrentHealth;
+    private int m_CurrentHealth;
 
     public int MaxHealth { get => m_MaxHealth; set => m_MaxHealth = value; }
+    public int CurrentHealth => m_CurrentHealth;
     public float InvincibleTime { get => m_InvincibleTime; set => m_InvincibleTime = value; } 
-    protected float CurrentHealth => m_CurrentHealth; 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         m_CurrentHealth = m_MaxHealth;
         OnHealthChanged();

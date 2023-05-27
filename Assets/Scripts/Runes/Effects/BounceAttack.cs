@@ -13,7 +13,7 @@ public class BounceAttack : IAttackProvider
 
     public bool Active => true;
 
-    public float Damage => m_AttackData.BounceDamage;
+    public int Damage => m_AttackData.BounceDamage;
 
     public BounceAttack(BounceAttackData attackData)
     {
@@ -70,14 +70,14 @@ public class BounceAttack : IAttackProvider
         [SerializeField] private float m_CollapseDelay = 0.3f;
         [SerializeField] private int m_MaxBounceCount = 3;
         [SerializeField] private float m_BounceRange = 1f;
-        [SerializeField] private float m_BounceDamage = 10f;
+        [SerializeField] private int m_BounceDamage = 10;
         [SerializeField] private LayerMask m_BounceMask;
 
         public float BounceDelay => m_BounceDelay;
         public float CollapseDelay => m_CollapseDelay;
         public int MaxBounceCount => m_MaxBounceCount;
         public float BounceRange => m_BounceRange;
-        public float BounceDamage => m_BounceDamage;
+        public int BounceDamage => m_BounceDamage;
         public LayerMask BounceMask => m_BounceMask;
     }
 }

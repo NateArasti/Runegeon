@@ -1,41 +1,58 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class RunesContainer
 {
-    public static HashSet<IRuneEffect> StorageRuneEffects { get; private set; } = new();
-    public static HashSet<IRuneEffect> CurrentRuneEffects { get; private set; } = new();
+    public static event UnityAction OnChange;
+
+    private static readonly HashSet<IRuneEffect> s_StorageRuneEffects = new();
+    private static readonly List<IRuneEffect> s_CurrentRuneEffects = new();
+
+    public static IReadOnlyList<IRuneEffect> CurrentRuneEffects => s_CurrentRuneEffects;
 
     public static void ClaimRuneFromStorage(IRuneEffect runeEffect)
     {
-        AddRuneEffect(runeEffect);
-        StorageRuneEffects.Remove(runeEffect);
+        if (!s_StorageRuneEffects.Contains(runeEffect)) return;
+        if (s_CurrentRuneEffects.Contains(runeEffect)) return;
+        s_StorageRuneEffects.Remove(runeEffect);
+        s_CurrentRuneEffects.Add(runeEffect);
+        OnChange?.Invoke();
     }
 
     public static void DiscardRuneToStorage(IRuneEffect runeEffect)
     {
-        RemoveRuneEffect(runeEffect);
-        StorageRuneEffects.Add(runeEffect);
+        if (!s_CurrentRuneEffects.Contains(runeEffect)) return;
+        s_CurrentRuneEffects.Remove(runeEffect);
+        s_StorageRuneEffects.Add(runeEffect);
+        OnChange?.Invoke();
     }
 
     public static void AddRuneEffect(IRuneEffect runeEffect)
     {
-        CurrentRuneEffects.Add(runeEffect);
+        if (s_CurrentRuneEffects.Contains(runeEffect)) return;
+        s_CurrentRuneEffects.Add(runeEffect);
+        OnChange?.Invoke();
     }
 
     public static void RemoveRuneEffect(IRuneEffect runeEffect)
     {
-        CurrentRuneEffects.Remove(runeEffect);
+        if (!s_CurrentRuneEffects.Contains(runeEffect)) return;
+        s_CurrentRuneEffects.Remove(runeEffect);
+        OnChange?.Invoke();
     }
+
+    public static bool InStorage(IRuneEffect runeEffect) => s_StorageRuneEffects.Contains(runeEffect);
 
     public static void ClearAllRuneEffects()
     {
-        CurrentRuneEffects.Clear();
+        s_CurrentRuneEffects.Clear();
+        OnChange?.Invoke();
     }
 
     public static void ApplyAttackEffects(IAttackProvider attackProvider, IAttackReciever attackReciever)
     {
-        foreach (var effect in CurrentRuneEffects)
+        foreach (var effect in s_CurrentRuneEffects)
         {
             effect.OnAttack(attackProvider, attackReciever);
         }

@@ -5,10 +5,6 @@ namespace BehavioursRectangularGraph
 {
     public abstract class RectangularNodeBehavior : MonoBehaviour
     {
-        [SerializeField, Range(0.01f, 1)] private float m_SpawnChance = 1;
-
-        public float SpawnChance => m_SpawnChance;
-
         #region Exits
 
         public abstract IReadOnlyList<Transform> TopExits { get; }

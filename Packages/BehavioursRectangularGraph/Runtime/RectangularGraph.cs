@@ -7,6 +7,52 @@ namespace BehavioursRectangularGraph
 {
     public class RectangularGraph<T> where T : RectangularNodeBehavior
     {
+        public class SequenceGraphNodeBehaviourData : SpecialGraphNodeBehaviourData
+        {
+            public SequenceGraphNodeBehaviourData(
+                T[] nextRoomVariations, 
+                T[] behaviourVariations, 
+                float spawnChance, 
+                Vector2Int spawnRange) :
+                base(behaviourVariations, spawnChance, spawnRange)
+            {
+                NextBehaviourVariations = nextRoomVariations;
+            }
+
+            public IReadOnlyCollection<T> NextBehaviourVariations { get; }
+        }
+
+        public class SpecialGraphNodeBehaviourData : GraphNodeBehaviourData
+        {
+            public SpecialGraphNodeBehaviourData(
+                T[] behaviourVariations, 
+                float spawnChance, 
+                Vector2Int spawnRange) :
+                base(behaviourVariations[0], spawnChance, spawnRange)
+            {
+                BehaviourVariations = behaviourVariations;
+            }
+
+            public IReadOnlyCollection<T> BehaviourVariations { get; }
+        }
+
+        public class GraphNodeBehaviourData
+        {
+            public GraphNodeBehaviourData(
+                T behaviour, 
+                float spawnChance, 
+                Vector2Int spawnRange)
+            {
+                Behaviour = behaviour;
+                SpawnChance = Mathf.Clamp01(spawnChance);
+                SpawnRange = spawnRange;
+            }
+
+            public T Behaviour { get; }
+            public float SpawnChance { get; }
+            public Vector2Int SpawnRange { get; }
+        }
+
         #region Precalculated Possible Rooms
 
         #region SimpleContinueRooms
@@ -30,25 +76,34 @@ namespace BehavioursRectangularGraph
         #endregion
 
         private readonly HashSet<T> m_PossibleNodeBehaviours;
-        private readonly HashSet<T> m_RequiredNodeBehaviours;
+        private readonly HashSet<SpecialGraphNodeBehaviourData> m_SpecialBehaviours;
+        private readonly Dictionary<T, GraphNodeBehaviourData> m_BehaviourDatas;
 
         public HashSet<RectangularNode<T>> Nodes { get; } = new();
 
-        public Vector2 DepthRange { get; set; } = new Vector2(2, 5);
+        public Vector2Int DepthRange { get; set; } = new Vector2Int(2, 5);
         public float DeadEndChance { get; set; } = 0.1f;
         public bool HandleCycles { get; set; } = true;
 
-        public RectangularGraph(IReadOnlyCollection<T> possibleNodeBehaviours, IReadOnlyCollection<T> requiredNodeBehaviours = null)
+        public RectangularGraph(
+            IReadOnlyCollection<GraphNodeBehaviourData> possibleNodeBehaviourDatas, 
+            IReadOnlyCollection<SpecialGraphNodeBehaviourData> specialNodeBehaviourDatas
+            )
         {
-            var allPossibleBehaviours = new HashSet<T>(possibleNodeBehaviours);
-            var allRequiredBehaviours = requiredNodeBehaviours != null ? 
-                new HashSet<T>(requiredNodeBehaviours) : new HashSet<T>();
-            foreach (var requiredBehaviour in allRequiredBehaviours)
+            m_BehaviourDatas = new Dictionary<T, GraphNodeBehaviourData>();
+            foreach (var data in possibleNodeBehaviourDatas)
             {
-                allPossibleBehaviours.Add(requiredBehaviour);
+                m_BehaviourDatas.Add(data.Behaviour, data);
             }
-            m_PossibleNodeBehaviours = allPossibleBehaviours;
-            m_RequiredNodeBehaviours = allRequiredBehaviours;
+            foreach (var data in specialNodeBehaviourDatas)
+            {
+                foreach (var variant in data.BehaviourVariations)
+                {
+                    m_BehaviourDatas.Add(variant, data);
+                }
+            }
+            m_PossibleNodeBehaviours = new HashSet<T>(m_BehaviourDatas.Keys);
+            m_SpecialBehaviours = new HashSet<SpecialGraphNodeBehaviourData>(specialNodeBehaviourDatas);
         }
 
         public bool TryGenerateNodes()
@@ -62,8 +117,7 @@ namespace BehavioursRectangularGraph
             CalculateRoomPossiblities();
 
             var possibleStartNodeBehaviours = m_PossibleNodeBehaviours
-                //.Where(nodeBehaviour => nodeBehaviour.LeftExits.Count == 0)
-                .GetWeightedShuffle(behaviour => behaviour.SpawnChance);
+                .GetWeightedShuffle(GetBehaviourSpawnChance);
 
             foreach(var startNodeBehaviour in possibleStartNodeBehaviours)
             {
@@ -84,35 +138,35 @@ namespace BehavioursRectangularGraph
             #region SimpleContinueRooms
 
             m_PossibleLeftExitСontinuation = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.RightExits.Count > 0 &&
-                    (room.LeftExits.Count != 0 ||
-                    room.TopExits.Count != 0 ||
-                    room.BottomExits.Count != 0)
+                .Where(behaviour =>
+                    behaviour.RightExits.Count > 0 &&
+                    (behaviour.LeftExits.Count != 0 ||
+                    behaviour.TopExits.Count != 0 ||
+                    behaviour.BottomExits.Count != 0)
                 )
                 .ToList();
             m_PossibleRightExitСontinuation = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.LeftExits.Count > 0 &&
-                    (room.RightExits.Count != 0 ||
-                    room.TopExits.Count != 0 ||
-                    room.BottomExits.Count != 0)
+                .Where(behaviour =>
+                    behaviour.LeftExits.Count > 0 &&
+                    (behaviour.RightExits.Count != 0 ||
+                    behaviour.TopExits.Count != 0 ||
+                    behaviour.BottomExits.Count != 0)
                 )
                 .ToList();
             m_PossibleTopExitСontinuation = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.BottomExits.Count > 0 &&
-                    (room.LeftExits.Count != 0 ||
-                    room.TopExits.Count != 0 ||
-                    room.RightExits.Count != 0)
+                .Where(behaviour =>
+                    behaviour.BottomExits.Count > 0 &&
+                    (behaviour.LeftExits.Count != 0 ||
+                    behaviour.TopExits.Count != 0 ||
+                    behaviour.RightExits.Count != 0)
                 )
                 .ToList();
             m_PossibleBottomExitСontinuation = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.TopExits.Count > 0 &&
-                    (room.LeftExits.Count != 0 ||
-                    room.RightExits.Count != 0 ||
-                    room.BottomExits.Count != 0)
+                .Where(behaviour =>
+                    behaviour.TopExits.Count > 0 &&
+                    (behaviour.LeftExits.Count != 0 ||
+                    behaviour.RightExits.Count != 0 ||
+                    behaviour.BottomExits.Count != 0)
                 )
                 .ToList();
 
@@ -121,32 +175,32 @@ namespace BehavioursRectangularGraph
             #region DeadEnds
 
             m_PossibleLeftDeadEnds = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.RightExits.Count == 1 &&
-                    room.LeftExits.Count == 0 &&
-                    room.TopExits.Count == 0 &&
-                    room.BottomExits.Count == 0)
+                .Where(behaviour =>
+                    behaviour.RightExits.Count == 1 &&
+                    behaviour.LeftExits.Count == 0 &&
+                    behaviour.TopExits.Count == 0 &&
+                    behaviour.BottomExits.Count == 0)
                 .ToList();
             m_PossibleRightDeadEnds = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.LeftExits.Count == 1 &&
-                    room.RightExits.Count == 0 &&
-                    room.TopExits.Count == 0 &&
-                    room.BottomExits.Count == 0)
+                .Where(behaviour =>
+                    behaviour.LeftExits.Count == 1 &&
+                    behaviour.RightExits.Count == 0 &&
+                    behaviour.TopExits.Count == 0 &&
+                    behaviour.BottomExits.Count == 0)
                 .ToList();
             m_PossibleTopDeadEnds = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.BottomExits.Count == 1 &&
-                    room.LeftExits.Count == 0 &&
-                    room.TopExits.Count == 0 &&
-                    room.RightExits.Count == 0)
+                .Where(behaviour =>
+                    behaviour.BottomExits.Count == 1 &&
+                    behaviour.LeftExits.Count == 0 &&
+                    behaviour.TopExits.Count == 0 &&
+                    behaviour.RightExits.Count == 0)
                 .ToList();
             m_PossibleBottomDeadEnds = m_PossibleNodeBehaviours
-                .Where(room =>
-                    room.TopExits.Count == 1 &&
-                    room.LeftExits.Count == 0 &&
-                    room.RightExits.Count == 0 &&
-                    room.BottomExits.Count == 0)
+                .Where(behaviour =>
+                    behaviour.TopExits.Count == 1 &&
+                    behaviour.LeftExits.Count == 0 &&
+                    behaviour.RightExits.Count == 0 &&
+                    behaviour.BottomExits.Count == 0)
                 .ToList();
 
             #endregion
@@ -200,7 +254,8 @@ namespace BehavioursRectangularGraph
             var possibleNextNodeBehaviours = GetPossibleNextNodeBehaviours(
                 node.ReferenceBehaviour, 
                 neighbourDirection, 
-                spawnDeadEnd);
+                spawnDeadEnd,
+                node.Depth + 1);
 
             foreach (var nodeBehaviour in possibleNextNodeBehaviours)
             {
@@ -251,9 +306,8 @@ namespace BehavioursRectangularGraph
 
         private bool CheckGraphConsistancy()
         {
-            var graphCompleted = true;
             var graphDepth = 0;
-            var createdRequiredBehaviours = new HashSet<T>();
+            var createdSpecialBehaviours = new HashSet<SpecialGraphNodeBehaviourData>();
             foreach (var node in Nodes)
             {
                 foreach(var direction in Utility.GetEachDirection())
@@ -262,7 +316,7 @@ namespace BehavioursRectangularGraph
                     {
                         if(neighbour == null)
                         {
-                            graphCompleted = false;
+                            //graph not completed, no need to check further
                             return true;
                         }
                     }
@@ -270,22 +324,56 @@ namespace BehavioursRectangularGraph
 
                 graphDepth = Mathf.Max(graphDepth, node.Depth);
 
-                if (m_RequiredNodeBehaviours.Contains(node.ReferenceBehaviour) &&
-                    !createdRequiredBehaviours.Contains(node.ReferenceBehaviour))
+                if (m_BehaviourDatas.ContainsKey(node.ReferenceBehaviour) && 
+                    m_BehaviourDatas[node.ReferenceBehaviour] is SpecialGraphNodeBehaviourData data
+                    && m_SpecialBehaviours.Contains(data))
                 {
-                    createdRequiredBehaviours.Add(node.ReferenceBehaviour);
+                    if (createdSpecialBehaviours.Contains(data))
+                    {
+                        return false;
+                    }
+                    createdSpecialBehaviours.Add(data);
                 }
             }
 
-            return DepthRange.x <= graphDepth && graphDepth <= DepthRange.y &&
-                createdRequiredBehaviours.Count == m_RequiredNodeBehaviours.Count;
+            return Utility.InRange(graphDepth, DepthRange) && 
+                createdSpecialBehaviours.Count == m_SpecialBehaviours.Count;
         }
 
         private IEnumerable<T> GetPossibleNextNodeBehaviours(
             T nodeBehaviour,
             RectangularDirection neighbourDirection, 
-            bool spawnDeadEnd)
+            bool spawnDeadEnd,
+            int depth)
         {
+            if (m_BehaviourDatas[nodeBehaviour] is SequenceGraphNodeBehaviourData sequence)
+            {
+                return neighbourDirection switch
+                {
+                    RectangularDirection.Left => sequence.NextBehaviourVariations.Where(behaviour =>
+                        behaviour.RightExits.Count == 1 &&
+                        behaviour.LeftExits.Count == 0 &&
+                        behaviour.TopExits.Count == 0 &&
+                        behaviour.BottomExits.Count == 0),
+                    RectangularDirection.Up => sequence.NextBehaviourVariations.Where(behaviour =>
+                        behaviour.BottomExits.Count == 1 &&
+                        behaviour.LeftExits.Count == 0 &&
+                        behaviour.TopExits.Count == 0 &&
+                        behaviour.RightExits.Count == 0),
+                    RectangularDirection.Right => sequence.NextBehaviourVariations.Where(behaviour =>
+                        behaviour.LeftExits.Count == 1 &&
+                        behaviour.RightExits.Count == 0 &&
+                        behaviour.TopExits.Count == 0 &&
+                        behaviour.BottomExits.Count == 0),
+                    RectangularDirection.Down => sequence.NextBehaviourVariations.Where(behaviour =>
+                        behaviour.TopExits.Count == 1 &&
+                        behaviour.LeftExits.Count == 0 &&
+                        behaviour.RightExits.Count == 0 &&
+                        behaviour.BottomExits.Count == 0),
+                    _ => null,
+                };
+            }
+
             var possibleNextNodeBehaviours = (neighbourDirection, spawnDeadEnd) switch
             {
                 (RectangularDirection.Left, true) => m_PossibleLeftDeadEnds,
@@ -307,7 +395,11 @@ namespace BehavioursRectangularGraph
                 shuffled.Remove(nodeBehaviour);
                 shuffled.Add(nodeBehaviour);
             }
-            return shuffled;
+
+            return shuffled.Where(behaviour => 
+                    !m_BehaviourDatas.ContainsKey(behaviour) ||
+                    Utility.InRange(depth, m_BehaviourDatas[behaviour].SpawnRange)
+                    );
         }
 
         private List<(RectangularDirection neighbourDirection, int neighbourIndex)>
@@ -334,7 +426,9 @@ namespace BehavioursRectangularGraph
 
         private float GetBehaviourSpawnChance(T behaviour)
         {
-            var spawnChance = m_RequiredNodeBehaviours.Contains(behaviour) ? 1 : behaviour.SpawnChance;
+            var spawnChance = !m_BehaviourDatas.ContainsKey(behaviour) || m_BehaviourDatas[behaviour] is SpecialGraphNodeBehaviourData 
+                ? 1 
+                : m_BehaviourDatas[behaviour].SpawnChance;
             return spawnChance * 100;
         }
     }

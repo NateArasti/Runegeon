@@ -6,6 +6,11 @@ namespace BehavioursRectangularGraph
 {
     public static class Utility
     {
+        public static bool InRange(this int value, Vector2Int range)
+        {
+            return range.x <= value && value <= range.y;
+        }
+
         public static RectangularDirection GetInversedDirection(RectangularDirection direction) =>
             (RectangularDirection)(-(int)direction);
 

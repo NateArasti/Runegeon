@@ -12,14 +12,15 @@ public class LocationGenerator : MonoBehaviour
     [Space]
     [SerializeField] private UnityEvent<RectangularNode<Room>> m_OnLocationGenerated;
     [Space]
-    [SerializeField] private List<Room> m_RoomsPrefabs;
-    [SerializeField] private List<Room> m_RequiredRooms;
+    [SerializeField] private List<CommonGraphNodeBehaviourDataSerialized> m_CommonRoomsPrefabs;
+    [SerializeField] private List<SpecialGraphNodeBehaviourDataSerialized> m_SpecialRoomsPrefabs;
+    [SerializeField] private List<SequenceGraphNodeBehaviourDataSerialized> m_SpecialSequenceRoomsPrefabs;
 
     [BoxGroup("Random"), SerializeField] private bool m_CustomSeed;
     [BoxGroup("Random"), SerializeField, ShowIf(nameof(m_CustomSeed))] private int m_Seed;
 
     [BoxGroup("Generation Params"), SerializeField] private bool m_GenerateOnAwake = true;
-    [BoxGroup("Generation Params"), SerializeField, MinMaxSlider(1, 20)] private Vector2 m_DepthRange = new Vector2(2, 5);
+    [BoxGroup("Generation Params"), SerializeField, MinMaxSlider(1, 20)] private Vector2Int m_DepthRange = new Vector2Int(2, 5);
     [BoxGroup("Generation Params"), SerializeField, Range(0, 1)] private float m_DeadEndChance = 0.1f;
     [BoxGroup("Generation Params"), SerializeField] private bool m_HandleCycles = true;
     [BoxGroup("Generation Params"), SerializeField] private bool m_ColorRoomDueToDepth = true;
@@ -51,27 +52,34 @@ public class LocationGenerator : MonoBehaviour
     {
         PrepareGeneration();
 
-        var graph = new RectangularGraph<Room>(m_RoomsPrefabs, m_RequiredRooms)
+        var commonRoomDatas = m_CommonRoomsPrefabs.Select(data => data.GraphNodeBehaviourData).ToArray();
+        var specialRoomDatas = m_SpecialRoomsPrefabs.Select(data => data.GraphNodeBehaviourData)
+            .Concat(m_SpecialSequenceRoomsPrefabs.Select(data => data.GraphNodeBehaviourData))
+            .ToArray();
+
+        var graph = new RectangularGraph<Room>(commonRoomDatas, specialRoomDatas)
         {
             DeadEndChance = m_DeadEndChance,
             DepthRange = m_DepthRange,
             HandleCycles = m_HandleCycles,
         };
-
+        var stopwatch = new System.Diagnostics.Stopwatch();
+        stopwatch.Start();
         var generationSuccess = graph.TryGenerateNodes();
+        stopwatch.Stop();
 
-        if(generationSuccess)
+        if (generationSuccess)
             SpawnLocation(graph);
 
         var result = generationSuccess ? "success" : "fail";
-        Debug.Log($"Generation finished with result - {result}");
+        Debug.Log($"Generation finished with result - {result}, time - {stopwatch.ElapsedMilliseconds} ms");
     }
 
     private void PrepareGeneration()
     {
-        if (m_RoomsPrefabs.Count < 2)
+        if (m_CommonRoomsPrefabs.Count < 2)
         {
-            Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {m_RoomsPrefabs.Count}");
+            Debug.LogError($"Not enough room prefabs! Must have at least 2, but was {m_CommonRoomsPrefabs.Count}");
             return;
         }
 
@@ -124,10 +132,29 @@ public class LocationGenerator : MonoBehaviour
 
 #if UNITY_EDITOR
 
+    [SerializeField, Foldout("EditorOnly")] private Room[] m_RoomsToAdd;
+    [SerializeField, Range(0, 1), Foldout("EditorOnly")] private float m_DefaultSpawnChance = 1;
+    [SerializeField, MinMaxSlider(0, 100), Foldout("EditorOnly")] private Vector2Int m_DefaultSpawnRange = new Vector2Int(0, 100);
+
+    [Button(enabledMode: EButtonEnableMode.Editor)]
+    private void AddToCommonRunes()
+    {
+        foreach (var room in m_RoomsToAdd)
+        {
+            m_CommonRoomsPrefabs.Add(
+                new CommonGraphNodeBehaviourDataSerialized(room, m_DefaultSpawnChance, m_DefaultSpawnRange)
+                );
+        }
+    }
+
+
     [Button(enabledMode: EButtonEnableMode.Editor)]
     public void RunAnalysis()
     {
-        var graph = new RectangularGraph<Room>(m_RoomsPrefabs, m_RequiredRooms)
+        var commonRoomDatas = m_CommonRoomsPrefabs.Select(data => data.GraphNodeBehaviourData).ToArray();
+        var specialRoomDatas = m_SpecialRoomsPrefabs.Select(data => data.GraphNodeBehaviourData).ToArray();
+
+        var graph = new RectangularGraph<Room>(commonRoomDatas, specialRoomDatas)
         {
             DeadEndChance = m_DeadEndChance,
             DepthRange = m_DepthRange,
@@ -141,9 +168,9 @@ public class LocationGenerator : MonoBehaviour
         var totalCretedNodesCount = 0;
         var roomsStatistics = new Dictionary<Room, int>();
 
-        foreach (var roomPrefab in m_RoomsPrefabs)
+        foreach (var roomData in commonRoomDatas)
         {
-            roomsStatistics.Add(roomPrefab, 0);
+            roomsStatistics.Add(roomData.Behaviour, 0);
         }
 
         for (int i = 0; i < m_SimulationCount; i++)
@@ -172,14 +199,15 @@ public class LocationGenerator : MonoBehaviour
 
         analyseLog.AppendLine();
         analyseLog.AppendLine($"<i>Iterations count = {m_SimulationCount}</i>");
-        analyseLog.AppendLine($"<i>Rooms Prefabs count = {m_RoomsPrefabs.Count}</i>");
+        analyseLog.AppendLine($"<i>Rooms Prefabs count = {commonRoomDatas.Length}</i>");
         analyseLog.AppendLine($"<i>Depth Range = [min:{m_DepthRange.x}, max:{m_DepthRange.y}]</i>");
         analyseLog.AppendLine($"<i>Handling Cycles = {m_HandleCycles}</i>");
         analyseLog.AppendLine($"<i>DeadEnd Chance = {m_DeadEndChance}</i>");
         analyseLog.AppendLine();
-        foreach (var roomPrefab in m_RoomsPrefabs)
+
+        foreach (var roomData in commonRoomDatas)
         {
-            analyseLog.AppendLine($"<color=aqua>Room [{roomPrefab.gameObject.name}]</color> stats: absolute usage count = <b>{roomsStatistics[roomPrefab]}</b>, relative usage = <b>{(float)roomsStatistics[roomPrefab] / totalCretedNodesCount}</b>");
+            analyseLog.AppendLine($"<color=aqua>Room [{roomData.Behaviour.gameObject.name}]</color> stats: absolute usage count = <b>{roomsStatistics[roomData.Behaviour]}</b>, relative usage = <b>{(float)roomsStatistics[roomData.Behaviour] / totalCretedNodesCount}</b>");
         }
 
         Debug.Log(analyseLog.ToString());

@@ -7,11 +7,20 @@ public class RunesHUD : MonoBehaviour
     [SerializeField] private RunePanel[] m_RunePanels;
     [SerializeField] private GameObject m_StartDescription;
 
+    public bool OpenWithStorage { get; set; }
+
     private void Start()
     {
         RunesContainer.OnChange += SetRunes;
         SetRunes();
     }
+
+    private void OnDestroy()
+    {
+        RunesContainer.OnChange -= SetRunes;
+    }
+
+    public void ForceUpdate() => SetRunes();
 
     private void SetRunes()
     {
@@ -34,7 +43,7 @@ public class RunesHUD : MonoBehaviour
                 RunesContainer.CurrentRuneEffects[i] is BaseRuneEffect runeEffect)
             {
                 if(i > 0)
-                    m_RunePanels[i].SetRune(runeEffect, canBeDiscarded: true);
+                    m_RunePanels[i].SetRune(runeEffect, canBeDiscarded: true, canBeSendOut: OpenWithStorage);
                 else
                     m_RunePanels[i].SetRune(runeEffect);
             }

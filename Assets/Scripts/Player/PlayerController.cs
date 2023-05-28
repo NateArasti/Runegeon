@@ -2,6 +2,7 @@ using BehavioursRectangularGraph;
 using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityExtensions;
@@ -80,6 +81,12 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        var currentRuneEffects = new List<IRuneEffect>(RunesContainer.CurrentRuneEffects);
+        foreach (var rune in currentRuneEffects)
+        {
+            RunesContainer.DiscardRuneFromTarget(rune, gameObject);
+            RunesContainer.RemoveRuneEffect(rune);
+        }
         enabled = false;
     }
 

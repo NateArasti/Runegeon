@@ -59,6 +59,13 @@ public class HealthSystem : MonoBehaviour
         m_CurrentInvincibleCooldown = invincibleTime == -1 ? m_InvincibleTime : invincibleTime;
     }
 
+    public void Heal()
+    {
+        SetInvincible();
+        m_CurrentHealth = MaxHealth;
+        OnHealthChanged();
+    }
+
     [Button]
     private void TakeDamage()
     {

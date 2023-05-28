@@ -17,7 +17,6 @@ public class AnimationStageEvent : MonoBehaviour
 
     private void AnimationEventCalled(string eventName)
     {
-        Debug.Log(eventName);
         if(eventName == m_StartEventName)
         {
             m_OnAnimationStage.Invoke(true);

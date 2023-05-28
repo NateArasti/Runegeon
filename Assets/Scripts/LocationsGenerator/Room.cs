@@ -36,6 +36,15 @@ public class Room : RectangularNodeBehavior
     public Bounds LocalBounds => m_LocalBounds;
     public int PixelsPerUnit => m_PixelsPerUnit;
 
+    [Button]
+    private void SetObstacles()
+    {
+        foreach (var obstacle in GetComponentsInChildren<TilemapCollider2D>(true))
+        {
+            obstacle.gameObject.layer = 6;
+        }
+    }
+
     public void SetRoomColor(Color color) => m_ShapeReferenceTilemap.color = color;
 
     public override bool IsCompatible(

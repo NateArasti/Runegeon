@@ -44,7 +44,7 @@ public class StatsContainer : MonoBehaviour
         m_OnMoveSpeedSet.Invoke(CurrentStats.MoveSpeed);
         m_OnAttackSpeedSet.Invoke(CurrentStats.AttackSpeed);
 
-        foreach (var attackProvider in GetComponentsInChildren<AttackProvider>())
+        foreach (var attackProvider in GetComponentsInChildren<AttackProvider>(true))
         {
             attackProvider.Damage = CurrentStats.AttackDamage;
         }

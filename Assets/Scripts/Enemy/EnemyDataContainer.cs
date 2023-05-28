@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyDataContainer : MonoBehaviour
 {
-    public IReadOnlyList<Transform> PatrolPoints { get; private set; }
-
     public void Set(IReadOnlyList<Transform> patrolPoints)
     {
-        PatrolPoints = patrolPoints;
+        if(TryGetComponent<Patroller>(out var patroller))
+        {
+            patroller.Targets = patrolPoints.ToArray();
+        }
     }
 }

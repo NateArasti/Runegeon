@@ -1,5 +1,6 @@
 using GabrielBigardi.SpriteAnimator.Runtime;
 using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityExtensions;
@@ -8,15 +9,15 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 {
     private const float k_FreeMoveSpaceRange = 0.5f;
 
+    [SerializeField] private SpriteAnimator m_SpriteAnimator;
+
     [BoxGroup("Life Cycle"), SerializeField] private SpriteAnimation m_DeathAnimation;
-    [BoxGroup("Life Cycle"), SerializeField] private UnityEvent<SpriteAnimation> m_OnDeath;
     private bool m_IsAlive = true;
 
     [BoxGroup("Vision Check"), SerializeField] private float m_VisionRange;
     [BoxGroup("Vision Check"), SerializeField] private bool m_CheckForAll;
     [BoxGroup("Vision Check"), SerializeField, ShowIf(nameof(m_CheckForAll))] private LayerMask m_VisionLayerMask;
 
-    [BoxGroup("Attack"), SerializeField] private SpriteAnimator m_SpriteAnimator;
     [BoxGroup("Attack"), SerializeField] private SpriteAnimation m_AttackAnimation;
     [BoxGroup("Attack"), SerializeField] private string m_AttackTriggerStartEvent = "attack_start";
     [BoxGroup("Attack"), SerializeField] private string m_AttackTriggerEndEvent = "attack_end";
@@ -25,7 +26,9 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
     #region Chasing
 
     [BoxGroup("Chasing"), SerializeField] private float m_CloseRange = 0.5f;
+    [BoxGroup("Chasing"), SerializeField] private float m_CloseRangeTime = 2f;
     [BoxGroup("Chasing"), SerializeField] private float m_DistantRange = 2f;
+    [BoxGroup("Chasing"), SerializeField] private float m_DistantRangeTime = 4f;
     [BoxGroup("Chasing"), SerializeField] private float m_RotationDirectionCheckDelta = 1f;
     [BoxGroup("Chasing"), SerializeField] private float m_RotationSpeed = 10f;
     [BoxGroup("Chasing"), SerializeField] private bool m_TryToStayAtSameY = true;
@@ -51,6 +54,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
                 }
                 else
                 {
+                    m_DestinationSetter.Target = null;
                     m_OnStopChasing.Invoke();
                 }
             }
@@ -70,6 +74,8 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 
     public bool Attacking { get; private set; }
 
+    public bool AlwaysSeePlayer { get; set; }
+
     public bool AtTargetRange =>
         Mathf.Abs(Vector3.Distance(transform.position, Target.position) - m_CurrentChaseRange) < k_FreeMoveSpaceRange
         || PositionDeltaMagnitude <= 1e-7
@@ -83,6 +89,15 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         m_ChasePoint.gameObject.hideFlags = HideFlags.HideAndDontSave;
 
         m_SpriteAnimator.AnimationEventCalled += HandleAnimationEvent;
+    }
+
+    private IEnumerator Start()
+    {
+        //some weird hack to make chasing work correctly, i dunno really
+        yield return null;
+        m_DestinationSetter.enabled = false;
+        yield return null;
+        m_DestinationSetter.enabled = true;
     }
 
     private void HandleAnimationEvent(string eventName)
@@ -148,7 +163,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 
     public bool CheckTargetInSight()
     {
-        if (!m_IsAlive) return false;
+        //if (!m_IsAlive) return false;
 
         if (m_CheckForAll)
         {
@@ -168,7 +183,8 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         }
 
         return GlobalPlayerData.PlayerTransform != null && 
-            Vector3.Distance(GlobalPlayerData.PlayerTransform.position, transform.position) <= m_VisionRange;
+            (AlwaysSeePlayer ||
+            Vector3.Distance(GlobalPlayerData.PlayerTransform.position, transform.position) <= m_VisionRange);
     }
 
     public void Die()
@@ -176,8 +192,8 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         if (!m_IsAlive) return;
         m_DestinationSetter.Target = null;
         m_IsAlive = false;
-        m_OnDeath.Invoke(m_DeathAnimation);
-        CoroutineExtensions.InvokeSecondsDelayed(() => Destroy(gameObject), m_DeathAnimation.Frames.Count / m_DeathAnimation.FPS);
+        m_SpriteAnimator.PlayIfNotPlaying(m_DeathAnimation);
+        CoroutineExtensions.InvokeSecondsDelayed(() => Destroy(gameObject), m_DeathAnimation.GetAnimationTime());
     }
 
     #region Chasing
@@ -219,7 +235,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         }
     }
 
-    public void StayAtRange(IChaser.ChaseRange chaseRange)
+    public void StayInRange(IChaser.ChaseRange chaseRange)
     {
         switch (chaseRange)
         {
@@ -235,6 +251,16 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         }
     }
 
+    public float GetStayInRangeTime(IChaser.ChaseRange chaseRange)
+    {
+        return chaseRange switch
+        {
+            IChaser.ChaseRange.Close => m_CloseRangeTime,
+            IChaser.ChaseRange.Distant => m_DistantRangeTime,
+            _ => 0,
+        };
+    }
+
     #endregion
 
     #region Attack
@@ -244,7 +270,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         if (!m_IsAlive) return;
         Attacking = true;
         m_SpriteAnimator.Play(m_AttackAnimation);
-        this.InvokeSecondsDelayed(() => Attacking = false, m_AttackAnimation.Frames.Count / m_AttackAnimation.FPS);
+        this.InvokeSecondsDelayed(() => Attacking = false, m_AttackAnimation.GetAnimationTime());
     }
 
     #endregion

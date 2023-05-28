@@ -4,7 +4,6 @@ using UnityEngine;
 public class ChaseNode : ActionNode
 {
     [SerializeField] private IChaser.ChaseRange m_ChaseRange;
-    [SerializeField] private float m_TimeInRange;
     private IChaser m_Chaser;
     private float m_CurrentWaitTime;
 
@@ -13,10 +12,10 @@ public class ChaseNode : ActionNode
     protected override void OnStart()
     {
         m_Chaser = m_ExecutorObject.GetComponent<IChaser>();
-        m_Chaser.StayAtRange(m_ChaseRange);
+        m_Chaser.StayInRange(m_ChaseRange);
         m_Chaser.Chasing = true;
 
-        m_CurrentWaitTime = m_TimeInRange;
+        m_CurrentWaitTime = m_Chaser.GetStayInRangeTime(m_ChaseRange);
     }
 
     protected override void OnStop()

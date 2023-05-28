@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityExtensions;
 
 [RequireComponent(typeof(Room))]
-public class EnemyRoom : MonoBehaviour
+public class EnemyRoomSpawner : MonoBehaviour
 {
     [SerializeField] private EnemyPack m_EnemyPack;
     [SerializeField, MinMaxSlider(0, 10)] private Vector2Int m_EnemiesCountRange;
@@ -51,5 +51,17 @@ public class EnemyRoom : MonoBehaviour
                 transform)
                 .Set(patrolPoints);
         }
+    }
+
+    [Button]
+    private void GetAllPatrolPoints()
+    {
+        var patrolPoints = new List<Transform>();
+        foreach (Transform point in transform.Find("PatrolPoints"))
+        {
+            patrolPoints.Add(point);
+        }
+        m_EnemiesCountRange = new Vector2Int(Mathf.Max(2, patrolPoints.Count / 2 - 2), patrolPoints.Count / 2);
+        m_PatrolPoints = patrolPoints.ToArray();
     }
 }

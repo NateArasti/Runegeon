@@ -10,5 +10,6 @@
 
     public bool AtTargetRange { get; }
 
-    public void StayAtRange(ChaseRange chaseRange);
+    public void StayInRange(ChaseRange chaseRange);
+    public float GetStayInRangeTime(ChaseRange chaseRange);
 }

@@ -6,6 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityExtensions;
+using static BehavioursRectangularGraph.RectangularGraph<Room>;
 
 public class LocationGenerator : MonoBehaviour
 {
@@ -128,6 +129,11 @@ public class LocationGenerator : MonoBehaviour
         var startNode = graph.Nodes.First();
         RoomNodes = graph.Nodes;
         m_OnLocationGenerated.Invoke(startNode);
+
+        if(Application.isPlaying && GlobalPlayerData.PlayerTransform != null)
+        {
+            GlobalPlayerData.PlayerTransform.position = startNode.SpawnedBehaviour.StartPosition;
+        }
     }
 
 #if UNITY_EDITOR
@@ -165,6 +171,7 @@ public class LocationGenerator : MonoBehaviour
         analyseLog.AppendLine("<b><size=15><color=red>Location generation analysis:</color></size></b>");
 
         var successfullGenerationsCount = 0;
+        var averageGenerationTime = 0f;
         var totalCretedNodesCount = 0;
         var roomsStatistics = new Dictionary<Room, int>();
 
@@ -173,13 +180,33 @@ public class LocationGenerator : MonoBehaviour
             roomsStatistics.Add(roomData.Behaviour, 0);
         }
 
+        foreach (var roomData in specialRoomDatas)
+        {
+            foreach (var behaviour in roomData.BehaviourVariations)
+            {
+                roomsStatistics.Add(behaviour, 0);
+            }
+
+            if(roomData is SequenceGraphNodeBehaviourData sequence)
+            {
+                foreach (var behaviour in sequence.NextBehaviourVariations)
+                {
+                    roomsStatistics.Add(behaviour, 0);
+                }
+            }
+        }
+
         for (int i = 0; i < m_SimulationCount; i++)
         {
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
             var generationSuccess = graph.TryGenerateNodes();
+            stopwatch.Stop();
 
             if (generationSuccess)
             {
                 successfullGenerationsCount++;
+                averageGenerationTime += stopwatch.ElapsedMilliseconds;
 
                 foreach (var node in graph.Nodes)
                 {
@@ -197,17 +224,20 @@ public class LocationGenerator : MonoBehaviour
             }
         }
 
+        analyseLog.AppendLine($"<b>Sucessful generations = {successfullGenerationsCount}</b>");
+        analyseLog.AppendLine($"<b>Average Generation Time = {averageGenerationTime / successfullGenerationsCount}</b>");
+        analyseLog.AppendLine();
         analyseLog.AppendLine();
         analyseLog.AppendLine($"<i>Iterations count = {m_SimulationCount}</i>");
-        analyseLog.AppendLine($"<i>Rooms Prefabs count = {commonRoomDatas.Length}</i>");
+        analyseLog.AppendLine($"<i>Rooms Prefabs count = {commonRoomDatas.Length + specialRoomDatas.Length}</i>");
         analyseLog.AppendLine($"<i>Depth Range = [min:{m_DepthRange.x}, max:{m_DepthRange.y}]</i>");
         analyseLog.AppendLine($"<i>Handling Cycles = {m_HandleCycles}</i>");
         analyseLog.AppendLine($"<i>DeadEnd Chance = {m_DeadEndChance}</i>");
         analyseLog.AppendLine();
 
-        foreach (var roomData in commonRoomDatas)
+        foreach (var roomStats in roomsStatistics)
         {
-            analyseLog.AppendLine($"<color=aqua>Room [{roomData.Behaviour.gameObject.name}]</color> stats: absolute usage count = <b>{roomsStatistics[roomData.Behaviour]}</b>, relative usage = <b>{(float)roomsStatistics[roomData.Behaviour] / totalCretedNodesCount}</b>");
+            analyseLog.AppendLine($"<color=aqua>Room [{roomStats.Key.gameObject.name}]</color> stats: absolute usage count = <b>{roomStats.Value}</b>, relative usage = <b>{(float)roomStats.Value / totalCretedNodesCount}</b>");
         }
 
         Debug.Log(analyseLog.ToString());

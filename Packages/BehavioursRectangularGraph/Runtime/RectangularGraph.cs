@@ -117,7 +117,10 @@ namespace BehavioursRectangularGraph
             CalculateRoomPossiblities();
 
             var possibleStartNodeBehaviours = m_PossibleNodeBehaviours
-                .GetWeightedShuffle(GetBehaviourSpawnChance);
+                .GetWeightedShuffle(GetBehaviourSpawnChance)
+                .Where(behaviour =>
+                    !m_BehaviourDatas.ContainsKey(behaviour) ||
+                    Utility.InRange(0, m_BehaviourDatas[behaviour].SpawnRange));
 
             foreach(var startNodeBehaviour in possibleStartNodeBehaviours)
             {
@@ -328,10 +331,10 @@ namespace BehavioursRectangularGraph
                     m_BehaviourDatas[node.ReferenceBehaviour] is SpecialGraphNodeBehaviourData data
                     && m_SpecialBehaviours.Contains(data))
                 {
-                    if (createdSpecialBehaviours.Contains(data))
-                    {
-                        return false;
-                    }
+                    //if (createdSpecialBehaviours.Contains(data))
+                    //{
+                    //    return false;
+                    //}
                     createdSpecialBehaviours.Add(data);
                 }
             }

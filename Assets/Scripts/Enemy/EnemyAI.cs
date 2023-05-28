@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
 
     private float PositionDeltaMagnitude { get; set; }
 
-    private Transform Target => m_CheckForAll ? m_CurrentColliderTarget : GlobalPlayerData.PlayerTransform;
+    public Transform Target => m_CheckForAll ? m_CurrentColliderTarget : GlobalPlayerData.PlayerTransform;
 
     public bool Attacking { get; private set; }
 
@@ -193,7 +193,11 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         m_DestinationSetter.Target = null;
         m_IsAlive = false;
         m_SpriteAnimator.PlayIfNotPlaying(m_DeathAnimation);
-        CoroutineExtensions.InvokeSecondsDelayed(() => Destroy(gameObject), m_DeathAnimation.GetAnimationTime());
+        CoroutineExtensions.InvokeSecondsDelayed(() =>
+        {
+            if (gameObject != null)
+                Destroy(gameObject);
+        }, m_DeathAnimation.GetAnimationTime());
     }
 
     #region Chasing

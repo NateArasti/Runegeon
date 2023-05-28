@@ -7,7 +7,7 @@ public static class Utility
     public static void DashMove(this Transform transform, Vector2 direction, float distance = 1, float duration = 0.5f)
     {
         if (direction == Vector2.zero) direction = Vector2.right;
-        var destination = transform.position + (Vector3)direction * distance;
+        var destination = transform.position + (Vector3)direction.normalized * distance;
         transform.DOKill();
         transform.DOMove(destination, duration).SetEase(Ease.Linear);
     }

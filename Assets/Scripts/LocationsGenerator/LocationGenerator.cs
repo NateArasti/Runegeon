@@ -158,7 +158,9 @@ public class LocationGenerator : MonoBehaviour
     public void RunAnalysis()
     {
         var commonRoomDatas = m_CommonRoomsPrefabs.Select(data => data.GraphNodeBehaviourData).ToArray();
-        var specialRoomDatas = m_SpecialRoomsPrefabs.Select(data => data.GraphNodeBehaviourData).ToArray();
+        var specialRoomDatas = m_SpecialRoomsPrefabs.Select(data => data.GraphNodeBehaviourData)
+            .Concat(m_SpecialSequenceRoomsPrefabs.Select(data => data.GraphNodeBehaviourData))
+            .ToArray();
 
         var graph = new RectangularGraph<Room>(commonRoomDatas, specialRoomDatas)
         {

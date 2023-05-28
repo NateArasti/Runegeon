@@ -47,7 +47,8 @@ public class Patroller : MonoBehaviour
 
         // Note: using reachedEndOfPath and pathPending instead of reachedDestination here because
         // if the destination cannot be reached by the agent, we don't want it to get stuck, we just want it to get as close as possible and then move on.
-        if (m_Agent.reachedEndOfPath && !m_Agent.pathPending && float.IsPositiveInfinity(m_SwitchTime))
+        if ((m_Agent.reachedEndOfPath && !m_Agent.pathPending || m_DestinationSetter.Target == null) 
+            && float.IsPositiveInfinity(m_SwitchTime))
         {
             m_SwitchTime = Time.time + Random.Range(m_DelayRange.x, m_DelayRange.y);
             m_OnStay.Invoke();

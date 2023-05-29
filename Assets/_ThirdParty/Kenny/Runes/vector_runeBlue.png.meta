@@ -4701,8 +4701,8 @@ TextureImporter:
       vector_runeBlue_126: -1849746658
       vector_runeBlue_87: -430427691
       vector_runeBlue_174: -998448190
-      vector_runeBlue_204: -1595045657
       vector_runeBlue_155: 288832433
+      vector_runeBlue_204: -1595045657
       vector_runeBlue_100: -214259060
       vector_runeBlue_116: -1998184254
       vector_runeBlue_183: -567832468
@@ -4886,10 +4886,10 @@ TextureImporter:
       vector_runeBlue_54: -1338540890
       vector_runeBlue_49: -586258554
       vector_runeBlue_152: 112212394
-      vector_runeBlue_17: 424123079
-      vector_runeBlue_128: -1129989666
-      vector_runeBlue_140: 821858469
       vector_runeBlue_146: -1792720789
+      vector_runeBlue_17: 424123079
+      vector_runeBlue_140: 821858469
+      vector_runeBlue_128: -1129989666
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

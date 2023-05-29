@@ -68,7 +68,8 @@ public class PlayerController : MonoBehaviour
         m_AttackActionProperty.action.performed -= Attack;
         m_DodgeActionProperty.action.performed -= Dodge;
 
-        Destroy(m_PlayerCamera.gameObject);
+        if(m_PlayerCamera != null && m_PlayerCamera.gameObject != null)
+            Destroy(m_PlayerCamera.gameObject);
     }
 
     private void Update()

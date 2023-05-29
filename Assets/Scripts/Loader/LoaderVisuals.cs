@@ -59,13 +59,17 @@ public class LoaderVisuals : MonoBehaviour
 
     private void EndLoading()
     {
-        this.InvokeAfter(
+        CoroutineExtensions.InvokeAfter(
             () => m_Mask.padding.z <= (1 - Loader.k_ActivateThreshold) * m_MaxMaskValue,
             () =>
             {
-                Loading = false;
-                m_CanvasGroup.DOFade(0, 1);
                 Loader.ActivateLoadedScene();
+                CoroutineExtensions.InvokeSecondsDelayed(
+                    () =>
+                    {
+                        Loading = false;
+                        m_CanvasGroup.DOFade(0, 1);
+                    }, 5);
             });
     }
 

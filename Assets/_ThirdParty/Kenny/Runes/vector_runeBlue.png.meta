@@ -4674,8 +4674,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      vector_runeBlue_67: -301463696
       vector_runeBlue_21: 1985416688
+      vector_runeBlue_128: -1129989666
       vector_runeBlue_194: -10634700
       vector_runeBlue_10: -1034958816
       vector_runeBlue_105: 961230263
@@ -4701,8 +4701,8 @@ TextureImporter:
       vector_runeBlue_126: -1849746658
       vector_runeBlue_87: -430427691
       vector_runeBlue_174: -998448190
-      vector_runeBlue_155: 288832433
       vector_runeBlue_204: -1595045657
+      vector_runeBlue_155: 288832433
       vector_runeBlue_100: -214259060
       vector_runeBlue_116: -1998184254
       vector_runeBlue_183: -567832468
@@ -4889,7 +4889,7 @@ TextureImporter:
       vector_runeBlue_146: -1792720789
       vector_runeBlue_17: 424123079
       vector_runeBlue_140: 821858469
-      vector_runeBlue_128: -1129989666
+      vector_runeBlue_67: -301463696
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

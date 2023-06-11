@@ -18,6 +18,7 @@ public class Dodger : MonoBehaviour
     [SerializeField] private SpriteAnimator m_SpriteAnimator;
     [SerializeField] private float m_DodgeDistance = 1;
     [SerializeField] private float m_DodgeCooldown = 1;
+    [SerializeField] private LayerMask m_LayerMask;
     [Header("Roll")]
     [SerializeField] private SpriteAnimation m_RollAnimation;
     [Header("Dash")]
@@ -65,7 +66,18 @@ public class Dodger : MonoBehaviour
         var targetRollTime = m_DodgeDistance / MoveSpeed;
         m_RollAnimation.FPS = (int) (m_RollAnimation.Frames.Count / targetRollTime);
         dodgeTime = m_RollAnimation.GetAnimationTime();
-        transform.DashMove(dodgeDirection, m_DodgeDistance, dodgeTime);
+        transform.DashMove(dodgeDirection, AdjustDodgeDistance(dodgeDirection), dodgeTime);
+    }
+
+    private float AdjustDodgeDistance(Vector2 dodgeDirection)
+    {
+        var hit = Physics2D.Raycast(transform.position, dodgeDirection, m_DodgeDistance, m_LayerMask);
+        var distance = hit.collider != null ? hit.distance * 0.8f : m_DodgeDistance;
+        if (distance < 0.5f)
+        {
+            distance = 0;
+        }
+        return distance;
     }
     
     private void Dash(Vector2 dodgeDirection, out float dodgeTime)
@@ -86,7 +98,7 @@ public class Dodger : MonoBehaviour
         newColor.a = m_SpriteAlpha; 
         m_SpriteRenderer.color = newColor;
 
-        transform.DashMove(dodgeDirection, m_DodgeDistance, dodgeTime);
+        transform.DashMove(dodgeDirection, AdjustDodgeDistance(dodgeDirection), dodgeTime);
 
         this.InvokeSecondsDelayed(() =>
         {

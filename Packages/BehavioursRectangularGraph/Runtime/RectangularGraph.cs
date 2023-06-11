@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Graphs;
 using UnityEngine;
 using UnityExtensions;
 
@@ -76,10 +77,11 @@ namespace BehavioursRectangularGraph
         #endregion
 
         private readonly HashSet<T> m_PossibleNodeBehaviours;
-        private readonly HashSet<SpecialGraphNodeBehaviourData> m_SpecialBehaviours;
+        private readonly HashSet<SpecialGraphNodeBehaviourData> m_SpecialDatas;
         private readonly Dictionary<T, GraphNodeBehaviourData> m_BehaviourDatas;
 
         public HashSet<RectangularNode<T>> Nodes { get; } = new();
+        public HashSet<SpecialGraphNodeBehaviourData> SpawnedSpecials { get; } = new();
 
         public Vector2Int DepthRange { get; set; } = new Vector2Int(2, 5);
         public float DeadEndChance { get; set; } = 0.1f;
@@ -103,7 +105,7 @@ namespace BehavioursRectangularGraph
                 }
             }
             m_PossibleNodeBehaviours = new HashSet<T>(m_BehaviourDatas.Keys);
-            m_SpecialBehaviours = new HashSet<SpecialGraphNodeBehaviourData>(specialNodeBehaviourDatas);
+            m_SpecialDatas = new HashSet<SpecialGraphNodeBehaviourData>(specialNodeBehaviourDatas);
         }
 
         public bool TryGenerateNodes()
@@ -125,6 +127,7 @@ namespace BehavioursRectangularGraph
             foreach(var startNodeBehaviour in possibleStartNodeBehaviours)
             {
                 Nodes.Clear();
+                SpawnedSpecials.Clear();
                 var startNode = new RectangularNode<T>(startNodeBehaviour, 0);
 
                 if (CreateNextNode(startNode))
@@ -212,14 +215,21 @@ namespace BehavioursRectangularGraph
         private bool CreateNextNode(RectangularNode<T> node)
         {
             Nodes.Add(node);
+            if(m_BehaviourDatas.ContainsKey(node.ReferenceBehaviour) &&
+                m_BehaviourDatas[node.ReferenceBehaviour] is SpecialGraphNodeBehaviourData specialData)
+            {
+                SpawnedSpecials.Add(specialData);
+            }
 
             var requirableNeighbours = GetShuffledRequirableNeighbours(node);
 
             for (var i = 0; i < requirableNeighbours.Count; ++i)
             {
                 var (neighbourDirection, neighbourIndex) = requirableNeighbours[i];
+
                 // Skipping neighbours setted by cycle
                 if (node.GetNeigboursByDirection(neighbourDirection)[neighbourIndex] != null) continue;
+
                 if (!TryGetNextNode(node, neighbourDirection, neighbourIndex))
                 {
                     WipeNodeOutOfGraph(node);
@@ -239,9 +249,23 @@ namespace BehavioursRectangularGraph
         private void WipeNodeOutOfGraph(RectangularNode<T> node)
         {
             Nodes.Remove(node);
+
+            if (m_BehaviourDatas.ContainsKey(node.ReferenceBehaviour) &&
+                m_BehaviourDatas[node.ReferenceBehaviour] is SpecialGraphNodeBehaviourData specialData &&
+                SpawnedSpecials.Contains(specialData))
+            {
+                SpawnedSpecials.Remove(specialData);
+            }
+
             foreach (var neighbourNode in node.GetAllCreatedNeighbours())
             {
                 Nodes.Remove(neighbourNode);
+                if (m_BehaviourDatas.ContainsKey(neighbourNode.ReferenceBehaviour) &&
+                    m_BehaviourDatas[neighbourNode.ReferenceBehaviour] is SpecialGraphNodeBehaviourData nodeSpecialData &&
+                    SpawnedSpecials.Contains(nodeSpecialData))
+                {
+                    SpawnedSpecials.Remove(nodeSpecialData);
+                }
             }
         }
 
@@ -310,7 +334,6 @@ namespace BehavioursRectangularGraph
         private bool CheckGraphConsistancy()
         {
             var graphDepth = 0;
-            var createdSpecialBehaviours = new HashSet<SpecialGraphNodeBehaviourData>();
             foreach (var node in Nodes)
             {
                 foreach(var direction in Utility.GetEachDirection())
@@ -326,21 +349,10 @@ namespace BehavioursRectangularGraph
                 }
 
                 graphDepth = Mathf.Max(graphDepth, node.Depth);
-
-                if (m_BehaviourDatas.ContainsKey(node.ReferenceBehaviour) && 
-                    m_BehaviourDatas[node.ReferenceBehaviour] is SpecialGraphNodeBehaviourData data
-                    && m_SpecialBehaviours.Contains(data))
-                {
-                    //if (createdSpecialBehaviours.Contains(data))
-                    //{
-                    //    return false;
-                    //}
-                    createdSpecialBehaviours.Add(data);
-                }
             }
 
             return Utility.InRange(graphDepth, DepthRange) && 
-                createdSpecialBehaviours.Count == m_SpecialBehaviours.Count;
+                SpawnedSpecials.Count == m_SpecialDatas.Count;
         }
 
         private IEnumerable<T> GetPossibleNextNodeBehaviours(
@@ -392,7 +404,21 @@ namespace BehavioursRectangularGraph
 
             var shuffled = possibleNextNodeBehaviours
                 .GetWeightedShuffle(GetBehaviourSpawnChance)
-                .ToList();
+                .ToHashSet();
+
+            foreach (var specialData in m_SpecialDatas)
+            {
+                if (!SpawnedSpecials.Contains(specialData)) continue;
+                foreach (var behaviour in specialData.BehaviourVariations)
+                {
+                    if (shuffled.Contains(behaviour))
+                    {
+                        shuffled.Remove(behaviour);
+                    }
+                }
+            }
+
+            //to prevent placing same room twice
             if (shuffled.Contains(nodeBehaviour))
             {
                 shuffled.Remove(nodeBehaviour);

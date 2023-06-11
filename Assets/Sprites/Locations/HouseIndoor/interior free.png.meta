@@ -933,7 +933,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      interior free_8: -467262789
+      interior free_24: -697568594
       interior free_17: -232702051
       interior free_33: -340344300
       interior free_0: 136952044
@@ -967,10 +967,10 @@ TextureImporter:
       interior free_19: 2061469446
       interior free_32: 2110468130
       interior free_36: -128077065
+      interior free_8: -467262789
       interior free_12: 2100144343
-      interior free_18: 1056714144
       interior free_9: -1935513575
-      interior free_24: -697568594
+      interior free_18: 1056714144
       interior free_28: 1919886206
   spritePackingTag: 
   pSDRemoveMatte: 0

@@ -1,4 +1,4 @@
-using GabrielBigardi.SpriteAnimator.Runtime;
+using BehavioursRectangularGraph;
 using System;
 using UnityEngine;
 using UnityExtensions;
@@ -15,12 +15,11 @@ public class Dodger : MonoBehaviour
     public event Action OnDodgeEnd;
 
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
-    [SerializeField] private SpriteAnimator m_SpriteAnimator;
     [SerializeField] private float m_DodgeDistance = 1;
     [SerializeField] private float m_DodgeCooldown = 1;
     [SerializeField] private LayerMask m_LayerMask;
     [Header("Roll")]
-    [SerializeField] private SpriteAnimation m_RollAnimation;
+    [SerializeField] private PlayerVisuals m_PlayerVisuals;
     [Header("Dash")]
     [SerializeField] private GameObject m_DashEffect;
     [SerializeField] private float m_DashTime = 0.1f;
@@ -38,19 +37,20 @@ public class Dodger : MonoBehaviour
         }
     }
 
-    public void Dodge(Vector2 dodgeDirection, out float dodgeTime)
+    public void Dodge(RectangularDirection dodgeDirection, out float dodgeTime)
     {
         dodgeTime = 0;
 
         if (m_CurrentDodgeCooldown > 0) return;
-
         switch (dodgeType)
         {
             case DodgeType.Roll:
                 Roll(dodgeDirection, out dodgeTime);
                 break;
             case DodgeType.Dash:
-                Dash(dodgeDirection, out dodgeTime);
+                var convertedDirection = 
+                    BehavioursRectangularGraph.Utility.GetCorrespondingVector(dodgeDirection);
+                Dash(convertedDirection, out dodgeTime);
                 break;
             default:
                 break;
@@ -60,13 +60,21 @@ public class Dodger : MonoBehaviour
         this.InvokeSecondsDelayed(() => OnDodgeEnd?.Invoke(), dodgeTime);
     }
 
-    private void Roll(Vector2 dodgeDirection, out float dodgeTime)
+    private void Roll(RectangularDirection dodgeDirection, out float dodgeTime)
     {
-        m_SpriteAnimator.PlayIfNotPlaying(m_RollAnimation);
         var targetRollTime = m_DodgeDistance / MoveSpeed;
-        m_RollAnimation.FPS = (int) (m_RollAnimation.Frames.Count / targetRollTime);
-        dodgeTime = m_RollAnimation.GetAnimationTime();
-        transform.DashMove(dodgeDirection, AdjustDodgeDistance(dodgeDirection), dodgeTime);
+        var rollAnimation = m_PlayerVisuals.PlayDodgeAnimation(dodgeDirection, targetRollTime);
+        if (rollAnimation != null)
+        {
+            dodgeTime = rollAnimation.GetAnimationTime();
+        }
+        else
+        {
+            dodgeTime = 1;
+        }
+        var convertedDirection =
+            BehavioursRectangularGraph.Utility.GetCorrespondingVector(dodgeDirection);
+        transform.DashMove(convertedDirection, AdjustDodgeDistance(convertedDirection), dodgeTime);
     }
 
     private float AdjustDodgeDistance(Vector2 dodgeDirection)
@@ -84,7 +92,6 @@ public class Dodger : MonoBehaviour
     {
         dodgeTime = m_DashTime;
 
-        m_SpriteAnimator.Pause();
         var effect = Instantiate(m_DashEffect, transform.position, Quaternion.identity);
         if(dodgeDirection.x >= 0)
         {
@@ -103,7 +110,6 @@ public class Dodger : MonoBehaviour
         this.InvokeSecondsDelayed(() =>
         {
             m_SpriteRenderer.color = cachedColor;
-            m_SpriteAnimator.Play();
         }, dodgeTime);
     }
 }

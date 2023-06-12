@@ -7,7 +7,7 @@ public class PixelTexturePostProcessor : AssetPostprocessor
 {
     private const string ExtensionPNG = ".png";
     private const string PixelMapSuffix = ".map";
-    private const string PixelWeightsPrefix = "weights.";
+    private const string PixelWeightsPrefix = "source.";
 
     private void OnPostprocessTexture(Texture2D texture)
     {

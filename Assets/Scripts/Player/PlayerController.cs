@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityExtensions;
+using QuickEye.Utility;
 
 public class PlayerController : MonoBehaviour
 {
-    private enum PlayerState
+    public enum PlayerState
     {
         IDLE,
         Move,
@@ -20,16 +21,12 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform m_PlayerCamera;
     [SerializeField] private HealthSystem m_HealthSystem;
-    [SerializeField] private SpriteAnimator m_SpriteAnimator;
     [SerializeField] private Dodger m_Dodger;
+    [SerializeField] private PlayerVisuals m_PlayerVisuals;
 
     [Header("Movement")]
+    [SerializeField] private bool m_InvertVisualsOnXAxis = false;
     [SerializeField] private Joystick m_MoveJoystick;
-    [SerializeField] private SpriteAnimation m_IDLEAnimation;
-    [SerializeField] private SpriteAnimation m_MoveAnimation;
-
-    [Header("Attacks")]
-    [SerializeField] private SpriteAnimation[] m_AttackComboAnimations;
 
     [Foldout("Actions"), SerializeField] private InputActionProperty m_MoveActionProperty;
     [Foldout("Actions"), SerializeField] private InputActionProperty m_AttackActionProperty;
@@ -112,7 +109,8 @@ public class PlayerController : MonoBehaviour
                 RectangularDirection.Left;
         }
 
-        transform.localScale = new Vector3(m_LookDirection == RectangularDirection.Left ? -1 : 1, 1, 1);
+        if(m_InvertVisualsOnXAxis)
+            transform.localScale = new Vector3(m_LookDirection == RectangularDirection.Left ? -1 : 1, 1, 1);
     }
 
     private void HandleMovement()
@@ -121,13 +119,13 @@ public class PlayerController : MonoBehaviour
         if (moveInput.sqrMagnitude > 0)
         {
             transform.Translate(MoveSpeed * Time.deltaTime * moveInput);
-            m_SpriteAnimator.PlayIfNotPlaying(m_MoveAnimation);
             m_CurrentState = PlayerState.Move;
+            m_PlayerVisuals.PlayWalkAnimation(m_LookDirection);
         }
         else
         {
             m_CurrentState = PlayerState.IDLE;
-            m_SpriteAnimator.PlayIfNotPlaying(m_IDLEAnimation);
+            m_PlayerVisuals.PlayIDLEAnimation(m_LookDirection);
         }
     }
 
@@ -136,7 +134,7 @@ public class PlayerController : MonoBehaviour
     private void Attack(InputAction.CallbackContext obj)
     {
         if (m_CurrentState == PlayerState.Dodge ||
-            m_AttackComboAnimations.Length == 0) return;
+            m_PlayerVisuals.AttackComboCount == 0) return;
 
         m_AutoTriggerNextAttack = true;
         if (m_CurrentState != PlayerState.Attack)
@@ -157,15 +155,12 @@ public class PlayerController : MonoBehaviour
                 yield break;
             }
             m_AutoTriggerNextAttack = false;
-            if (m_CurrentComboIndex < m_AttackComboAnimations.Length - 1)
+            if (m_CurrentComboIndex < m_PlayerVisuals.AttackComboCount - 1)
             {
                 m_CurrentComboIndex++;
-                m_SpriteAnimator.PlayIfNotPlaying(m_AttackComboAnimations[m_CurrentComboIndex]);
-                var attackAnimation = m_AttackComboAnimations[m_CurrentComboIndex];
-                var normalFPS = attackAnimation.FPS;
-                attackAnimation.FPS = (int)(normalFPS * AttackSpeed);
-                yield return new WaitForSeconds(attackAnimation.GetAnimationTime());
-                attackAnimation.FPS = normalFPS;
+                var attackAnimation = m_PlayerVisuals.PlayAttackAnimation(m_CurrentComboIndex, m_LookDirection, 1 / AttackSpeed);
+                if(attackAnimation != null)
+                    yield return new WaitForSeconds(attackAnimation.GetAnimationTime());
             }
         }
         if (m_CurrentState == PlayerState.Attack)
@@ -193,9 +188,7 @@ public class PlayerController : MonoBehaviour
         var dodgeTime = 0f;
         if (m_Dodger != null)
         {
-            m_Dodger.Dodge(
-                BehavioursRectangularGraph.Utility.GetCorrespondingVector(m_LookDirection),
-                out dodgeTime);
+            m_Dodger.Dodge(m_LookDirection, out dodgeTime);
         }
 
         m_HealthSystem.SetInvincible(dodgeTime);

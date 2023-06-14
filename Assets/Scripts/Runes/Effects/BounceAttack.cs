@@ -1,11 +1,11 @@
-﻿using System;
+﻿using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityExtensions;
 
 public class BounceAttack : IAttackProvider
 {
-    public event Action<Vector3, Vector3> OnAttack;
+    public event System.Action<Vector3, Vector3> OnAttack;
 
     private readonly BounceAttackData m_AttackData;
 
@@ -23,7 +23,7 @@ public class BounceAttack : IAttackProvider
 
     public void OnSuccessHit(IAttackReciever reciever)
     {
-        if (m_CurrentBounceCount >= m_AttackData.MaxBounceCount) return;
+        if (m_CurrentBounceCount >= m_AttackData.MaxBounceCount.y) return;
         CoroutineExtensions.InvokeSecondsDelayed(
             () => ProvideAttack(reciever),
             m_AttackData.BounceDelay
@@ -33,6 +33,9 @@ public class BounceAttack : IAttackProvider
     public void ProvideAttack(IAttackReciever previousReciever)
     {
         if (previousReciever == null) return;
+
+        if (m_CurrentBounceCount >= m_AttackData.MaxBounceCount.x && 
+            Random.value > m_AttackData.BounceChance) return;
 
         var center = previousReciever is MonoBehaviour behaviour ?
             behaviour.transform.position :
@@ -66,16 +69,18 @@ public class BounceAttack : IAttackProvider
     [System.Serializable]
     public class BounceAttackData
     {
+        [SerializeField, Range(0, 1)] private float m_BounceChance = 0.5f;
         [SerializeField] private float m_BounceDelay = 0.5f;
         [SerializeField] private float m_CollapseDelay = 0.3f;
-        [SerializeField] private int m_MaxBounceCount = 3;
+        [SerializeField, MinMaxSlider(1, 10)] private Vector2 m_MaxBounceCount;
         [SerializeField] private float m_BounceRange = 1f;
         [SerializeField] private int m_BounceDamage = 10;
         [SerializeField] private LayerMask m_BounceMask;
 
+        public float BounceChance => m_BounceChance;
         public float BounceDelay => m_BounceDelay;
         public float CollapseDelay => m_CollapseDelay;
-        public int MaxBounceCount => m_MaxBounceCount;
+        public Vector2 MaxBounceCount => m_MaxBounceCount;
         public float BounceRange => m_BounceRange;
         public int BounceDamage => m_BounceDamage;
         public LayerMask BounceMask => m_BounceMask;

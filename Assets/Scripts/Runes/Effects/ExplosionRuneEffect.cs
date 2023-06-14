@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExplosionRuneEffect : BaseRuneEffect
 {
     [Space]
+    [SerializeField, Range(0, 1)] private float m_ExplosionChance = 0.5f;
     [SerializeField] private GameObject m_EffectPrefab;
     [SerializeField] private float m_ExplosionRadius = 2;
     [SerializeField] private int m_ExplosionDamage = 1;
@@ -14,6 +15,8 @@ public class ExplosionRuneEffect : BaseRuneEffect
 
     public override void OnAttack(IAttackProvider attackProvider, IAttackReciever attackReciever)
     {
+        if (Random.value > m_ExplosionChance) return;
+
         var center = attackProvider is MonoBehaviour behaviour ?
             behaviour.transform.position :
             Vector3.zero;

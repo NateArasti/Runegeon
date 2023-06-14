@@ -22,6 +22,7 @@ public class Pause : DoubleStateObject
 
     private void OnDestroy()
     {
+        Time.timeScale = m_PreviousTimeScale;
         OnStateSet -= OnPauseToggle;
         m_PauseToggleAction.action.performed -= TogglePause;
     }

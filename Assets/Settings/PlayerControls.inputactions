@@ -186,6 +186,17 @@
                 },
                 {
                     "name": "",
+                    "id": "640517a5-6c92-4aee-ba5a-aaf666d8c0a5",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eab3f0bf-1749-4084-be4c-fba02e9164ed",
                     "path": "<Keyboard>/space",
                     "interactions": "",

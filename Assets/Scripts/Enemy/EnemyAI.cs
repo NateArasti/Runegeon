@@ -126,10 +126,14 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
         var delta = transform.position - m_PreviousPosition;
         PositionDeltaMagnitude = delta.sqrMagnitude;
 
-        if (Mathf.Abs(delta.x) > 1e-3)
+        var lookDirection = transform.localScale.x;
+        if (Attacking)
         {
-            int lookDirection;
-            if (Chasing || Attacking)
+            lookDirection = (Target.position - transform.position).x > 0 ? 1 : -1;
+        }
+        else if (Mathf.Abs(delta.x) > 1e-3)
+        {
+            if (Chasing)
             {
                 lookDirection = (Target.position - transform.position).x > 0 ? 1 : -1;
             }
@@ -139,6 +143,7 @@ public class EnemyAI : MonoBehaviour, IVisionChecker, IChaser, IAttacker
             }
             transform.localScale = new Vector3(lookDirection, 1, 1);
         }
+        transform.localScale = new Vector3(lookDirection, 1, 1);
 
         m_PreviousPosition = transform.position;
     }
